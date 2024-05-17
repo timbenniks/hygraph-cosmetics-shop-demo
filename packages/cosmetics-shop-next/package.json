@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "repository": {
-    "url": ""
+    "url": "git@github.com:timbenniks/hygraph-cosmetics-shop-demo-next.git"
   },
   "scripts": {
     "dev": "next dev",
