@@ -1,0 +1,25 @@
+{
+  "name": "hygraph-demo-cosmetics-shop",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "dotenv -e .env -- pnpm run -r build",
+    "dev:nuxt": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-nuxt dev --port 3001",
+    "dev:astro": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-astro dev --port 3002",
+    "dev:next": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-next dev --port 3003"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.2",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "4.2.4",
+    "@graphql-codegen/typescript": "4.0.6",
+    "dotenv-cli": "^7.4.2",
+    "eslint": "^9.2.0",
+    "graphql": "^16.8.1",
+    "graphql-request": "^7.0.1",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
+  }
+}

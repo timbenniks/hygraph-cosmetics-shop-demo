@@ -1,0 +1,26 @@
+{
+  "name": "hygraph-demo-cosmetics-shop-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "repository": {
+    "url": ""
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "codegen": "graphql-codegen"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/sitemap": "^3.1.4",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource-variable/inter": "^5.0.18",
+    "@fontsource-variable/plus-jakarta-sans": "^5.0.21",
+    "astro": "^4.8.4",
+    "astro-meta-tags": "^0.2.2",
+    "astro-seo": "^0.8.3"
+  }
+}
