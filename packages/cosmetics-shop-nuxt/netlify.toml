@@ -1,0 +1,6 @@
+[build]
+  command = "pnpm run build"
+  publish = "dist"
+
+[template.environment]
+  NUXT_HYGRAPH_ENDPOINT = "Hygraph high performance API endpoint"

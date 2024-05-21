@@ -1,6 +1,5 @@
 {
   "name": "hygraph-cosmetics-shop-demo-next",
-  "type": "module",
   "version": "1.0.0",
   "repository": {
     "url": "git@github.com:timbenniks/hygraph-cosmetics-shop-demo-next.git"
