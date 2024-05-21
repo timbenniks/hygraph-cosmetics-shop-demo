@@ -8,8 +8,8 @@ pnpm run build
 
 # Loop through packages and push
 for package in packages/*; do
-  repo_url=$(jq -r '.repository.url' "./$package/package.json")
-  version=$(jq -r '.version' "./$package/package.json")
+  repo_url=$(jq -r '.repository.url' "$package/package.json")
+  version=$(jq -r '.version' "$package/package.json")
   
   # Commit and push changes
   cd "$package"
