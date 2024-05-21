@@ -1,1 +1,1 @@
-# SKNCRE a Hygraph cosmetics brand demo
+# SKNCRE cosmetics shop demo
