@@ -4,4 +4,4 @@
 "hygraph-cosmetics-shop-demo-nuxt": minor
 ---
 
-readme
+Added netlify and Vercel deploy buttons
