@@ -3,7 +3,7 @@
 - See the [running demo](https://skncre-cosmetics-hygraph-astro.vercel.app/).
 - Join [the Hygraph community](https://slack.hygraph.com) for any questions or read the [Hygraph docs](https://hygraph.com/docs).
 
-[Clone Hygraph project](https://app.hygraph.com/clone/f67b7c52af504cd9a19de912423b2e40?name=Hygraph%20Cosmetics%20Shop)
+[![Clone project](https://hygraph.com/button)](https://app.hygraph.com/clone/f67b7c52af504cd9a19de912423b2e40?name=Hygraph%20Cosmetics%20Shop)
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/timbenniks/hygraph-cosmetics-shop-demo-astro)
 

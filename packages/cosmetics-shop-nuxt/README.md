@@ -2,7 +2,7 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-[Clone Hygraph project](https://app.hygraph.com/clone/f67b7c52af504cd9a19de912423b2e40?name=Hygraph%20Cosmetics%20Shop)
+[![Clone project](https://hygraph.com/button)](https://app.hygraph.com/clone/f67b7c52af504cd9a19de912423b2e40?name=Hygraph%20Cosmetics%20Shop)
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/timbenniks/hygraph-cosmetics-shop-demo-nuxt)
 
