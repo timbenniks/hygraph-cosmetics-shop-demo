@@ -1,5 +1,11 @@
 <script setup>
 defineProps(["title", "description", "image"]);
+
+const { locale } = useI18n();
+
+const your = computed(() => {
+  return locale.value === "en" ? "your" : "votre";
+});
 </script>
 <template>
   <section class="md:aspect-[1440/632] relative">
@@ -20,8 +26,8 @@ defineProps(["title", "description", "image"]);
       <h1
         class="font-title font-bold text-4xl sm:text-6xl mb-8 xl:text-7xl 2xl:text-8xl"
       >
-        {{ title.split("your")[0] }} <span class="text-primary">your</span>
-        {{ title.split("your")[1] }}
+        {{ title.split(your)[0] }} <span class="text-primary">{{ your }}</span>
+        {{ title.split(your)[1] }}
       </h1>
       <p v-if="description" class="text-xl">
         {{ description }}

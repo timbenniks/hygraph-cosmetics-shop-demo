@@ -1,11 +1,17 @@
-<script setup lang="ts">
+<script setup>
 const route = useRoute();
 const { slug } = route.params;
-
-const page = await usePage({ slug: slug as string, type: "page" });
+const { locale } = useI18n();
+const page = await usePage({
+  slug,
+  type: "page",
+  locale: locale.value,
+});
 useOgtags(page);
 </script>
 
 <template>
-  <RenderPage :data="page" />
+  <template>
+    <RenderPage :data="page" />
+  </template>
 </template>

@@ -1,4 +1,7 @@
+"use client";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { i18n } from "../i18n-config";
 
 interface Props {
   __typename: string;
@@ -10,6 +13,12 @@ interface Props {
 }
 
 export default function Hero({ description, image, title }: Props) {
+  const pathname = usePathname();
+  const segments = pathname.split("/");
+  //@ts-ignore
+  const locale = i18n.locales.includes(segments[1]) ? segments[1] : null;
+  const your = locale === "en" ? "your" : "votre";
+
   return (
     <section className="md:aspect-[1440/632] relative">
       <Image
@@ -23,9 +32,9 @@ export default function Hero({ description, image, title }: Props) {
       />
       <div className="p-8 md:p-0 md:absolute md:max-w-md lg:max-w-xl md:top-28 md:left-12 lg:top-44 lg:left-56">
         <h1 className="font-title font-bold text-4xl sm:text-6xl mb-8 xl:text-7xl 2xl:text-8xl">
-          {title.split("your")[0]}
-          <span className="text-primary">your</span>
-          {title.split("your")[1]}
+          {title.split(your)[0]}
+          <span className="text-primary">{your}</span>
+          {title.split(your)[1]}
         </h1>
         <p v-if="description" className="text-xl">
           {description}

@@ -2,6 +2,12 @@
 defineProps(["productFocus"]);
 const variant = ref("imageLeft");
 const theme = ref("dark");
+
+const { locale } = useI18n();
+
+const your = computed(() => {
+  return locale.value === "en" ? "your" : "votre";
+});
 </script>
 
 <template>
@@ -27,7 +33,7 @@ const theme = ref("dark");
       <h2 class="mb-8">
         <span
           class="block text-primary font-bold font-title text-4xl md:text-6xl"
-          >your</span
+          >{{ your }}</span
         ><span
           class="font-bold font-title text-3xl sm:text-4xl md:text-6xl sm:ml-8 sm:-mt-2 block"
           :class="theme === 'light' ? 'text-light' : 'text-dark'"

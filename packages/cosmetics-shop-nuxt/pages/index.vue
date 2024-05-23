@@ -1,5 +1,11 @@
 <script setup lang="ts">
-const page = await usePage({ slug: "home", type: "page" });
+const { locale } = useI18n();
+
+const page = await usePage({
+  slug: "home",
+  type: "page",
+  locale: locale.value,
+});
 useOgtags(page);
 </script>
 

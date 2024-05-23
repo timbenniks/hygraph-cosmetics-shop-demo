@@ -1,23 +1,23 @@
 import { request } from "graphql-request";
 import { graphql } from "../gql"
-import type { Stage } from "../gql/graphql";
+import type { Locale, Stage } from "../gql/graphql";
 
 const query = graphql(`
-  query Page($slug: String!, $stage: Stage! = PUBLISHED) {
-    page(where: { slug: $slug }, stage: $stage) {
+  query Page($slug: String!, $stage: Stage! = PUBLISHED, $locale: Locale!) {
+    page(locales: [$locale], where: { slug: $slug }, stage: $stage) {
       __typename
       id
       slug
       title
       description
-      ogImage {
+      ogImage(locales: [$locale, en]) {
         url
       }
       components {
         ... on Editorial {
           id
           __typename
-          image {
+          image(locales: [$locale, en]) {
             url
           }
           components {
@@ -25,7 +25,7 @@ const query = graphql(`
               id
               __typename
               cta
-              image {
+              image(locales: [$locale, en]) {
                 url
               }
               title
@@ -46,7 +46,7 @@ const query = graphql(`
           id
           __typename
           description
-          image {
+          image(locales: [$locale, en]) {
             url
           }
           title
@@ -59,7 +59,7 @@ const query = graphql(`
             __typename
             cta
             description
-            image {
+            image(locales: [$locale, en]) {
               url
             }
             productId
@@ -87,7 +87,7 @@ const query = graphql(`
           chapeau
           cta
           description
-          image {
+          image(locales: [$locale, en]) {
             url
           }
           title
@@ -95,14 +95,15 @@ const query = graphql(`
         }
       }
     }
-  
   }
+
 `);
 
-export async function getPage(slug: string, stage: "PUBLISHED" | "DRAFT") {
+export async function getPage(slug: string, stage: "PUBLISHED" | "DRAFT", locale: "en" | "fr") {
   const variables = {
     slug: slug || "home",
-    stage: stage as Stage || "PUBLISHED" as Stage
+    stage: stage as Stage || "PUBLISHED" as Stage,
+    locale: locale as Locale || "en" as Locale
   };
 
   const data = await request(

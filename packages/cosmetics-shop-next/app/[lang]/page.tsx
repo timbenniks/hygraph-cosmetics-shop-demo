@@ -3,13 +3,19 @@ import { draftMode } from "next/headers";
 import type { PageQuery } from "@/gql/graphql";
 import { getPage } from "@/queries/getPage";
 import ComponentRenderer from "@/components/ComponentRenderer";
+import { Locale } from "../../i18n-config";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
   const { isEnabled } = draftMode();
 
   const { page }: PageQuery = await getPage(
     "home" as string,
-    isEnabled ? "DRAFT" : "PUBLISHED"
+    isEnabled ? "DRAFT" : "PUBLISHED",
+    lang as Locale
   );
 
   return {
@@ -28,12 +34,17 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Home() {
+export default async function Home({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
   const { isEnabled } = draftMode();
 
   const { page }: PageQuery = await getPage(
     "home",
-    isEnabled ? "DRAFT" : "PUBLISHED"
+    isEnabled ? "DRAFT" : "PUBLISHED",
+    lang as any
   );
 
   return (

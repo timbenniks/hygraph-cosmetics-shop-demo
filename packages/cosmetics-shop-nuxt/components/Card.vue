@@ -1,5 +1,11 @@
 <script setup>
 defineProps(["image", "title", "url", "cta"]);
+
+const { locale } = useI18n();
+
+const your = computed(() => {
+  return locale.value === "en" ? "your" : "votre";
+});
 </script>
 <template>
   <div class="bg-tertiary aspect-[1/1] relative">
@@ -32,7 +38,7 @@ defineProps(["image", "title", "url", "cta"]);
         <h3>
           <span
             class="block text-primary font-bold font-title text-4xl md:text-6xl"
-            >your</span
+            >{{ your }}</span
           ><span
             class="block text-dark font-bold font-title text-3xl sm:text-4xl md:text-6xl sm:ml-8 sm:-mt-2"
             >{{ title }}</span

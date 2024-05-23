@@ -1,11 +1,11 @@
-query Pdp($slug: String!, $stage: Stage! = PUBLISHED) {
-  pdp(where: { slug: $slug }, stage: $stage) {
+query Pdp($slug: String!, $stage: Stage! = PUBLISHED, $locale: Locale!) {
+  pdp(locales: [$locale], where: { slug: $slug }, stage: $stage) {
     id
     __typename
     slug
     title
     description
-    ogImage {
+    ogImage(locales: [$locale, en]) {
       url
     }
     components {
@@ -13,7 +13,7 @@ query Pdp($slug: String!, $stage: Stage! = PUBLISHED) {
         __typename
         id
         title
-        image {
+        image(locales: [$locale, en]) {
           url
         }
         items {
@@ -27,7 +27,7 @@ query Pdp($slug: String!, $stage: Stage! = PUBLISHED) {
         chapeau
         cta
         description
-        image {
+        image(locales: [$locale, en]) {
           url
         }
         title

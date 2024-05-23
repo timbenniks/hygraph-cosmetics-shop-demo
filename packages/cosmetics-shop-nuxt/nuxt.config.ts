@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', 'nuxt-graphql-client', '@nuxtjs/google-fonts', '@nuxt/image'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-graphql-client', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxtjs/i18n'],
   app: {
     head: {
       htmlAttrs: {
@@ -11,6 +11,14 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/**': { isr: 600 },
+  },
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr'],
+    strategy: 'prefix',
+    detectBrowserLanguage: false,
+    vueI18n: "./i18n.config.ts"
   },
 
   runtimeConfig: {
