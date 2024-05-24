@@ -1,5 +1,11 @@
 # hygraph-cosmetics-shop-demo-astro
 
+## 2.3.0
+
+### Minor Changes
+
+- Manu builder added
+
 ## 2.2.0
 
 ### Minor Changes

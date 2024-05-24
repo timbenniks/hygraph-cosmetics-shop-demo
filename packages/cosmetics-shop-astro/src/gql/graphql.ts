@@ -2245,6 +2245,7 @@ export enum EntityTypeName {
   Cta = 'Cta',
   Editorial = 'Editorial',
   Hero = 'Hero',
+  Navigation = 'Navigation',
   Page = 'Page',
   Pdp = 'Pdp',
   ProductCard = 'ProductCard',
@@ -2778,6 +2779,8 @@ export type Mutation = {
    * @deprecated Asset mutations will be overhauled soon
    */
   createAsset?: Maybe<Asset>;
+  /** Create one navigation */
+  createNavigation?: Maybe<Navigation>;
   /** Create one page */
   createPage?: Maybe<Page>;
   /** Create one pdp */
@@ -2797,6 +2800,13 @@ export type Mutation = {
   deleteManyAssets: BatchPayload;
   /** Delete many Asset documents, return deleted documents */
   deleteManyAssetsConnection: AssetConnection;
+  /**
+   * Delete many Navigation documents
+   * @deprecated Please use the new paginated many mutation (deleteManyNavigationsConnection)
+   */
+  deleteManyNavigations: BatchPayload;
+  /** Delete many Navigation documents, return deleted documents */
+  deleteManyNavigationsConnection: NavigationConnection;
   /**
    * Delete many Page documents
    * @deprecated Please use the new paginated many mutation (deleteManyPagesConnection)
@@ -2825,6 +2835,8 @@ export type Mutation = {
   deleteManyRelatedProductLists: BatchPayload;
   /** Delete many RelatedProductList documents, return deleted documents */
   deleteManyRelatedProductListsConnection: RelatedProductListConnection;
+  /** Delete one navigation from _all_ existing stages. Returns deleted document. */
+  deleteNavigation?: Maybe<Navigation>;
   /** Delete one page from _all_ existing stages. Returns deleted document. */
   deletePage?: Maybe<Page>;
   /** Delete one pdp from _all_ existing stages. Returns deleted document. */
@@ -2846,6 +2858,13 @@ export type Mutation = {
   publishManyAssets: BatchPayload;
   /** Publish many Asset documents */
   publishManyAssetsConnection: AssetConnection;
+  /**
+   * Publish many Navigation documents
+   * @deprecated Please use the new paginated many mutation (publishManyNavigationsConnection)
+   */
+  publishManyNavigations: BatchPayload;
+  /** Publish many Navigation documents */
+  publishManyNavigationsConnection: NavigationConnection;
   /**
    * Publish many Page documents
    * @deprecated Please use the new paginated many mutation (publishManyPagesConnection)
@@ -2874,6 +2893,8 @@ export type Mutation = {
   publishManyRelatedProductLists: BatchPayload;
   /** Publish many RelatedProductList documents */
   publishManyRelatedProductListsConnection: RelatedProductListConnection;
+  /** Publish one navigation */
+  publishNavigation?: Maybe<Navigation>;
   /** Publish one page */
   publishPage?: Maybe<Page>;
   /** Publish one pdp */
@@ -2884,6 +2905,8 @@ export type Mutation = {
   publishRelatedProductList?: Maybe<RelatedProductList>;
   /** Schedule to publish one asset */
   schedulePublishAsset?: Maybe<Asset>;
+  /** Schedule to publish one navigation */
+  schedulePublishNavigation?: Maybe<Navigation>;
   /** Schedule to publish one page */
   schedulePublishPage?: Maybe<Page>;
   /** Schedule to publish one pdp */
@@ -2894,6 +2917,8 @@ export type Mutation = {
   schedulePublishRelatedProductList?: Maybe<RelatedProductList>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAsset?: Maybe<Asset>;
+  /** Unpublish one navigation from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishNavigation?: Maybe<Navigation>;
   /** Unpublish one page from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishPage?: Maybe<Page>;
   /** Unpublish one pdp from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -2911,6 +2936,13 @@ export type Mutation = {
   unpublishManyAssets: BatchPayload;
   /** Find many Asset documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyAssetsConnection: AssetConnection;
+  /**
+   * Unpublish many Navigation documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyNavigationsConnection)
+   */
+  unpublishManyNavigations: BatchPayload;
+  /** Find many Navigation documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyNavigationsConnection: NavigationConnection;
   /**
    * Unpublish many Page documents
    * @deprecated Please use the new paginated many mutation (unpublishManyPagesConnection)
@@ -2939,6 +2971,8 @@ export type Mutation = {
   unpublishManyRelatedProductLists: BatchPayload;
   /** Find many RelatedProductList documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyRelatedProductListsConnection: RelatedProductListConnection;
+  /** Unpublish one navigation from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishNavigation?: Maybe<Navigation>;
   /** Unpublish one page from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishPage?: Maybe<Page>;
   /** Unpublish one pdp from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -2956,6 +2990,13 @@ export type Mutation = {
   updateManyAssets: BatchPayload;
   /** Update many Asset documents */
   updateManyAssetsConnection: AssetConnection;
+  /**
+   * Update many navigations
+   * @deprecated Please use the new paginated many mutation (updateManyNavigationsConnection)
+   */
+  updateManyNavigations: BatchPayload;
+  /** Update many Navigation documents */
+  updateManyNavigationsConnection: NavigationConnection;
   /**
    * Update many pages
    * @deprecated Please use the new paginated many mutation (updateManyPagesConnection)
@@ -2984,6 +3025,8 @@ export type Mutation = {
   updateManyRelatedProductLists: BatchPayload;
   /** Update many RelatedProductList documents */
   updateManyRelatedProductListsConnection: RelatedProductListConnection;
+  /** Update one navigation */
+  updateNavigation?: Maybe<Navigation>;
   /** Update one page */
   updatePage?: Maybe<Page>;
   /** Update one pdp */
@@ -2996,6 +3039,8 @@ export type Mutation = {
   updateScheduledRelease?: Maybe<ScheduledRelease>;
   /** Upsert one asset */
   upsertAsset?: Maybe<Asset>;
+  /** Upsert one navigation */
+  upsertNavigation?: Maybe<Navigation>;
   /** Upsert one page */
   upsertPage?: Maybe<Page>;
   /** Upsert one pdp */
@@ -3009,6 +3054,11 @@ export type Mutation = {
 
 export type MutationCreateAssetArgs = {
   data: AssetCreateInput;
+};
+
+
+export type MutationCreateNavigationArgs = {
+  data: NavigationCreateInput;
 };
 
 
@@ -3054,6 +3104,21 @@ export type MutationDeleteManyAssetsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationDeleteManyNavigationsArgs = {
+  where?: InputMaybe<NavigationManyWhereInput>;
+};
+
+
+export type MutationDeleteManyNavigationsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']['input']>;
+  before?: InputMaybe<Scalars['ID']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NavigationManyWhereInput>;
 };
 
 
@@ -3117,6 +3182,11 @@ export type MutationDeleteManyRelatedProductListsConnectionArgs = {
 };
 
 
+export type MutationDeleteNavigationArgs = {
+  where: NavigationWhereUniqueInput;
+};
+
+
 export type MutationDeletePageArgs = {
   where: PageWhereUniqueInput;
 };
@@ -3177,6 +3247,24 @@ export type MutationPublishManyAssetsConnectionArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<AssetManyWhereInput>;
   withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationPublishManyNavigationsArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<NavigationManyWhereInput>;
+};
+
+
+export type MutationPublishManyNavigationsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']['input']>;
+  before?: InputMaybe<Scalars['ID']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<NavigationManyWhereInput>;
 };
 
 
@@ -3270,6 +3358,12 @@ export type MutationPublishManyRelatedProductListsConnectionArgs = {
 };
 
 
+export type MutationPublishNavigationArgs = {
+  to?: Array<Stage>;
+  where: NavigationWhereUniqueInput;
+};
+
+
 export type MutationPublishPageArgs = {
   locales?: InputMaybe<Array<Locale>>;
   publishBase?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3311,6 +3405,14 @@ export type MutationSchedulePublishAssetArgs = {
   to?: Array<Stage>;
   where: AssetWhereUniqueInput;
   withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationSchedulePublishNavigationArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
+  releaseId?: InputMaybe<Scalars['String']['input']>;
+  to?: Array<Stage>;
+  where: NavigationWhereUniqueInput;
 };
 
 
@@ -3362,6 +3464,14 @@ export type MutationScheduleUnpublishAssetArgs = {
   releaseId?: InputMaybe<Scalars['String']['input']>;
   unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where: AssetWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishNavigationArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
+  releaseId?: InputMaybe<Scalars['String']['input']>;
+  where: NavigationWhereUniqueInput;
 };
 
 
@@ -3430,6 +3540,24 @@ export type MutationUnpublishManyAssetsConnectionArgs = {
   stage?: InputMaybe<Stage>;
   unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyNavigationsArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<NavigationManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyNavigationsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']['input']>;
+  before?: InputMaybe<Scalars['ID']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<NavigationManyWhereInput>;
 };
 
 
@@ -3517,6 +3645,12 @@ export type MutationUnpublishManyRelatedProductListsConnectionArgs = {
 };
 
 
+export type MutationUnpublishNavigationArgs = {
+  from?: Array<Stage>;
+  where: NavigationWhereUniqueInput;
+};
+
+
 export type MutationUnpublishPageArgs = {
   from?: Array<Stage>;
   locales?: InputMaybe<Array<Locale>>;
@@ -3567,6 +3701,23 @@ export type MutationUpdateManyAssetsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationUpdateManyNavigationsArgs = {
+  data: NavigationUpdateManyInput;
+  where?: InputMaybe<NavigationManyWhereInput>;
+};
+
+
+export type MutationUpdateManyNavigationsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']['input']>;
+  before?: InputMaybe<Scalars['ID']['input']>;
+  data: NavigationUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NavigationManyWhereInput>;
 };
 
 
@@ -3638,6 +3789,12 @@ export type MutationUpdateManyRelatedProductListsConnectionArgs = {
 };
 
 
+export type MutationUpdateNavigationArgs = {
+  data: NavigationUpdateInput;
+  where: NavigationWhereUniqueInput;
+};
+
+
 export type MutationUpdatePageArgs = {
   data: PageUpdateInput;
   where: PageWhereUniqueInput;
@@ -3674,6 +3831,12 @@ export type MutationUpsertAssetArgs = {
 };
 
 
+export type MutationUpsertNavigationArgs = {
+  upsert: NavigationUpsertInput;
+  where: NavigationWhereUniqueInput;
+};
+
+
 export type MutationUpsertPageArgs = {
   upsert: PageUpsertInput;
   where: PageWhereUniqueInput;
@@ -3695,6 +3858,504 @@ export type MutationUpsertProductFocusArgs = {
 export type MutationUpsertRelatedProductListArgs = {
   upsert: RelatedProductListUpsertInput;
   where: RelatedProductListWhereUniqueInput;
+};
+
+export type Navigation = Entity & Node & {
+  __typename?: 'Navigation';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime']['output'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Navigation>;
+  /** List of Navigation versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID']['output'];
+  page: Array<NavigationPage>;
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime']['output'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type NavigationCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type NavigationDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  inheritLocale?: Scalars['Boolean']['input'];
+  stages?: Array<Stage>;
+};
+
+
+export type NavigationHistoryArgs = {
+  limit?: Scalars['Int']['input'];
+  skip?: Scalars['Int']['input'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type NavigationPageArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type NavigationPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type NavigationScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type NavigationUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type NavigationConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: NavigationWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type NavigationConnection = {
+  __typename?: 'NavigationConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<NavigationEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type NavigationCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  page?: InputMaybe<NavigationPageCreateManyInlineInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type NavigationCreateManyInlineInput = {
+  /** Connect multiple existing Navigation documents */
+  connect?: InputMaybe<Array<NavigationWhereUniqueInput>>;
+  /** Create and connect multiple existing Navigation documents */
+  create?: InputMaybe<Array<NavigationCreateInput>>;
+};
+
+export type NavigationCreateOneInlineInput = {
+  /** Connect one existing Navigation document */
+  connect?: InputMaybe<NavigationWhereUniqueInput>;
+  /** Create and connect one Navigation document */
+  create?: InputMaybe<NavigationCreateInput>;
+};
+
+/** An edge in a connection. */
+export type NavigationEdge = {
+  __typename?: 'NavigationEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of the edge. */
+  node: Navigation;
+};
+
+/** Identifies documents */
+export type NavigationManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<NavigationWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<NavigationWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<NavigationWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<NavigationWhereStageInput>;
+  documentInStages_none?: InputMaybe<NavigationWhereStageInput>;
+  documentInStages_some?: InputMaybe<NavigationWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']['input']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']['input']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values in which the union is empty */
+  page_empty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Matches if the union contains at least one connection to the provided item to the filter */
+  page_some?: InputMaybe<NavigationPageWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum NavigationOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type NavigationPage = Page | Pdp;
+
+export type NavigationPageConnectInput = {
+  Page?: InputMaybe<PageConnectInput>;
+  Pdp?: InputMaybe<PdpConnectInput>;
+};
+
+export type NavigationPageCreateInput = {
+  Page?: InputMaybe<PageCreateInput>;
+  Pdp?: InputMaybe<PdpCreateInput>;
+};
+
+export type NavigationPageCreateManyInlineInput = {
+  /** Connect multiple existing NavigationPage documents */
+  connect?: InputMaybe<Array<NavigationPageWhereUniqueInput>>;
+  /** Create and connect multiple existing NavigationPage documents */
+  create?: InputMaybe<Array<NavigationPageCreateInput>>;
+};
+
+export type NavigationPageCreateOneInlineInput = {
+  /** Connect one existing NavigationPage document */
+  connect?: InputMaybe<NavigationPageWhereUniqueInput>;
+  /** Create and connect one NavigationPage document */
+  create?: InputMaybe<NavigationPageCreateInput>;
+};
+
+export type NavigationPageUpdateInput = {
+  Page?: InputMaybe<PageUpdateInput>;
+  Pdp?: InputMaybe<PdpUpdateInput>;
+};
+
+export type NavigationPageUpdateManyInlineInput = {
+  /** Connect multiple existing NavigationPage documents */
+  connect?: InputMaybe<Array<NavigationPageConnectInput>>;
+  /** Create and connect multiple NavigationPage documents */
+  create?: InputMaybe<Array<NavigationPageCreateInput>>;
+  /** Delete multiple NavigationPage documents */
+  delete?: InputMaybe<Array<NavigationPageWhereUniqueInput>>;
+  /** Disconnect multiple NavigationPage documents */
+  disconnect?: InputMaybe<Array<NavigationPageWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing NavigationPage documents */
+  set?: InputMaybe<Array<NavigationPageWhereUniqueInput>>;
+  /** Update multiple NavigationPage documents */
+  update?: InputMaybe<Array<NavigationPageUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple NavigationPage documents */
+  upsert?: InputMaybe<Array<NavigationPageUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type NavigationPageUpdateManyWithNestedWhereInput = {
+  Page?: InputMaybe<PageUpdateManyWithNestedWhereInput>;
+  Pdp?: InputMaybe<PdpUpdateManyWithNestedWhereInput>;
+};
+
+export type NavigationPageUpdateOneInlineInput = {
+  /** Connect existing NavigationPage document */
+  connect?: InputMaybe<NavigationPageWhereUniqueInput>;
+  /** Create and connect one NavigationPage document */
+  create?: InputMaybe<NavigationPageCreateInput>;
+  /** Delete currently connected NavigationPage document */
+  delete?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Disconnect currently connected NavigationPage document */
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Update single NavigationPage document */
+  update?: InputMaybe<NavigationPageUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single NavigationPage document */
+  upsert?: InputMaybe<NavigationPageUpsertWithNestedWhereUniqueInput>;
+};
+
+export type NavigationPageUpdateWithNestedWhereUniqueInput = {
+  Page?: InputMaybe<PageUpdateWithNestedWhereUniqueInput>;
+  Pdp?: InputMaybe<PdpUpdateWithNestedWhereUniqueInput>;
+};
+
+export type NavigationPageUpsertWithNestedWhereUniqueInput = {
+  Page?: InputMaybe<PageUpsertWithNestedWhereUniqueInput>;
+  Pdp?: InputMaybe<PdpUpsertWithNestedWhereUniqueInput>;
+};
+
+export type NavigationPageWhereInput = {
+  Page?: InputMaybe<PageWhereInput>;
+  Pdp?: InputMaybe<PdpWhereInput>;
+};
+
+export type NavigationPageWhereUniqueInput = {
+  Page?: InputMaybe<PageWhereUniqueInput>;
+  Pdp?: InputMaybe<PdpWhereUniqueInput>;
+};
+
+export type NavigationUpdateInput = {
+  page?: InputMaybe<NavigationPageUpdateManyInlineInput>;
+};
+
+export type NavigationUpdateManyInlineInput = {
+  /** Connect multiple existing Navigation documents */
+  connect?: InputMaybe<Array<NavigationConnectInput>>;
+  /** Create and connect multiple Navigation documents */
+  create?: InputMaybe<Array<NavigationCreateInput>>;
+  /** Delete multiple Navigation documents */
+  delete?: InputMaybe<Array<NavigationWhereUniqueInput>>;
+  /** Disconnect multiple Navigation documents */
+  disconnect?: InputMaybe<Array<NavigationWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Navigation documents */
+  set?: InputMaybe<Array<NavigationWhereUniqueInput>>;
+  /** Update multiple Navigation documents */
+  update?: InputMaybe<Array<NavigationUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Navigation documents */
+  upsert?: InputMaybe<Array<NavigationUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type NavigationUpdateManyInput = {
+  /** No fields in updateMany data input */
+  _?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type NavigationUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: NavigationUpdateManyInput;
+  /** Document search */
+  where: NavigationWhereInput;
+};
+
+export type NavigationUpdateOneInlineInput = {
+  /** Connect existing Navigation document */
+  connect?: InputMaybe<NavigationWhereUniqueInput>;
+  /** Create and connect one Navigation document */
+  create?: InputMaybe<NavigationCreateInput>;
+  /** Delete currently connected Navigation document */
+  delete?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Disconnect currently connected Navigation document */
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Update single Navigation document */
+  update?: InputMaybe<NavigationUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Navigation document */
+  upsert?: InputMaybe<NavigationUpsertWithNestedWhereUniqueInput>;
+};
+
+export type NavigationUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: NavigationUpdateInput;
+  /** Unique document search */
+  where: NavigationWhereUniqueInput;
+};
+
+export type NavigationUpsertInput = {
+  /** Create document if it didn't exist */
+  create: NavigationCreateInput;
+  /** Update document if it exists */
+  update: NavigationUpdateInput;
+};
+
+export type NavigationUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: NavigationUpsertInput;
+  /** Unique document search */
+  where: NavigationWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type NavigationWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Identifies documents */
+export type NavigationWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<NavigationWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<NavigationWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<NavigationWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<NavigationWhereStageInput>;
+  documentInStages_none?: InputMaybe<NavigationWhereStageInput>;
+  documentInStages_some?: InputMaybe<NavigationWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']['input']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']['input']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values in which the union is empty */
+  page_empty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Matches if the union contains at least one connection to the provided item to the filter */
+  page_some?: InputMaybe<NavigationPageWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type NavigationWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<NavigationWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<NavigationWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<NavigationWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<NavigationWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References Navigation record uniquely */
+export type NavigationWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 /** An object with an ID */
@@ -3723,6 +4384,7 @@ export type Page = Entity & Node & {
   locale: Locale;
   /** Get the other localizations for this document */
   localizations: Array<Page>;
+  navigation?: Maybe<Navigation>;
   ogImage?: Maybe<Asset>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3779,6 +4441,12 @@ export type PageHistoryArgs = {
 export type PageLocalizationsArgs = {
   includeCurrent?: Scalars['Boolean']['input'];
   locales?: Array<Locale>;
+};
+
+
+export type PageNavigationArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
 };
 
 
@@ -3845,6 +4513,7 @@ export type PageCreateInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<PageCreateLocalizationsInput>;
+  navigation?: InputMaybe<NavigationCreateOneInlineInput>;
   ogImage?: InputMaybe<AssetCreateOneInlineInput>;
   slug?: InputMaybe<Scalars['String']['input']>;
   /** title input for default locale (en) */
@@ -3960,6 +4629,7 @@ export type PageManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  navigation?: InputMaybe<NavigationWhereInput>;
   ogImage?: InputMaybe<AssetWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
@@ -4040,6 +4710,7 @@ export type PageUpdateInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   /** Manage document localizations */
   localizations?: InputMaybe<PageUpdateLocalizationsInput>;
+  navigation?: InputMaybe<NavigationUpdateOneInlineInput>;
   ogImage?: InputMaybe<AssetUpdateOneInlineInput>;
   slug?: InputMaybe<Scalars['String']['input']>;
   /** title input for default locale (en) */
@@ -4233,6 +4904,7 @@ export type PageWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  navigation?: InputMaybe<NavigationWhereInput>;
   ogImage?: InputMaybe<AssetWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
@@ -4458,6 +5130,7 @@ export type Pdp = Entity & Node & {
   locale: Locale;
   /** Get the other localizations for this document */
   localizations: Array<Pdp>;
+  navigation?: Maybe<Navigation>;
   ogImage?: Maybe<Asset>;
   product?: Maybe<FederateThisSkincre_Product>;
   productId?: Maybe<Scalars['String']['output']>;
@@ -4516,6 +5189,12 @@ export type PdpHistoryArgs = {
 export type PdpLocalizationsArgs = {
   includeCurrent?: Scalars['Boolean']['input'];
   locales?: Array<Locale>;
+};
+
+
+export type PdpNavigationArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
 };
 
 
@@ -4582,6 +5261,7 @@ export type PdpCreateInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<PdpCreateLocalizationsInput>;
+  navigation?: InputMaybe<NavigationCreateOneInlineInput>;
   ogImage?: InputMaybe<AssetCreateOneInlineInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -4683,6 +5363,7 @@ export type PdpManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  navigation?: InputMaybe<NavigationWhereInput>;
   ogImage?: InputMaybe<AssetWhereInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
   /** All values containing the given string. */
@@ -4784,6 +5465,7 @@ export type PdpUpdateInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   /** Manage document localizations */
   localizations?: InputMaybe<PdpUpdateLocalizationsInput>;
+  navigation?: InputMaybe<NavigationUpdateOneInlineInput>;
   ogImage?: InputMaybe<AssetUpdateOneInlineInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -4979,6 +5661,7 @@ export type PdpWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  navigation?: InputMaybe<NavigationWhereInput>;
   ogImage?: InputMaybe<AssetWhereInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
   /** All values containing the given string. */
@@ -6945,6 +7628,14 @@ export type Query = {
   assetsConnection: AssetConnection;
   /** Fetches an object given its ID */
   entities?: Maybe<Array<Entity>>;
+  /** Retrieve a single navigation */
+  navigation?: Maybe<Navigation>;
+  /** Retrieve document version */
+  navigationVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple navigations */
+  navigations: Array<Navigation>;
+  /** Retrieve multiple navigations using the Relay connection interface */
+  navigationsConnection: NavigationConnection;
   /** Fetches an object given its ID */
   node?: Maybe<Node>;
   /** Retrieve a single page */
@@ -7042,6 +7733,44 @@ export type QueryAssetsConnectionArgs = {
 export type QueryEntitiesArgs = {
   locales?: InputMaybe<Array<Locale>>;
   where: Array<EntityWhereInput>;
+};
+
+
+export type QueryNavigationArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: NavigationWhereUniqueInput;
+};
+
+
+export type QueryNavigationVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryNavigationsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<NavigationOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  stage?: Stage;
+  where?: InputMaybe<NavigationWhereInput>;
+};
+
+
+export type QueryNavigationsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<NavigationOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  stage?: Stage;
+  where?: InputMaybe<NavigationWhereInput>;
 };
 
 
@@ -8368,7 +9097,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = Asset | Page | Pdp | ProductFocus | RelatedProductList;
+export type ScheduledOperationAffectedDocument = Asset | Navigation | Page | Pdp | ProductFocus | RelatedProductList;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -10611,6 +11340,11 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type NavigationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NavigationQuery = { __typename?: 'Query', navigation?: { __typename?: 'Navigation', page: Array<{ __typename: 'Page', slug?: string | null, title?: string | null } | { __typename: 'Pdp', slug?: string | null, title?: string | null }> } | null };
+
 export type PageQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   stage?: Stage;
@@ -10629,5 +11363,6 @@ export type PdpQueryVariables = Exact<{
 export type PdpQuery = { __typename?: 'Query', pdp?: { __typename: 'Pdp', id: string, slug?: string | null, title?: string | null, description?: string | null, ogImage?: { __typename?: 'Asset', url: string } | null, components: Array<{ __typename: 'ProductList', title?: string | null, relatedProductList?: { __typename?: 'RelatedProductList', relatedProductId?: string | null, relatedProducts?: { __typename?: 'FederateThisSkincre_related', products?: Array<{ __typename?: 'FederateThisSkincre_Product', description?: string | null, id: number, ingredients?: string | null, name: string, price?: number | null, shortDescription?: string | null, slug: string, stock?: number | null, images?: Array<{ __typename?: 'FederateThisSkincre_Image', alt?: string | null, url: string } | null> | null }> | null } | null } | null } | { __typename: 'Routine', id: string, chapeau?: string | null, cta?: string | null, description?: string | null, title?: string | null, url?: string | null, image?: { __typename?: 'Asset', url: string } | null } | { __typename: 'Tutorial', id: string, title?: string | null, image?: { __typename?: 'Asset', url: string } | null, items: Array<{ __typename: 'TutorialItem', text?: string | null }> }>, product?: { __typename?: 'FederateThisSkincre_Product', id: number, slug: string, name: string, price?: number | null, ingredients?: string | null, shortDescription?: string | null, description?: string | null, stock?: number | null, images?: Array<{ __typename?: 'FederateThisSkincre_Image', alt?: string | null, url: string } | null> | null } | null } | null };
 
 
+export const NavigationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Navigation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"StringValue","value":"clwknjrk14u4807w4krsfrz0z","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Page"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pdp"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]} as unknown as DocumentNode<NavigationQuery, NavigationQueryVariables>;
 export const PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Page"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Stage"}}},"defaultValue":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"ogImage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Editorial"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Card"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Cta"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Hero"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"productFocus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"productId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Routine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PageQuery, PageQueryVariables>;
 export const PdpDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Pdp"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Stage"}}},"defaultValue":{"kind":"EnumValue","value":"PUBLISHED"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pdp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"ogImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tutorial"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Routine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"relatedProductList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relatedProductId"}},{"kind":"Field","name":{"kind":"Name","value":"relatedProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PdpQuery, PdpQueryVariables>;

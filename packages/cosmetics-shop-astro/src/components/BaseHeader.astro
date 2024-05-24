@@ -1,7 +1,17 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import getNavigation from "../queries/getNavigation";
+import type { NavigationQuery } from '../gql/graphql';
 
 const locale = Astro.currentLocale || 'en';
+
+const { navigation }: NavigationQuery = await getNavigation();
+const nav = navigation?.page.map((p) => {
+  return {
+    url: `${p.__typename === "Pdp" ? "/pdp/" : "/"}${p.slug}`,
+    label: p.title,
+  };
+});
 ---
 
 <header class="bg-dark text-light mx-auto max-w-screen-2xl">
@@ -12,10 +22,22 @@ const locale = Astro.currentLocale || 'en';
       <span class="font-bold font-title text-3xl self-end">skncre</span>
     </a>
     <nav class="flex flex-wrap gap-x-6 gap-y-2 items-center md:text-xl">
-      <a href={getRelativeLocaleUrl(locale, '/pdp/face-serum')}>face serum</a>
+      {nav?.map((navItem) => {
+        return (
+          <a
+            href={getRelativeLocaleUrl(locale, navItem.url)}
+            class="lowercase"
+          >
+            {navItem.label}
+          </a>
+        );
+      })}
+      
+      
+      <!-- <a href={getRelativeLocaleUrl(locale, '/pdp/face-serum')}>face serum</a>
       <a href={getRelativeLocaleUrl(locale, '/pdp/face-cream')}>face cream</a>
       <a href={getRelativeLocaleUrl(locale, '/pdp/eye-contour')}>eye contour</a>
-      <a href={getRelativeLocaleUrl(locale, '/pdp/bundle')}>skncre bundle</a>
+      <a href={getRelativeLocaleUrl(locale, '/pdp/bundle')}>skncre bundle</a> -->
     </nav>
   </div>
 </header>
