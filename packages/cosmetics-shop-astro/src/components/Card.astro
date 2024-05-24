@@ -12,6 +12,9 @@ interface Props {
 }
 
 const { image, title, url, cta } = Astro.props;
+
+const locale = Astro.currentLocale
+const your = locale === 'fr' ? 'votre' : 'your'
 ---
 
 <div class="bg-tertiary aspect-[1/1] relative">
@@ -42,7 +45,7 @@ const { image, title, url, cta } = Astro.props;
       <h3>
         <span
           class="block text-primary font-bold font-title text-4xl md:text-6xl"
-          >your</span
+          >{your}</span
         ><span
           class="block text-dark font-bold font-title text-3xl sm:text-4xl md:text-6xl sm:ml-8 sm:-mt-2"
           >{title}</span

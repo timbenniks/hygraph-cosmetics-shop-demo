@@ -1,16 +1,18 @@
 ---
-import type { Locale, PageQuery } from "../gql/graphql";
+import type { Locale, PageQuery } from "../../gql/graphql";
 
-import getPage from "../queries/getPage";
-import Layout from "../layouts/Default.astro";
-import ComponentRenderer from "../components/ComponentRenderer.astro";
+import getPage from "../../queries/getPage";
+import Layout from "../../layouts/Default.astro";
+import ComponentRenderer from "../../components/ComponentRenderer.astro";
 import { SEO } from "astro-seo";
-import { isPreview } from "../helpers";
+import { isPreview } from "../../helpers";
+
+const locale = Astro.currentLocale
 
 const { page }: PageQuery = await getPage(
   "home",
   isPreview() ? "DRAFT" : "PUBLISHED",
-  "en" as Locale
+  locale as Locale
 );
 
 ---

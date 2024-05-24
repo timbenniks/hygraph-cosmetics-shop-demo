@@ -15,6 +15,8 @@ interface Props {
 }
 
 const { productFocus } = Astro.props;
+const locale = Astro.currentLocale
+const your = locale === 'fr' ? 'votre' : 'your'
 ---
 
 <section class="md:aspect-[1440/722] relative">
@@ -34,7 +36,7 @@ const { productFocus } = Astro.props;
   >
     <h2 class="mb-8">
       <span class="block text-primary font-bold font-title text-4xl md:text-6xl"
-        >your</span
+        >{your}</span
       ><span
         class="font-bold font-title text-3xl sm:text-4xl md:text-6xl sm:ml-8 sm:-mt-2 block md:right-16 lg:right-44"
       >

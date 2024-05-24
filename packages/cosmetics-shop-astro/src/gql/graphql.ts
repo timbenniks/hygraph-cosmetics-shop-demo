@@ -782,6 +782,10 @@ export type Card = Entity & {
   /** The unique identifier */
   id: Scalars['ID']['output'];
   image?: Maybe<Asset>;
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Card>;
   /** System stage field */
   stage: Stage;
   title?: Maybe<Scalars['String']['output']>;
@@ -792,6 +796,12 @@ export type Card = Entity & {
 export type CardImageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
   locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type CardLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
 };
 
 export type CardConnectInput = {
@@ -812,10 +822,32 @@ export type CardConnection = {
 };
 
 export type CardCreateInput = {
+  /** cta input for default locale (en) */
   cta?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<AssetCreateOneInlineInput>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<CardCreateLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CardCreateLocalizationDataInput = {
+  cta?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CardCreateLocalizationInput = {
+  /** Localization input */
+  data: CardCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type CardCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<CardCreateLocalizationInput>>;
 };
 
 export type CardCreateManyInlineInput = {
@@ -854,25 +886,6 @@ export type CardManyWhereInput = {
   OR?: InputMaybe<Array<CardWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
-  cta?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  cta_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  cta_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  cta_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  cta_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  cta_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  cta_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  cta_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  cta_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  cta_starts_with?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']['input']>;
@@ -893,44 +906,6 @@ export type CardManyWhereInput = {
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
   image?: InputMaybe<AssetWhereInput>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  url_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  url_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  url_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  url_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  url_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  url_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  url_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum CardOrderByInput {
@@ -1023,10 +998,36 @@ export type CardParentWhereUniqueInput = {
 };
 
 export type CardUpdateInput = {
+  /** cta input for default locale (en) */
   cta?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<AssetUpdateOneInlineInput>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<CardUpdateLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CardUpdateLocalizationDataInput = {
+  cta?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CardUpdateLocalizationInput = {
+  data: CardUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type CardUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<CardCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<CardUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<CardUpsertLocalizationInput>>;
 };
 
 export type CardUpdateManyInlineInput = {
@@ -1041,9 +1042,30 @@ export type CardUpdateManyInlineInput = {
 };
 
 export type CardUpdateManyInput = {
+  /** cta input for default locale (en) */
+  cta?: InputMaybe<Scalars['String']['input']>;
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<CardUpdateManyLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CardUpdateManyLocalizationDataInput = {
   cta?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CardUpdateManyLocalizationInput = {
+  data: CardUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type CardUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<CardUpdateManyLocalizationInput>>;
 };
 
 export type CardUpdateManyWithNestedWhereInput = {
@@ -1085,6 +1107,12 @@ export type CardUpsertInput = {
   create: CardCreateInput;
   /** Update document if it exists */
   update: CardUpdateInput;
+};
+
+export type CardUpsertLocalizationInput = {
+  create: CardCreateLocalizationDataInput;
+  locale: Locale;
+  update: CardUpdateLocalizationDataInput;
 };
 
 export type CardUpsertWithNestedWhereUniqueAndPositionInput = {
@@ -1229,10 +1257,20 @@ export type Cta = Entity & {
   description?: Maybe<Scalars['String']['output']>;
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Cta>;
   /** System stage field */
   stage: Stage;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type CtaLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
 };
 
 export type CtaConnectInput = {
@@ -1253,11 +1291,37 @@ export type CtaConnection = {
 };
 
 export type CtaCreateInput = {
+  /** chapeau input for default locale (en) */
+  chapeau?: InputMaybe<Scalars['String']['input']>;
+  /** cta input for default locale (en) */
+  cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<CtaCreateLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CtaCreateLocalizationDataInput = {
   chapeau?: InputMaybe<Scalars['String']['input']>;
   cta?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CtaCreateLocalizationInput = {
+  /** Localization input */
+  data: CtaCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type CtaCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<CtaCreateLocalizationInput>>;
 };
 
 export type CtaCreateManyInlineInput = {
@@ -1296,63 +1360,6 @@ export type CtaManyWhereInput = {
   OR?: InputMaybe<Array<CtaWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
-  chapeau?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  chapeau_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  chapeau_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  chapeau_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  chapeau_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  chapeau_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  chapeau_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  chapeau_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  chapeau_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  chapeau_starts_with?: InputMaybe<Scalars['String']['input']>;
-  cta?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  cta_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  cta_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  cta_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  cta_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  cta_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  cta_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  cta_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  cta_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  cta_starts_with?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  description_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  description_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  description_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  description_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  description_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  description_starts_with?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']['input']>;
@@ -1372,44 +1379,6 @@ export type CtaManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  url_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  url_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  url_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  url_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  url_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  url_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  url_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum CtaOrderByInput {
@@ -1506,11 +1475,41 @@ export type CtaParentWhereUniqueInput = {
 };
 
 export type CtaUpdateInput = {
+  /** chapeau input for default locale (en) */
+  chapeau?: InputMaybe<Scalars['String']['input']>;
+  /** cta input for default locale (en) */
+  cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<CtaUpdateLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CtaUpdateLocalizationDataInput = {
   chapeau?: InputMaybe<Scalars['String']['input']>;
   cta?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CtaUpdateLocalizationInput = {
+  data: CtaUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type CtaUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<CtaCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<CtaUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<CtaUpsertLocalizationInput>>;
 };
 
 export type CtaUpdateManyInlineInput = {
@@ -1525,11 +1524,36 @@ export type CtaUpdateManyInlineInput = {
 };
 
 export type CtaUpdateManyInput = {
+  /** chapeau input for default locale (en) */
+  chapeau?: InputMaybe<Scalars['String']['input']>;
+  /** cta input for default locale (en) */
+  cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<CtaUpdateManyLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CtaUpdateManyLocalizationDataInput = {
   chapeau?: InputMaybe<Scalars['String']['input']>;
   cta?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CtaUpdateManyLocalizationInput = {
+  data: CtaUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type CtaUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<CtaUpdateManyLocalizationInput>>;
 };
 
 export type CtaUpdateManyWithNestedWhereInput = {
@@ -1571,6 +1595,12 @@ export type CtaUpsertInput = {
   create: CtaCreateInput;
   /** Update document if it exists */
   update: CtaUpdateInput;
+};
+
+export type CtaUpsertLocalizationInput = {
+  create: CtaCreateLocalizationDataInput;
+  locale: Locale;
+  update: CtaUpdateLocalizationDataInput;
 };
 
 export type CtaUpsertWithNestedWhereUniqueAndPositionInput = {
@@ -2274,6 +2304,10 @@ export type Hero = Entity & {
   /** The unique identifier */
   id: Scalars['ID']['output'];
   image?: Maybe<Asset>;
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Hero>;
   /** System stage field */
   stage: Stage;
   title?: Maybe<Scalars['String']['output']>;
@@ -2283,6 +2317,12 @@ export type Hero = Entity & {
 export type HeroImageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
   locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type HeroLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
 };
 
 export type HeroConnectInput = {
@@ -2303,9 +2343,29 @@ export type HeroConnection = {
 };
 
 export type HeroCreateInput = {
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<AssetCreateOneInlineInput>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<HeroCreateLocalizationsInput>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HeroCreateLocalizationDataInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HeroCreateLocalizationInput = {
+  /** Localization input */
+  data: HeroCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type HeroCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<HeroCreateLocalizationInput>>;
 };
 
 export type HeroCreateManyInlineInput = {
@@ -2344,25 +2404,6 @@ export type HeroManyWhereInput = {
   OR?: InputMaybe<Array<HeroWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  description_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  description_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  description_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  description_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  description_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  description_starts_with?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']['input']>;
@@ -2383,25 +2424,6 @@ export type HeroManyWhereInput = {
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
   image?: InputMaybe<AssetWhereInput>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum HeroOrderByInput {
@@ -2494,9 +2516,33 @@ export type HeroParentWhereUniqueInput = {
 };
 
 export type HeroUpdateInput = {
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<AssetUpdateOneInlineInput>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<HeroUpdateLocalizationsInput>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HeroUpdateLocalizationDataInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HeroUpdateLocalizationInput = {
+  data: HeroUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type HeroUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<HeroCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<HeroUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<HeroUpsertLocalizationInput>>;
 };
 
 export type HeroUpdateManyInlineInput = {
@@ -2511,8 +2557,27 @@ export type HeroUpdateManyInlineInput = {
 };
 
 export type HeroUpdateManyInput = {
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<HeroUpdateManyLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HeroUpdateManyLocalizationDataInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HeroUpdateManyLocalizationInput = {
+  data: HeroUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type HeroUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<HeroUpdateManyLocalizationInput>>;
 };
 
 export type HeroUpdateManyWithNestedWhereInput = {
@@ -2554,6 +2619,12 @@ export type HeroUpsertInput = {
   create: HeroCreateInput;
   /** Update document if it exists */
   update: HeroUpdateInput;
+};
+
+export type HeroUpsertLocalizationInput = {
+  create: HeroCreateLocalizationDataInput;
+  locale: Locale;
+  update: HeroUpdateLocalizationDataInput;
 };
 
 export type HeroUpsertWithNestedWhereUniqueAndPositionInput = {
@@ -2676,7 +2747,8 @@ export type ImageTransformationInput = {
 /** Locale system enumeration */
 export enum Locale {
   /** System locale */
-  En = 'en'
+  En = 'en',
+  Fr = 'fr'
 }
 
 /** Representing a geolocation point with latitude and longitude */
@@ -3109,8 +3181,11 @@ export type MutationPublishManyAssetsConnectionArgs = {
 
 
 export type MutationPublishManyPagesArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   to?: Array<Stage>;
   where?: InputMaybe<PageManyWhereInput>;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3120,15 +3195,21 @@ export type MutationPublishManyPagesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   from?: InputMaybe<Stage>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   to?: Array<Stage>;
   where?: InputMaybe<PageManyWhereInput>;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type MutationPublishManyPdpsArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   to?: Array<Stage>;
   where?: InputMaybe<PdpManyWhereInput>;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3138,15 +3219,21 @@ export type MutationPublishManyPdpsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   from?: InputMaybe<Stage>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   to?: Array<Stage>;
   where?: InputMaybe<PdpManyWhereInput>;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type MutationPublishManyProductFociArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   to?: Array<Stage>;
   where?: InputMaybe<ProductFocusManyWhereInput>;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3156,9 +3243,12 @@ export type MutationPublishManyProductFociConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   from?: InputMaybe<Stage>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   to?: Array<Stage>;
   where?: InputMaybe<ProductFocusManyWhereInput>;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3181,20 +3271,29 @@ export type MutationPublishManyRelatedProductListsConnectionArgs = {
 
 
 export type MutationPublishPageArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   to?: Array<Stage>;
   where: PageWhereUniqueInput;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type MutationPublishPdpArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   to?: Array<Stage>;
   where: PdpWhereUniqueInput;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type MutationPublishProductFocusArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   to?: Array<Stage>;
   where: ProductFocusWhereUniqueInput;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3216,26 +3315,35 @@ export type MutationSchedulePublishAssetArgs = {
 
 
 export type MutationSchedulePublishPageArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
   releaseId?: InputMaybe<Scalars['String']['input']>;
   to?: Array<Stage>;
   where: PageWhereUniqueInput;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type MutationSchedulePublishPdpArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
   releaseId?: InputMaybe<Scalars['String']['input']>;
   to?: Array<Stage>;
   where: PdpWhereUniqueInput;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type MutationSchedulePublishProductFocusArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']['input']>;
   releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
   releaseId?: InputMaybe<Scalars['String']['input']>;
   to?: Array<Stage>;
   where: ProductFocusWhereUniqueInput;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3259,24 +3367,30 @@ export type MutationScheduleUnpublishAssetArgs = {
 
 export type MutationScheduleUnpublishPageArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
   releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
   releaseId?: InputMaybe<Scalars['String']['input']>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where: PageWhereUniqueInput;
 };
 
 
 export type MutationScheduleUnpublishPdpArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
   releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
   releaseId?: InputMaybe<Scalars['String']['input']>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where: PdpWhereUniqueInput;
 };
 
 
 export type MutationScheduleUnpublishProductFocusArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
   releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
   releaseId?: InputMaybe<Scalars['String']['input']>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where: ProductFocusWhereUniqueInput;
 };
 
@@ -3321,6 +3435,8 @@ export type MutationUnpublishManyAssetsConnectionArgs = {
 
 export type MutationUnpublishManyPagesArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PageManyWhereInput>;
 };
 
@@ -3331,14 +3447,18 @@ export type MutationUnpublishManyPagesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   from?: Array<Stage>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   stage?: InputMaybe<Stage>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PageManyWhereInput>;
 };
 
 
 export type MutationUnpublishManyPdpsArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PdpManyWhereInput>;
 };
 
@@ -3349,14 +3469,18 @@ export type MutationUnpublishManyPdpsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   from?: Array<Stage>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   stage?: InputMaybe<Stage>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PdpManyWhereInput>;
 };
 
 
 export type MutationUnpublishManyProductFociArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<ProductFocusManyWhereInput>;
 };
 
@@ -3367,8 +3491,10 @@ export type MutationUnpublishManyProductFociConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   from?: Array<Stage>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   stage?: InputMaybe<Stage>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<ProductFocusManyWhereInput>;
 };
 
@@ -3393,18 +3519,24 @@ export type MutationUnpublishManyRelatedProductListsConnectionArgs = {
 
 export type MutationUnpublishPageArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where: PageWhereUniqueInput;
 };
 
 
 export type MutationUnpublishPdpArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where: PdpWhereUniqueInput;
 };
 
 
 export type MutationUnpublishProductFocusArgs = {
   from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']['input']>;
   where: ProductFocusWhereUniqueInput;
 };
 
@@ -3587,6 +3719,10 @@ export type Page = Entity & Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Page>;
   ogImage?: Maybe<Asset>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3615,6 +3751,11 @@ export type PageComponentsArgs = {
 };
 
 
+export type PageCreatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
 export type PageCreatedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -3635,9 +3776,20 @@ export type PageHistoryArgs = {
 };
 
 
+export type PageLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
+};
+
+
 export type PageOgImageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
   locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type PagePublishedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
 };
 
 
@@ -3656,6 +3808,11 @@ export type PageScheduledInArgs = {
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type PageUpdatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
 };
 
 
@@ -3684,11 +3841,33 @@ export type PageConnection = {
 export type PageCreateInput = {
   components?: InputMaybe<PagecomponentsUnionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<PageCreateLocalizationsInput>;
   ogImage?: InputMaybe<AssetCreateOneInlineInput>;
   slug?: InputMaybe<Scalars['String']['input']>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PageCreateLocalizationDataInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PageCreateLocalizationInput = {
+  /** Localization input */
+  data: PageCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type PageCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<PageCreateLocalizationInput>>;
 };
 
 export type PageCreateManyInlineInput = {
@@ -3759,25 +3938,6 @@ export type PageManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  description_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  description_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  description_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  description_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  description_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  description_starts_with?: InputMaybe<Scalars['String']['input']>;
   documentInStages_every?: InputMaybe<PageWhereStageInput>;
   documentInStages_none?: InputMaybe<PageWhereStageInput>;
   documentInStages_some?: InputMaybe<PageWhereStageInput>;
@@ -3839,25 +3999,6 @@ export type PageManyWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']['input']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3895,10 +4036,34 @@ export enum PageOrderByInput {
 
 export type PageUpdateInput = {
   components?: InputMaybe<PagecomponentsUnionUpdateManyInlineInput>;
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<PageUpdateLocalizationsInput>;
   ogImage?: InputMaybe<AssetUpdateOneInlineInput>;
   slug?: InputMaybe<Scalars['String']['input']>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageUpdateLocalizationDataInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageUpdateLocalizationInput = {
+  data: PageUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type PageUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<PageCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<PageUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<PageUpsertLocalizationInput>>;
 };
 
 export type PageUpdateManyInlineInput = {
@@ -3919,8 +4084,27 @@ export type PageUpdateManyInlineInput = {
 };
 
 export type PageUpdateManyInput = {
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<PageUpdateManyLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageUpdateManyLocalizationDataInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageUpdateManyLocalizationInput = {
+  data: PageUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type PageUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<PageUpdateManyLocalizationInput>>;
 };
 
 export type PageUpdateManyWithNestedWhereInput = {
@@ -3957,6 +4141,12 @@ export type PageUpsertInput = {
   create: PageCreateInput;
   /** Update document if it exists */
   update: PageUpdateInput;
+};
+
+export type PageUpsertLocalizationInput = {
+  create: PageCreateLocalizationDataInput;
+  locale: Locale;
+  update: PageUpdateLocalizationDataInput;
 };
 
 export type PageUpsertWithNestedWhereUniqueInput = {
@@ -4264,6 +4454,10 @@ export type Pdp = Entity & Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Pdp>;
   ogImage?: Maybe<Asset>;
   product?: Maybe<FederateThisSkincre_Product>;
   productId?: Maybe<Scalars['String']['output']>;
@@ -4294,6 +4488,11 @@ export type PdpComponentsArgs = {
 };
 
 
+export type PdpCreatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
 export type PdpCreatedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -4314,9 +4513,20 @@ export type PdpHistoryArgs = {
 };
 
 
+export type PdpLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
+};
+
+
 export type PdpOgImageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
   locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type PdpPublishedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
 };
 
 
@@ -4335,6 +4545,11 @@ export type PdpScheduledInArgs = {
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type PdpUpdatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
 };
 
 
@@ -4363,12 +4578,34 @@ export type PdpConnection = {
 export type PdpCreateInput = {
   components?: InputMaybe<PdpcomponentsUnionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<PdpCreateLocalizationsInput>;
   ogImage?: InputMaybe<AssetCreateOneInlineInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PdpCreateLocalizationDataInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PdpCreateLocalizationInput = {
+  /** Localization input */
+  data: PdpCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type PdpCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<PdpCreateLocalizationInput>>;
 };
 
 export type PdpCreateManyInlineInput = {
@@ -4424,25 +4661,6 @@ export type PdpManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  description_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  description_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  description_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  description_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  description_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  description_starts_with?: InputMaybe<Scalars['String']['input']>;
   documentInStages_every?: InputMaybe<PdpWhereStageInput>;
   documentInStages_none?: InputMaybe<PdpWhereStageInput>;
   documentInStages_some?: InputMaybe<PdpWhereStageInput>;
@@ -4523,25 +4741,6 @@ export type PdpManyWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']['input']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -4581,11 +4780,35 @@ export enum PdpOrderByInput {
 
 export type PdpUpdateInput = {
   components?: InputMaybe<PdpcomponentsUnionUpdateManyInlineInput>;
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<PdpUpdateLocalizationsInput>;
   ogImage?: InputMaybe<AssetUpdateOneInlineInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PdpUpdateLocalizationDataInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PdpUpdateLocalizationInput = {
+  data: PdpUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type PdpUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<PdpCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<PdpUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<PdpUpsertLocalizationInput>>;
 };
 
 export type PdpUpdateManyInlineInput = {
@@ -4606,9 +4829,28 @@ export type PdpUpdateManyInlineInput = {
 };
 
 export type PdpUpdateManyInput = {
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<PdpUpdateManyLocalizationsInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PdpUpdateManyLocalizationDataInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PdpUpdateManyLocalizationInput = {
+  data: PdpUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type PdpUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<PdpUpdateManyLocalizationInput>>;
 };
 
 export type PdpUpdateManyWithNestedWhereInput = {
@@ -4645,6 +4887,12 @@ export type PdpUpsertInput = {
   create: PdpCreateInput;
   /** Update document if it exists */
   update: PdpUpdateInput;
+};
+
+export type PdpUpsertLocalizationInput = {
+  create: PdpCreateLocalizationDataInput;
+  locale: Locale;
+  update: PdpUpdateLocalizationDataInput;
 };
 
 export type PdpUpsertWithNestedWhereUniqueInput = {
@@ -4951,9 +5199,19 @@ export type ProductCard = Entity & {
   cta?: Maybe<Scalars['String']['output']>;
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<ProductCard>;
   product?: Maybe<Scalars['Json']['output']>;
   /** System stage field */
   stage: Stage;
+};
+
+
+export type ProductCardLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
 };
 
 export type ProductCardConnectInput = {
@@ -4974,8 +5232,26 @@ export type ProductCardConnection = {
 };
 
 export type ProductCardCreateInput = {
+  /** cta input for default locale (en) */
   cta?: InputMaybe<Scalars['String']['input']>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<ProductCardCreateLocalizationsInput>;
   product?: InputMaybe<Scalars['Json']['input']>;
+};
+
+export type ProductCardCreateLocalizationDataInput = {
+  cta?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductCardCreateLocalizationInput = {
+  /** Localization input */
+  data: ProductCardCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductCardCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<ProductCardCreateLocalizationInput>>;
 };
 
 export type ProductCardCreateManyInlineInput = {
@@ -5014,25 +5290,6 @@ export type ProductCardManyWhereInput = {
   OR?: InputMaybe<Array<ProductCardWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
-  cta?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  cta_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  cta_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  cta_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  cta_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  cta_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  cta_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  cta_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  cta_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  cta_starts_with?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']['input']>;
@@ -5149,8 +5406,30 @@ export type ProductCardParentWhereUniqueInput = {
 };
 
 export type ProductCardUpdateInput = {
+  /** cta input for default locale (en) */
   cta?: InputMaybe<Scalars['String']['input']>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<ProductCardUpdateLocalizationsInput>;
   product?: InputMaybe<Scalars['Json']['input']>;
+};
+
+export type ProductCardUpdateLocalizationDataInput = {
+  cta?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductCardUpdateLocalizationInput = {
+  data: ProductCardUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductCardUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<ProductCardCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<ProductCardUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<ProductCardUpsertLocalizationInput>>;
 };
 
 export type ProductCardUpdateManyInlineInput = {
@@ -5165,8 +5444,25 @@ export type ProductCardUpdateManyInlineInput = {
 };
 
 export type ProductCardUpdateManyInput = {
+  /** cta input for default locale (en) */
   cta?: InputMaybe<Scalars['String']['input']>;
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<ProductCardUpdateManyLocalizationsInput>;
   product?: InputMaybe<Scalars['Json']['input']>;
+};
+
+export type ProductCardUpdateManyLocalizationDataInput = {
+  cta?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductCardUpdateManyLocalizationInput = {
+  data: ProductCardUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductCardUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<ProductCardUpdateManyLocalizationInput>>;
 };
 
 export type ProductCardUpdateManyWithNestedWhereInput = {
@@ -5208,6 +5504,12 @@ export type ProductCardUpsertInput = {
   create: ProductCardCreateInput;
   /** Update document if it exists */
   update: ProductCardUpdateInput;
+};
+
+export type ProductCardUpsertLocalizationInput = {
+  create: ProductCardCreateLocalizationDataInput;
+  locale: Locale;
+  update: ProductCardUpdateLocalizationDataInput;
 };
 
 export type ProductCardUpsertWithNestedWhereUniqueAndPositionInput = {
@@ -5305,6 +5607,10 @@ export type ProductFocus = Entity & Node & {
   /** The unique identifier */
   id: Scalars['ID']['output'];
   image?: Maybe<Asset>;
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<ProductFocus>;
   product?: Maybe<FederateThisSkincre_Product>;
   productId?: Maybe<Scalars['String']['output']>;
   /** The time the document was published. Null on documents in draft stage. */
@@ -5320,6 +5626,11 @@ export type ProductFocus = Entity & Node & {
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
   url?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type ProductFocusCreatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
 };
 
 
@@ -5349,6 +5660,17 @@ export type ProductFocusImageArgs = {
 };
 
 
+export type ProductFocusLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
+};
+
+
+export type ProductFocusPublishedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
 export type ProductFocusPublishedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -5364,6 +5686,11 @@ export type ProductFocusScheduledInArgs = {
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type ProductFocusUpdatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
 };
 
 
@@ -5392,13 +5719,39 @@ export type ProductFocusConnection = {
 export type ProductFocusCreateInput = {
   clpwv0kz4fus501unbh610x98?: InputMaybe<ProductHighlightCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** cta input for default locale (en) */
   cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<AssetCreateOneInlineInput>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<ProductFocusCreateLocalizationsInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductFocusCreateLocalizationDataInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  cta?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductFocusCreateLocalizationInput = {
+  /** Localization input */
+  data: ProductFocusCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductFocusCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<ProductFocusCreateLocalizationInput>>;
 };
 
 export type ProductFocusCreateManyInlineInput = {
@@ -5450,44 +5803,6 @@ export type ProductFocusManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
-  cta?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  cta_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  cta_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  cta_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  cta_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  cta_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  cta_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  cta_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  cta_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  cta_starts_with?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  description_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  description_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  description_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  description_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  description_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  description_starts_with?: InputMaybe<Scalars['String']['input']>;
   documentInStages_every?: InputMaybe<ProductFocusWhereStageInput>;
   documentInStages_none?: InputMaybe<ProductFocusWhereStageInput>;
   documentInStages_some?: InputMaybe<ProductFocusWhereStageInput>;
@@ -5549,25 +5864,6 @@ export type ProductFocusManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -5584,25 +5880,6 @@ export type ProductFocusManyWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  url_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  url_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  url_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  url_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  url_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  url_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  url_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum ProductFocusOrderByInput {
@@ -5628,12 +5905,40 @@ export enum ProductFocusOrderByInput {
 
 export type ProductFocusUpdateInput = {
   clpwv0kz4fus501unbh610x98?: InputMaybe<ProductHighlightUpdateManyInlineInput>;
+  /** cta input for default locale (en) */
   cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<AssetUpdateOneInlineInput>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<ProductFocusUpdateLocalizationsInput>;
   productId?: InputMaybe<Scalars['String']['input']>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductFocusUpdateLocalizationDataInput = {
+  cta?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductFocusUpdateLocalizationInput = {
+  data: ProductFocusUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductFocusUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<ProductFocusCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<ProductFocusUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<ProductFocusUpsertLocalizationInput>>;
 };
 
 export type ProductFocusUpdateManyInlineInput = {
@@ -5654,11 +5959,34 @@ export type ProductFocusUpdateManyInlineInput = {
 };
 
 export type ProductFocusUpdateManyInput = {
+  /** cta input for default locale (en) */
+  cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<ProductFocusUpdateManyLocalizationsInput>;
+  productId?: InputMaybe<Scalars['String']['input']>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductFocusUpdateManyLocalizationDataInput = {
   cta?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  productId?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductFocusUpdateManyLocalizationInput = {
+  data: ProductFocusUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductFocusUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<ProductFocusUpdateManyLocalizationInput>>;
 };
 
 export type ProductFocusUpdateManyWithNestedWhereInput = {
@@ -5695,6 +6023,12 @@ export type ProductFocusUpsertInput = {
   create: ProductFocusCreateInput;
   /** Update document if it exists */
   update: ProductFocusUpdateInput;
+};
+
+export type ProductFocusUpsertLocalizationInput = {
+  create: ProductFocusCreateLocalizationDataInput;
+  locale: Locale;
+  update: ProductFocusUpdateLocalizationDataInput;
 };
 
 export type ProductFocusUpsertWithNestedWhereUniqueInput = {
@@ -6207,10 +6541,20 @@ export type ProductList = Entity & {
   __typename?: 'ProductList';
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<ProductList>;
   relatedProductList?: Maybe<RelatedProductList>;
   /** System stage field */
   stage: Stage;
   title?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type ProductListLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
 };
 
 
@@ -6237,8 +6581,26 @@ export type ProductListConnection = {
 };
 
 export type ProductListCreateInput = {
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<ProductListCreateLocalizationsInput>;
   relatedProductList?: InputMaybe<RelatedProductListCreateOneInlineInput>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductListCreateLocalizationDataInput = {
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductListCreateLocalizationInput = {
+  /** Localization input */
+  data: ProductListCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductListCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<ProductListCreateLocalizationInput>>;
 };
 
 export type ProductListCreateManyInlineInput = {
@@ -6297,25 +6659,6 @@ export type ProductListManyWhereInput = {
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
   relatedProductList?: InputMaybe<RelatedProductListWhereInput>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum ProductListOrderByInput {
@@ -6406,8 +6749,30 @@ export type ProductListParentWhereUniqueInput = {
 };
 
 export type ProductListUpdateInput = {
+  /** Manage document localizations */
+  localizations?: InputMaybe<ProductListUpdateLocalizationsInput>;
   relatedProductList?: InputMaybe<RelatedProductListUpdateOneInlineInput>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductListUpdateLocalizationDataInput = {
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductListUpdateLocalizationInput = {
+  data: ProductListUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductListUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<ProductListCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<ProductListUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<ProductListUpsertLocalizationInput>>;
 };
 
 export type ProductListUpdateManyInlineInput = {
@@ -6422,7 +6787,24 @@ export type ProductListUpdateManyInlineInput = {
 };
 
 export type ProductListUpdateManyInput = {
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<ProductListUpdateManyLocalizationsInput>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductListUpdateManyLocalizationDataInput = {
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductListUpdateManyLocalizationInput = {
+  data: ProductListUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type ProductListUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<ProductListUpdateManyLocalizationInput>>;
 };
 
 export type ProductListUpdateManyWithNestedWhereInput = {
@@ -6464,6 +6846,12 @@ export type ProductListUpsertInput = {
   create: ProductListCreateInput;
   /** Update document if it exists */
   update: ProductListUpdateInput;
+};
+
+export type ProductListUpsertLocalizationInput = {
+  create: ProductListCreateLocalizationDataInput;
+  locale: Locale;
+  update: ProductListUpdateLocalizationDataInput;
 };
 
 export type ProductListUpsertWithNestedWhereUniqueAndPositionInput = {
@@ -6583,6 +6971,7 @@ export type Query = {
   productFocus?: Maybe<ProductFocus>;
   /** Retrieve document version */
   productFocusVersion?: Maybe<DocumentVersion>;
+  products?: Maybe<Array<FederateThisSkincre_Product>>;
   /** Retrieve a single relatedProductList */
   relatedProductList?: Maybe<RelatedProductList>;
   /** Retrieve document version */
@@ -7384,6 +7773,10 @@ export type Routine = Entity & {
   /** The unique identifier */
   id: Scalars['ID']['output'];
   image?: Maybe<Asset>;
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Routine>;
   /** System stage field */
   stage: Stage;
   title?: Maybe<Scalars['String']['output']>;
@@ -7394,6 +7787,12 @@ export type Routine = Entity & {
 export type RoutineImageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
   locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type RoutineLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
 };
 
 export type RoutineConnectInput = {
@@ -7414,12 +7813,38 @@ export type RoutineConnection = {
 };
 
 export type RoutineCreateInput = {
+  /** chapeau input for default locale (en) */
+  chapeau?: InputMaybe<Scalars['String']['input']>;
+  /** cta input for default locale (en) */
+  cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<AssetCreateOneInlineInput>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<RoutineCreateLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type RoutineCreateLocalizationDataInput = {
   chapeau?: InputMaybe<Scalars['String']['input']>;
   cta?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<AssetCreateOneInlineInput>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type RoutineCreateLocalizationInput = {
+  /** Localization input */
+  data: RoutineCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type RoutineCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<RoutineCreateLocalizationInput>>;
 };
 
 export type RoutineCreateManyInlineInput = {
@@ -7458,63 +7883,6 @@ export type RoutineManyWhereInput = {
   OR?: InputMaybe<Array<RoutineWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
-  chapeau?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  chapeau_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  chapeau_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  chapeau_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  chapeau_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  chapeau_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  chapeau_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  chapeau_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  chapeau_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  chapeau_starts_with?: InputMaybe<Scalars['String']['input']>;
-  cta?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  cta_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  cta_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  cta_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  cta_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  cta_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  cta_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  cta_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  cta_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  cta_starts_with?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  description_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  description_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  description_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  description_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  description_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  description_starts_with?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']['input']>;
@@ -7535,44 +7903,6 @@ export type RoutineManyWhereInput = {
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
   image?: InputMaybe<AssetWhereInput>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  url_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  url_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  url_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  url_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  url_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  url_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  url_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum RoutineOrderByInput {
@@ -7679,12 +8009,42 @@ export type RoutineParentWhereUniqueInput = {
 };
 
 export type RoutineUpdateInput = {
+  /** chapeau input for default locale (en) */
+  chapeau?: InputMaybe<Scalars['String']['input']>;
+  /** cta input for default locale (en) */
+  cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<AssetUpdateOneInlineInput>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<RoutineUpdateLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type RoutineUpdateLocalizationDataInput = {
   chapeau?: InputMaybe<Scalars['String']['input']>;
   cta?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<AssetUpdateOneInlineInput>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type RoutineUpdateLocalizationInput = {
+  data: RoutineUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type RoutineUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<RoutineCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<RoutineUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<RoutineUpsertLocalizationInput>>;
 };
 
 export type RoutineUpdateManyInlineInput = {
@@ -7699,11 +8059,36 @@ export type RoutineUpdateManyInlineInput = {
 };
 
 export type RoutineUpdateManyInput = {
+  /** chapeau input for default locale (en) */
+  chapeau?: InputMaybe<Scalars['String']['input']>;
+  /** cta input for default locale (en) */
+  cta?: InputMaybe<Scalars['String']['input']>;
+  /** description input for default locale (en) */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<RoutineUpdateManyLocalizationsInput>;
+  /** title input for default locale (en) */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** url input for default locale (en) */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type RoutineUpdateManyLocalizationDataInput = {
   chapeau?: InputMaybe<Scalars['String']['input']>;
   cta?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type RoutineUpdateManyLocalizationInput = {
+  data: RoutineUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type RoutineUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<RoutineUpdateManyLocalizationInput>>;
 };
 
 export type RoutineUpdateManyWithNestedWhereInput = {
@@ -7745,6 +8130,12 @@ export type RoutineUpsertInput = {
   create: RoutineCreateInput;
   /** Update document if it exists */
   update: RoutineUpdateInput;
+};
+
+export type RoutineUpsertLocalizationInput = {
+  create: RoutineCreateLocalizationDataInput;
+  locale: Locale;
+  update: RoutineUpdateLocalizationDataInput;
 };
 
 export type RoutineUpsertWithNestedWhereUniqueAndPositionInput = {
@@ -8935,6 +9326,10 @@ export type Tutorial = Entity & {
   id: Scalars['ID']['output'];
   image?: Maybe<Asset>;
   items: Array<TutorialItem>;
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Tutorial>;
   /** System stage field */
   stage: Stage;
   title?: Maybe<Scalars['String']['output']>;
@@ -8959,6 +9354,12 @@ export type TutorialItemsArgs = {
   where?: InputMaybe<TutorialItemWhereInput>;
 };
 
+
+export type TutorialLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
+};
+
 export type TutorialConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
   position?: InputMaybe<ConnectPositionInput>;
@@ -8979,7 +9380,25 @@ export type TutorialConnection = {
 export type TutorialCreateInput = {
   image?: InputMaybe<AssetCreateOneInlineInput>;
   items?: InputMaybe<TutorialItemCreateManyInlineInput>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<TutorialCreateLocalizationsInput>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialCreateLocalizationDataInput = {
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialCreateLocalizationInput = {
+  /** Localization input */
+  data: TutorialCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TutorialCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<TutorialCreateLocalizationInput>>;
 };
 
 export type TutorialCreateManyInlineInput = {
@@ -9012,9 +9431,19 @@ export type TutorialItem = Entity & {
   __typename?: 'TutorialItem';
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<TutorialItem>;
   /** System stage field */
   stage: Stage;
   text?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type TutorialItemLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  locales?: Array<Locale>;
 };
 
 export type TutorialItemConnectInput = {
@@ -9035,7 +9464,25 @@ export type TutorialItemConnection = {
 };
 
 export type TutorialItemCreateInput = {
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<TutorialItemCreateLocalizationsInput>;
+  /** text input for default locale (en) */
   text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialItemCreateLocalizationDataInput = {
+  text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialItemCreateLocalizationInput = {
+  /** Localization input */
+  data: TutorialItemCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TutorialItemCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<TutorialItemCreateLocalizationInput>>;
 };
 
 export type TutorialItemCreateManyInlineInput = {
@@ -9093,25 +9540,6 @@ export type TutorialItemManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
-  text?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  text_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  text_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  text_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  text_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  text_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  text_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  text_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  text_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  text_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum TutorialItemOrderByInput {
@@ -9200,7 +9628,29 @@ export type TutorialItemParentWhereUniqueInput = {
 };
 
 export type TutorialItemUpdateInput = {
+  /** Manage document localizations */
+  localizations?: InputMaybe<TutorialItemUpdateLocalizationsInput>;
+  /** text input for default locale (en) */
   text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialItemUpdateLocalizationDataInput = {
+  text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialItemUpdateLocalizationInput = {
+  data: TutorialItemUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TutorialItemUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<TutorialItemCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<TutorialItemUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<TutorialItemUpsertLocalizationInput>>;
 };
 
 export type TutorialItemUpdateManyInlineInput = {
@@ -9215,7 +9665,24 @@ export type TutorialItemUpdateManyInlineInput = {
 };
 
 export type TutorialItemUpdateManyInput = {
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<TutorialItemUpdateManyLocalizationsInput>;
+  /** text input for default locale (en) */
   text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialItemUpdateManyLocalizationDataInput = {
+  text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialItemUpdateManyLocalizationInput = {
+  data: TutorialItemUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TutorialItemUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<TutorialItemUpdateManyLocalizationInput>>;
 };
 
 export type TutorialItemUpdateManyWithNestedWhereInput = {
@@ -9257,6 +9724,12 @@ export type TutorialItemUpsertInput = {
   create: TutorialItemCreateInput;
   /** Update document if it exists */
   update: TutorialItemUpdateInput;
+};
+
+export type TutorialItemUpsertLocalizationInput = {
+  create: TutorialItemCreateLocalizationDataInput;
+  locale: Locale;
+  update: TutorialItemUpdateLocalizationDataInput;
 };
 
 export type TutorialItemUpsertWithNestedWhereUniqueAndPositionInput = {
@@ -9363,25 +9836,6 @@ export type TutorialManyWhereInput = {
   items_every?: InputMaybe<TutorialItemWhereInput>;
   items_none?: InputMaybe<TutorialItemWhereInput>;
   items_some?: InputMaybe<TutorialItemWhereInput>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  title_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  title_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  title_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  title_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum TutorialOrderByInput {
@@ -9474,7 +9928,29 @@ export type TutorialParentWhereUniqueInput = {
 export type TutorialUpdateInput = {
   image?: InputMaybe<AssetUpdateOneInlineInput>;
   items?: InputMaybe<TutorialItemUpdateManyInlineInput>;
+  /** Manage document localizations */
+  localizations?: InputMaybe<TutorialUpdateLocalizationsInput>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialUpdateLocalizationDataInput = {
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialUpdateLocalizationInput = {
+  data: TutorialUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TutorialUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<TutorialCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<TutorialUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<TutorialUpsertLocalizationInput>>;
 };
 
 export type TutorialUpdateManyInlineInput = {
@@ -9489,7 +9965,24 @@ export type TutorialUpdateManyInlineInput = {
 };
 
 export type TutorialUpdateManyInput = {
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<TutorialUpdateManyLocalizationsInput>;
+  /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialUpdateManyLocalizationDataInput = {
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TutorialUpdateManyLocalizationInput = {
+  data: TutorialUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type TutorialUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<TutorialUpdateManyLocalizationInput>>;
 };
 
 export type TutorialUpdateManyWithNestedWhereInput = {
@@ -9531,6 +10024,12 @@ export type TutorialUpsertInput = {
   create: TutorialCreateInput;
   /** Update document if it exists */
   update: TutorialUpdateInput;
+};
+
+export type TutorialUpsertLocalizationInput = {
+  create: TutorialCreateLocalizationDataInput;
+  locale: Locale;
+  update: TutorialUpdateLocalizationDataInput;
 };
 
 export type TutorialUpsertWithNestedWhereUniqueAndPositionInput = {
@@ -10115,6 +10614,7 @@ export enum _SystemDateTimeFieldVariation {
 export type PageQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   stage?: Stage;
+  locale: Locale;
 }>;
 
 
@@ -10129,5 +10629,5 @@ export type PdpQueryVariables = Exact<{
 export type PdpQuery = { __typename?: 'Query', pdp?: { __typename: 'Pdp', id: string, slug?: string | null, title?: string | null, description?: string | null, ogImage?: { __typename?: 'Asset', url: string } | null, components: Array<{ __typename: 'ProductList', title?: string | null, relatedProductList?: { __typename?: 'RelatedProductList', relatedProductId?: string | null, relatedProducts?: { __typename?: 'FederateThisSkincre_related', products?: Array<{ __typename?: 'FederateThisSkincre_Product', description?: string | null, id: number, ingredients?: string | null, name: string, price?: number | null, shortDescription?: string | null, slug: string, stock?: number | null, images?: Array<{ __typename?: 'FederateThisSkincre_Image', alt?: string | null, url: string } | null> | null }> | null } | null } | null } | { __typename: 'Routine', id: string, chapeau?: string | null, cta?: string | null, description?: string | null, title?: string | null, url?: string | null, image?: { __typename?: 'Asset', url: string } | null } | { __typename: 'Tutorial', id: string, title?: string | null, image?: { __typename?: 'Asset', url: string } | null, items: Array<{ __typename: 'TutorialItem', text?: string | null }> }>, product?: { __typename?: 'FederateThisSkincre_Product', id: number, slug: string, name: string, price?: number | null, ingredients?: string | null, shortDescription?: string | null, description?: string | null, stock?: number | null, images?: Array<{ __typename?: 'FederateThisSkincre_Image', alt?: string | null, url: string } | null> | null } | null } | null };
 
 
-export const PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Page"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Stage"}}},"defaultValue":{"kind":"EnumValue","value":"PUBLISHED"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"ogImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Editorial"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Card"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Cta"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Hero"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"productFocus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"productId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Routine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PageQuery, PageQueryVariables>;
+export const PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Page"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Stage"}}},"defaultValue":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"ogImage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Editorial"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Card"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Cta"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Hero"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"productFocus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"productId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Routine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PageQuery, PageQueryVariables>;
 export const PdpDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Pdp"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Stage"}}},"defaultValue":{"kind":"EnumValue","value":"PUBLISHED"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pdp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"ogImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tutorial"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Routine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"relatedProductList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relatedProductId"}},{"kind":"Field","name":{"kind":"Name","value":"relatedProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PdpQuery, PdpQueryVariables>;

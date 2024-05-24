@@ -8,7 +8,9 @@
     "build": "dotenv -e .env -- pnpm run -r build",
     "dev:nuxt": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-nuxt dev --port 3001",
     "dev:astro": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-astro dev --port 3002",
-    "dev:next": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-next dev --port 3003"
+    "dev:next": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-next dev --port 3003",
+    "codegen:next": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-next codegen",
+    "codegen:astro": "dotenv -e .env -- pnpm -w run --filter=./packages/cosmetics-shop-astro codegen"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.2",

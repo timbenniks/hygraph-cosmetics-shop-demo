@@ -16,4 +16,12 @@ export default defineConfig({
   image: {
     domains: ["https://media.graphassets.com"],
   },
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "fr"],
+    routing: {
+      prefixDefaultLocale: true,
+      redirectToDefaultLocale: true,
+    },
+  },
 });
