@@ -1,5 +1,12 @@
 # hygraph-cosmetics-shop-demo-nuxt
 
+## 2.2.0
+
+### Minor Changes
+
+- Localization efforts
+- 0b36cff: Readme updates
+
 ## 2.1.0
 
 ### Minor Changes
