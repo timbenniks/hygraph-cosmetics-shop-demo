@@ -1,0 +1,16 @@
+query Navigation {
+  navigation(where: { id: "clwknjrk14u4807w4krsfrz0z" }) {
+    page {
+      ... on Page {
+        __typename
+        slug
+        title
+      }
+      ... on Pdp {
+        __typename
+        slug
+        title
+      }
+    }
+  }
+}

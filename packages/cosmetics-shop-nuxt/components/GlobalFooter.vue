@@ -1,3 +1,17 @@
+<script setup lang="ts">
+const localePath = useLocalePath();
+const { navigation } = await GqlNavigation();
+
+const navigationComputed = computed(() => {
+  return navigation?.page.map((p) => {
+    return {
+      url: localePath(`${p.__typename === "Pdp" ? "/pdp/" : "/"}${p.slug}`),
+      label: p.title,
+    };
+  });
+});
+</script>
+
 <template>
   <footer class="bg-dark text-light mx-auto max-w-screen-2xl">
     <div
@@ -16,10 +30,13 @@
       </div>
 
       <nav class="flex flex-wrap gap-x-6 gap-y-2 items-center md:text-xl">
-        <a href="/pdp/face-serum">face serum</a
-        ><a href="/pdp/face-cream">face cream</a
-        ><a href="/pdp/eye-contour">eye contour</a
-        ><a href="/pdp/bundle">skncre bundle</a>
+        <nuxt-link
+          class="lowercase"
+          v-for="page in navigationComputed"
+          :key="page.label"
+          :to="page.url"
+          >{{ page.label }}</nuxt-link
+        >
       </nav>
     </div>
   </footer>
