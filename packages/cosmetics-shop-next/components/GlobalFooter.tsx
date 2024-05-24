@@ -2,16 +2,42 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { i18n } from "../i18n-config";
 
-export default function GlobalFooter() {
-  const path = usePathname();
+type NavItem = {
+  url: string;
+  label: string;
+};
+
+interface Props {
+  nav: NavItem[];
+}
+
+function addLocaleToPath(pathname: string, wantedUrl: string) {
+  const segments = pathname.split("/");
+  // @ts-ignore
+  const locale = i18n.locales.includes(segments[1]) ? segments[1] : null;
+
+  if (locale) {
+    return `/${locale}${wantedUrl}`;
+  } else {
+    return wantedUrl;
+  }
+}
+
+export default function GlobalFooter({ nav }: Props) {
+  const pathname = usePathname();
 
   let slug = "";
 
-  if (path === "/") {
+  if (pathname === "/") {
+    slug = "home";
+  } else if (pathname === "/en") {
+    slug = "home";
+  } else if (pathname === "/fr") {
     slug = "home";
   } else {
-    slug = path.replace("/pdp/", "");
+    slug = pathname.replace("/fr/pdp/", "").replace("/en/pdp/", "");
   }
 
   return (
@@ -34,12 +60,19 @@ export default function GlobalFooter() {
         </div>
 
         <nav className="flex flex-wrap gap-x-6 gap-y-2 items-center md:text-xl">
-          <Link href="/pdp/face-serum">face serum</Link>
-          <Link href="/pdp/face-cream">face cream</Link>
-          <Link href="/pdp/eye-contour">eye contour</Link>
-          <Link href="/pdp/bundle">skncre bundle</Link>
+          {nav.map((navItem: NavItem) => {
+            return (
+              <Link
+                href={addLocaleToPath(pathname, navItem.url)}
+                key={navItem.label}
+                className="lowercase"
+              >
+                {navItem.label}
+              </Link>
+            );
+          })}
           <Link href={`/api/draft?slug=${slug}&secret=MY_SECRET_TOKEN`}>
-            Draft mode
+            draft mode
           </Link>
         </nav>
       </div>

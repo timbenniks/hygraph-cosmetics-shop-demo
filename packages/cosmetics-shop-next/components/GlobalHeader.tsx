@@ -16,7 +16,16 @@ function addLocaleToPath(pathname: string, wantedUrl: string) {
   }
 }
 
-export default function GlobalHeader() {
+type NavItem = {
+  url: string;
+  label: string;
+};
+
+interface Props {
+  nav: NavItem[];
+}
+
+export default function GlobalHeader({ nav }: Props) {
   const pathname = usePathname();
 
   return (
@@ -26,18 +35,17 @@ export default function GlobalHeader() {
           <span className="font-bold font-title text-3xl self-end">skncre</span>
         </Link>
         <nav className="flex flex-wrap gap-x-6 gap-y-2 items-center md:text-xl">
-          <Link href={addLocaleToPath(pathname, "/pdp/face-serum")}>
-            face serum
-          </Link>
-          <Link href={addLocaleToPath(pathname, "/pdp/face-cream")}>
-            face cream
-          </Link>
-          <Link href={addLocaleToPath(pathname, "/pdp/eye-contour")}>
-            eye contour
-          </Link>
-          <Link href={addLocaleToPath(pathname, "/pdp/bundle")}>
-            skncre bundle
-          </Link>
+          {nav.map((navItem: NavItem) => {
+            return (
+              <Link
+                href={addLocaleToPath(pathname, navItem.url)}
+                key={navItem.label}
+                className="lowercase"
+              >
+                {navItem.label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>
