@@ -1,4 +1,4 @@
-# Hygraph Cosmetics shop demo
+# Commerce demo (Cosmetics Shop)
 
 The Hygraph Cosmetics shop "SKNCRE" is a fictitious cosmetics brand selling costly snail slime skin care products: face serum, face cream, eye contour, and the SKNCRE bundle. What you often see in composable e-commerce is that the product information lives in a specialized management system (a PIM), the content of the website in a CMS, and commerce features such as a cart, checkout, account, and payments in yet another system (a commerce engine).
 
@@ -21,7 +21,21 @@ This demo’s architecture is highly composable, and it would be relatively easy
 - Pages: Landing page, Product list page, Product page, Shopping Cart
 - Notes: Newsletter subscription mutations
 
-## Developer quick start
+## Teachable moments
+
+This demo has a few teachable moments:
+
+- Navigation builder
+- Localisation (EN, FR)
+- Newsletter subscription
+- Page builder setup by using components
+- Preview which queries the Hygraph draft API
+- Remote sources for product data (Federate this, later Shopify or cmmercetools)
+
+## For developers
+
+This is a monorepo (pnpm workspace). Each package has its own git repository.
+The monorepo is a private repo on github where the packages are public facing.
 
 ### Install
 
@@ -29,7 +43,18 @@ This demo’s architecture is highly composable, and it would be relatively easy
 pnpm i
 ```
 
+### Codegen
+
+Nuxt has its own codegen on project start. The others need codegen when queries are updated.
+
+```
+pnpm run codegen:next
+pnpm run codegen:astro
+```
+
 ### Run locally
+
+Each packages ha it’s own port assigned.
 
 ```
 pnpm run dev:nuxt
@@ -43,11 +68,15 @@ pnpm run dev:astro
 pnpm run build
 ```
 
-### Publish
+### Publishing
 
-Install `jq`
+First run `pnpm changeset` and follow the steps. Commit everything.
+Than run `pnpm changeset version` and follow the steps. Commit everything.
 
-```
-brew install jq
-sh publish.sh
-```
+Push all packages to their indiviual repos.
+
+### Environment variables
+
+The mono repo has one `.env` file which contains all variables for all packages. Upon running any npm script the `.env` is copied to the current package.
+
+See the `.env.example` file.
