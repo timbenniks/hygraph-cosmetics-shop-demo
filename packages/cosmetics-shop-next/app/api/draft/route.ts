@@ -30,6 +30,5 @@ export async function GET(request: Request) {
 
   draftMode().enable()
 
-
   redirect(finalPage.slug === "home" ? "/" : `/pdp/${finalPage.slug}`)
 }

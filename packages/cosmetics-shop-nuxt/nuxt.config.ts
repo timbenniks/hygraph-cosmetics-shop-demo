@@ -21,10 +21,17 @@ export default defineNuxtConfig({
     vueI18n: "./i18n.config.ts"
   },
 
-  runtimeConfig: {
-    public: {
-      GQL_HOST: process.env.NUXT_HYGRAPH_ENDPOINT
+  'graphql-client': {
+    clients: {
+      default: {
+        host: process.env.NUXT_HYGRAPH_ENDPOINT as string,
+      }
     }
+  },
+
+  runtimeConfig: {
+    hygraphEndpoint: process.env.NUXT_HYGRAPH_ENDPOINT,
+    hygraphToken: process.env.NUXT_HYGRAPH_TOKEN
   },
 
   googleFonts: {

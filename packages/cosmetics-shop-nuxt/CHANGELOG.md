@@ -1,5 +1,11 @@
 # hygraph-cosmetics-shop-demo-nuxt
 
+## 1.4.0
+
+### Minor Changes
+
+- newsletter
+
 ## 2.3.0
 
 ### Minor Changes
