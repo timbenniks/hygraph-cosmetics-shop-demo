@@ -38,6 +38,22 @@ This demo has a few teachable moments:
 - Remote sources for product data (Federate this, later Shopify or commercetools)
   - Currently [Federate This](https://federatethis.com) has been connected as a remote GraphQL source. Read more about [remote sources](https://hygraph.com/docs/guides/schema/remote-sources).
 
+## Setup without running the code
+
+Prerequisites:
+
+- Vercel Account
+- Github Account
+- Hygraph Account
+
+Steps:
+
+1. [Clone](https://app.hygraph.com/clone/f67b7c52af504cd9a19de912423b2e40?name=Hygraph%20Cosmetics%20Shop) the hygraph project.
+2. Deploy to Vercel with this [quick link](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftimbenniks%2Fhygraph-cosmetics-shop-demo-next&env=NEXT_HYGRAPH_ENDPOINT&envDescription=Hygraph%20Performance%20endpioint&project-name=hygraph-cosmetics-shop-demo-next&repository-name=hygraph-cosmetics-shop-demo-next&demo-title=Hygraph%20Cosmetics%20Shop%20Demo&demo-description=Commerce%20demo%20with%20composability%20inthe%20cosmetics%20space&demo-url=https%3A%2F%2Fskncre-cosmetics-hygraph.vercel.app%2F&demo-image=https%3A%2F%2Fmedia.graphassets.com%2F2rkpPVMT6mliFXMg3AYS).
+3. Make sure to copy the live URL Vercel gives you and set up preview in the Schema editor in Hygraph by replacing the link in there with the link you got from Vercel.
+4. Make sure to set up the permissions for the content delivery API to be “read all models on all stages for all locales”. This allows for preview functionality.
+5. Add a permanent auth token to allow for read, create update and delete on the Newsletter Subscriber schema. add this token to the .env file of the demo (see below).
+
 ## For developers
 
 This is a monorepo (pnpm workspace). Each package has its own git repository. The monorepo is a private repo on github where the packages are public facing.
