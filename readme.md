@@ -31,9 +31,12 @@ This demo has a few teachable moments:
   - For the simplicity of this demo only the homepage and its components have been localized. Both the navigation and the newsletter have not been localized.
 - Newsletter subscription
   - The newsletter subscription works via a mutation which adds a new content entry to the Newsletter Subscriber model with an email address. There is a specific token setup in this demo which allows emails to be added in draft mode.
-- Page builder setup by using components
-- Preview which queries the Hygraph draft API
+- Page builder setup by using components.
+  - This demo makes use of [components](https://hygraph.com/docs/guides/schema/components) attached to the page schema. There are 10 components, all usable to make content editor more easy.
+- Preview which queries the Hygraph draft API.
+  - Each page has [preview](https://hygraph.com/docs/guides/schema/preview-urls) set up from the sidebar. The front-end will read the DRAFT API in case there preview URL has been used.
 - Remote sources for product data (Federate this, later Shopify or commercetools)
+  - Currently [Federate This](https://federatethis.com) has been connected as a remote GraphQL source. Read more about [remote sources](https://hygraph.com/docs/guides/schema/remote-sources).
 
 ## For developers
 
