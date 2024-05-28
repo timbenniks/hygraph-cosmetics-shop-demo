@@ -26,16 +26,24 @@ This demo’s architecture is highly composable, and it would be relatively easy
 This demo has a few teachable moments:
 
 - Navigation builder
+  - This demo has a the simplest form of a navigation builder schema. It has a Page field that can hold multiple pages. One GraphQL query will receive all pages for the front-end to render.
 - Localisation (EN, FR)
+  - For the simplicity of this demo only the homepage and its components have been localized. Both the navigation and the newsletter have not been localized.
 - Newsletter subscription
+  - The newsletter subscription works via a mutation which adds a new content entry to the Newsletter Subscriber model with an email address. There is a specific token setup in this demo which allows emails to be added in draft mode.
 - Page builder setup by using components
 - Preview which queries the Hygraph draft API
-- Remote sources for product data (Federate this, later Shopify or cmmercetools)
+- Remote sources for product data (Federate this, later Shopify or commercetools)
 
 ## For developers
 
-This is a monorepo (pnpm workspace). Each package has its own git repository.
-The monorepo is a private repo on github where the packages are public facing.
+This is a monorepo (pnpm workspace). Each package has its own git repository. The monorepo is a private repo on github where the packages are public facing.
+
+### Hygraph Setup
+
+Make sure to set up the permissions for the content delivery API to be “read all models on all stages for all locales”. This allows for preview functionality.
+
+Add a permanent auth token to allow for read, create update and delete on the Newsletter Subscriber schema. add this token to the .env file of the demo (see below).
 
 ### Install
 
@@ -80,3 +88,18 @@ Push all packages to their indiviual repos.
 The mono repo has one `.env` file which contains all variables for all packages. Upon running any npm script the `.env` is copied to the current package.
 
 See the `.env.example` file.
+
+```
+HYGRAPH_ENDPOINT="<endpoint>"
+HYGRAPH_TOKEN="<token>"
+
+NUXT_HYGRAPH_ENDPOINT=$HYGRAPH_ENDPOINT
+NEXT_HYGRAPH_ENDPOINT=$HYGRAPH_ENDPOINT
+ASTRO_HYGRAPH_ENDPOINT=$HYGRAPH_ENDPOINT
+
+NUXT_HYGRAPH_TOKEN=$HYGRAPH_TOKEN
+NEXT_HYGRAPH_TOKEN=$HYGRAPH_TOKEN
+ASTRO_HYGRAPH_TOKEN=$HYGRAPH_TOKEN
+
+ASTRO_HYGRAPH_IS_PREVIEW="no"
+```
