@@ -53,6 +53,7 @@ Steps:
 3. Make sure to copy the live URL Vercel gives you and set up preview in the Schema editor in Hygraph by replacing the link in there with the link you got from Vercel.
 4. Make sure to set up the permissions for the content delivery API to be “read all models on all stages for all locales”. This allows for preview functionality.
 5. Add a permanent auth token to allow for read, create update and delete on the Newsletter Subscriber schema. add this token to the .env file of the demo (see below).
+6. Make sure to install and configure the commercetools extension as this is not copied when cloning the project.
 
 ## For developers
 
@@ -60,9 +61,9 @@ This is a monorepo (pnpm workspace). Each package has its own git repository. Th
 
 ### Hygraph Setup
 
-Make sure to set up the permissions for the content delivery API to be “read all models on all stages for all locales”. This allows for preview functionality.
-
-Add a permanent auth token to allow for read, create update and delete on the Newsletter Subscriber schema. add this token to the .env file of the demo (see below).
+1. Make sure to set up the permissions for the content delivery API to be “read all models on all stages for all locales”. This allows for preview functionality.
+2. Add a permanent auth token to allow for read, create update and delete on the Newsletter Subscriber schema. add this token to the .env file of the demo (see below).
+3. Make sure to install and configure the commercetools extension as this is not copied when cloning the project.
 
 ### Install
 
