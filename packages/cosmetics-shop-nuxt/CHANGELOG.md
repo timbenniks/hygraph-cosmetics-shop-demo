@@ -1,5 +1,11 @@
 # hygraph-cosmetics-shop-demo-nuxt
 
+## 2.0.0
+
+### Major Changes
+
+- Commercetools and reviews added
+
 ## 1.4.0
 
 ### Minor Changes
