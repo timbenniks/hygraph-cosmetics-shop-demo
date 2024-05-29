@@ -9,6 +9,7 @@ useOgtags(product);
 
 <template>
   <RenderPage :data="product">
-    <ProductDetail :product="product.product" />
+    <ProductDetail :product="product.commercetoolsProduct" />
+    <ProductReviews v-if="product.reviews" :reviews="product.reviews.data" />
   </RenderPage>
 </template>

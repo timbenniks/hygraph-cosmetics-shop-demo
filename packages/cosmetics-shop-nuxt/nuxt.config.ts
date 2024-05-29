@@ -31,7 +31,12 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     hygraphEndpoint: process.env.NUXT_HYGRAPH_ENDPOINT,
-    hygraphToken: process.env.NUXT_HYGRAPH_TOKEN
+    hygraphToken: process.env.NUXT_HYGRAPH_TOKEN,
+    ctpClientId: process.env.NUXT_CTP_CLIENT_ID,
+    ctpClientSecret: process.env.NUXT_CTP_CLIENT_SECRET,
+    ctpUrl: process.env.NUXT_CTP_URL,
+    ctpProject: process.env.NUXT_CTP_PROJECT,
+    ctpToken: process.env.NUXT_CTP_TOKEN
   },
 
   googleFonts: {
