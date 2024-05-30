@@ -4,6 +4,7 @@ import type { PdpQuery } from "@/gql/graphql";
 import { getPdp } from "@/queries/getPdp";
 import ComponentRenderer from "@/components/ComponentRenderer";
 import ProductDetail from "@/components/ProductDetail";
+import ProductReviews from "@/components/ProductReviews";
 
 type Props = {
   params: { product: string };
@@ -47,7 +48,8 @@ export default async function Home({
   );
   return (
     <main className="max-w-screen-2xl mx-auto">
-      <ProductDetail product={pdp?.product} />
+      <ProductDetail product={pdp?.commercetoolsProduct} />
+      <ProductReviews reviews={pdp?.reviews} />
 
       <section className="mb-12">
         <ComponentRenderer data={pdp?.components} />

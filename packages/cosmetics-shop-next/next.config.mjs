@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "federate-this-astro.vercel.app",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "images.cdn.europe-west1.gcp.commercetools.com",
+        port: "",
+      },
     ],
   },
 };

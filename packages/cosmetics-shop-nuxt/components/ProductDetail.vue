@@ -42,6 +42,8 @@ async function addtocart() {
       <img
         v-for="image in images"
         :src="`${image.url}`"
+        width="600"
+        height="600"
         :alt="mappedProduct.name"
         class="aspect-[1/1] object-cover"
       />
