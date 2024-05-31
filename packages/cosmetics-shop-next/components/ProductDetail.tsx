@@ -74,7 +74,7 @@ export default function ProductDetail({ product }: Props) {
           <p className="text-5xl font-bold font-title mb-4">${price}</p>
           <form onSubmit={handleSubmit}>
             <button className="cta" type="submit">
-              add to cart - {adding ? "adding to cart" : ""}
+              {adding ? "adding to cart" : "add to cart"}
             </button>
           </form>
         </div>

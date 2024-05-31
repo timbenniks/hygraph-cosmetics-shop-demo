@@ -14,6 +14,16 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /** [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) country code. */
+  Commercetools_Country: { input: any; output: any; }
+  /** Represents a currency. Currencies are identified by their [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm) currency codes. */
+  Commercetools_Currency: { input: any; output: any; }
+  /** Locale is a scalar value represented as a string language tag. */
+  Commercetools_Locale: { input: any; output: any; }
+  /** The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1. */
+  Commercetools_Long: { input: any; output: any; }
+  /** A set. */
+  Commercetools_Set: { input: any; output: any; }
   /** A date string, such as 2007-12-03 (YYYY-MM-DD), compliant with ISO 8601 standard for representation of dates using the Gregorian calendar. */
   Date: { input: any; output: any; }
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-timeformat outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representationof dates and times using the Gregorian calendar. */
@@ -1239,6 +1249,6317 @@ export type ColorInput = {
   rgba?: InputMaybe<RgbaInput>;
 };
 
+export type Commercetools_AwsLambdaDestination = Commercetools_ExtensionDestination & {
+  __typename?: 'Commercetools_AWSLambdaDestination';
+  accessKey: Scalars['String']['output'];
+  accessSecret: Scalars['String']['output'];
+  arn: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AbsoluteDiscountValue = Commercetools_CartDiscountValue & Commercetools_ProductDiscountValue & {
+  __typename?: 'Commercetools_AbsoluteDiscountValue';
+  money: Array<Commercetools_Money>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_ActionType {
+  Create = 'Create',
+  Update = 'Update'
+}
+
+export type Commercetools_AddStagedOrderCustomLineItemOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderCustomLineItemOutput';
+  draft: Commercetools_CustomLineItemDraftOutput;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AddStagedOrderDeliveryOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderDeliveryOutput';
+  address?: Maybe<Commercetools_AddressDraft>;
+  custom?: Maybe<Commercetools_CustomFieldsCommand>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  items: Array<Commercetools_DeliveryItem>;
+  parcels: Array<Commercetools_ParcelData>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AddStagedOrderDiscountCodeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderDiscountCodeOutput';
+  code: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  validateDuplicates: Scalars['Boolean']['output'];
+};
+
+export type Commercetools_AddStagedOrderItemShippingAddressOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderItemShippingAddressOutput';
+  address: Commercetools_AddressDraft;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AddStagedOrderLineItemOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderLineItemOutput';
+  draft: Commercetools_LineItemDraftOutput;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AddStagedOrderParcelToDeliveryOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderParcelToDeliveryOutput';
+  custom?: Maybe<Commercetools_CustomFieldsCommand>;
+  deliveryId?: Maybe<Scalars['String']['output']>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  items: Array<Commercetools_DeliveryItem>;
+  measurements?: Maybe<Commercetools_ParcelMeasurements>;
+  parcelKey?: Maybe<Scalars['String']['output']>;
+  trackingData?: Maybe<Commercetools_TrackingData>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AddStagedOrderPaymentOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderPaymentOutput';
+  paymentResId: Commercetools_ResourceIdentifier;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AddStagedOrderReturnInfoOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderReturnInfoOutput';
+  items: Array<Commercetools_ReturnItemDraftTypeOutput>;
+  returnDate?: Maybe<Scalars['DateTime']['output']>;
+  returnTrackingId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AddStagedOrderShoppingListOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_AddStagedOrderShoppingListOutput';
+  distributionChannelResId?: Maybe<Commercetools_ChannelReferenceIdentifier>;
+  shoppingListResId: Commercetools_ResourceIdentifier;
+  supplyChannelResId?: Maybe<Commercetools_ChannelReferenceIdentifier>;
+  type: Scalars['String']['output'];
+};
+
+/** An address represents a postal address. */
+export type Commercetools_Address = {
+  __typename?: 'Commercetools_Address';
+  additionalAddressInfo?: Maybe<Scalars['String']['output']>;
+  additionalStreetInfo?: Maybe<Scalars['String']['output']>;
+  apartment?: Maybe<Scalars['String']['output']>;
+  building?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  company?: Maybe<Scalars['String']['output']>;
+  country: Scalars['Commercetools_Country']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  department?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  externalId?: Maybe<Scalars['String']['output']>;
+  fax?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  mobile?: Maybe<Scalars['String']['output']>;
+  pOBox?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  region?: Maybe<Scalars['String']['output']>;
+  salutation?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  streetName?: Maybe<Scalars['String']['output']>;
+  streetNumber?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_AddressDraft = {
+  __typename?: 'Commercetools_AddressDraft';
+  additionalAddressInfo?: Maybe<Scalars['String']['output']>;
+  additionalStreetInfo?: Maybe<Scalars['String']['output']>;
+  apartment?: Maybe<Scalars['String']['output']>;
+  building?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  company?: Maybe<Scalars['String']['output']>;
+  country: Scalars['Commercetools_Country']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsCommand>;
+  department?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  externalId?: Maybe<Scalars['String']['output']>;
+  fax?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  mobile?: Maybe<Scalars['String']['output']>;
+  pOBox?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  region?: Maybe<Scalars['String']['output']>;
+  salutation?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  streetName?: Maybe<Scalars['String']['output']>;
+  streetNumber?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_Applied = Commercetools_OrderEditResult & {
+  __typename?: 'Commercetools_Applied';
+  appliedAt: Scalars['DateTime']['output'];
+  excerptAfterEdit: Commercetools_OrderExcerpt;
+  excerptBeforeEdit: Commercetools_OrderExcerpt;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalFlow = Commercetools_Versioned & {
+  __typename?: 'Commercetools_ApprovalFlow';
+  approvals: Array<Commercetools_ApprovalFlowApproval>;
+  businessUnit: Commercetools_BusinessUnit;
+  businessUnitRef: Commercetools_KeyReference;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  currentTierPendingApprovers: Array<Commercetools_RuleApprover>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  eligibleApprovers: Array<Commercetools_RuleApprover>;
+  id: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  order?: Maybe<Commercetools_Order>;
+  orderRef: Commercetools_Reference;
+  pendingApprovers: Array<Commercetools_RuleApprover>;
+  rejection?: Maybe<Commercetools_ApprovalFlowRejection>;
+  rules: Array<Commercetools_ApprovalRule>;
+  status: Scalars['String']['output'];
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ApprovalFlowApproval = {
+  __typename?: 'Commercetools_ApprovalFlowApproval';
+  approvedAt: Scalars['DateTime']['output'];
+  approver: Commercetools_Associate;
+};
+
+export type Commercetools_ApprovalFlowApproved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalFlowApproved';
+  associate?: Maybe<Commercetools_Customer>;
+  associateRef?: Maybe<Commercetools_Reference>;
+  order?: Maybe<Commercetools_Order>;
+  orderRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalFlowCompleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalFlowCompleted';
+  order?: Maybe<Commercetools_Order>;
+  orderRef?: Maybe<Commercetools_Reference>;
+  status: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalFlowCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalFlowCreated';
+  approvalFlow: Commercetools_ApprovalFlow;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalFlowRejected = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalFlowRejected';
+  associate?: Maybe<Commercetools_Customer>;
+  associateRef?: Maybe<Commercetools_Reference>;
+  order?: Maybe<Commercetools_Order>;
+  orderRef?: Maybe<Commercetools_Reference>;
+  rejectionReason?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalFlowRejection = {
+  __typename?: 'Commercetools_ApprovalFlowRejection';
+  reason?: Maybe<Scalars['String']['output']>;
+  rejectedAt: Scalars['DateTime']['output'];
+  rejecter: Commercetools_Associate;
+};
+
+export type Commercetools_ApprovalRule = Commercetools_Versioned & {
+  __typename?: 'Commercetools_ApprovalRule';
+  approvers: Commercetools_ApproverHierarchy;
+  businessUnit: Commercetools_BusinessUnit;
+  businessUnitRef: Commercetools_KeyReference;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name: Scalars['String']['output'];
+  predicate: Scalars['String']['output'];
+  requesters: Array<Commercetools_RuleRequester>;
+  status: Commercetools_ApprovalRuleStatus;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ApprovalRuleApproversSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalRuleApproversSet';
+  approvers: Commercetools_ApproverHierarchy;
+  oldApprovers: Commercetools_ApproverHierarchy;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalRuleCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalRuleCreated';
+  approvalRule: Commercetools_ApprovalRule;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalRuleDescriptionSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalRuleDescriptionSet';
+  description?: Maybe<Scalars['String']['output']>;
+  oldDescription?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalRuleKeySet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalRuleKeySet';
+  key?: Maybe<Scalars['String']['output']>;
+  oldKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalRuleNameSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalRuleNameSet';
+  name: Scalars['String']['output'];
+  oldName: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalRulePredicateSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalRulePredicateSet';
+  oldPredicate: Scalars['String']['output'];
+  predicate: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApprovalRuleRequestersSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalRuleRequestersSet';
+  oldRequesters: Array<Commercetools_RuleRequester>;
+  requesters: Array<Commercetools_RuleRequester>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_ApprovalRuleStatus {
+  Active = 'Active',
+  Inactive = 'Inactive'
+}
+
+export type Commercetools_ApprovalRuleStatusSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ApprovalRuleStatusSet';
+  oldStatus: Commercetools_ApprovalRuleStatus;
+  status: Commercetools_ApprovalRuleStatus;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ApproverConjunction = {
+  __typename?: 'Commercetools_ApproverConjunction';
+  and: Array<Commercetools_ApproverDisjunction>;
+};
+
+export type Commercetools_ApproverDisjunction = {
+  __typename?: 'Commercetools_ApproverDisjunction';
+  or: Array<Commercetools_RuleApprover>;
+};
+
+export type Commercetools_ApproverHierarchy = {
+  __typename?: 'Commercetools_ApproverHierarchy';
+  tiers: Array<Commercetools_ApproverConjunction>;
+};
+
+export type Commercetools_Asset = {
+  __typename?: 'Commercetools_Asset';
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  sources: Array<Commercetools_AssetSource>;
+  tags: Array<Scalars['String']['output']>;
+};
+
+
+export type Commercetools_AssetDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_AssetNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_AssetDimensions = {
+  __typename?: 'Commercetools_AssetDimensions';
+  height: Scalars['Int']['output'];
+  width: Scalars['Int']['output'];
+};
+
+export type Commercetools_AssetSource = {
+  __typename?: 'Commercetools_AssetSource';
+  contentType?: Maybe<Scalars['String']['output']>;
+  dimensions?: Maybe<Commercetools_AssetDimensions>;
+  key?: Maybe<Scalars['String']['output']>;
+  uri: Scalars['String']['output'];
+};
+
+export type Commercetools_Associate = {
+  __typename?: 'Commercetools_Associate';
+  associateRoleAssignments: Array<Commercetools_AssociateRoleAssignment>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerRef?: Maybe<Commercetools_Reference>;
+};
+
+export enum Commercetools_AssociateInheritanceMode {
+  Disabled = 'Disabled',
+  Enabled = 'Enabled'
+}
+
+export type Commercetools_AssociateRole = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_AssociateRole';
+  buyerAssignable: Scalars['Boolean']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  key: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name?: Maybe<Scalars['String']['output']>;
+  permissions: Array<Commercetools_Permission>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_AssociateRoleAssignment = {
+  __typename?: 'Commercetools_AssociateRoleAssignment';
+  associateRole: Commercetools_AssociateRole;
+  associateRoleRef?: Maybe<Commercetools_KeyReference>;
+  inheritance: Commercetools_AssociateInheritanceMode;
+};
+
+export type Commercetools_AssociateRoleBuyerAssignableChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_AssociateRoleBuyerAssignableChanged';
+  buyerAssignable: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AssociateRoleCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_AssociateRoleCreated';
+  associateRole: Commercetools_AssociateRole;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AssociateRoleDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_AssociateRoleDeleted';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AssociateRoleNameSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_AssociateRoleNameSet';
+  name?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AssociateRolePermissionAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_AssociateRolePermissionAdded';
+  permission: Commercetools_Permission;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AssociateRolePermissionRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_AssociateRolePermissionRemoved';
+  permission: Commercetools_Permission;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AssociateRolePermissionsSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_AssociateRolePermissionsSet';
+  permissions?: Maybe<Array<Commercetools_Permission>>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_AttributeConstraint {
+  /** A set of attributes, that have this constraint, should have different combinations in each variant */
+  CombinationUnique = 'CombinationUnique',
+  /** No constraints are applied to the attribute */
+  None = 'None',
+  /** Attribute value should be the same in all variants */
+  SameForAll = 'SameForAll',
+  /** Attribute value should be different in each variant */
+  Unique = 'Unique'
+}
+
+export type Commercetools_AttributeDefinition = {
+  __typename?: 'Commercetools_AttributeDefinition';
+  attributeConstraint: Commercetools_AttributeConstraint;
+  inputHint: Commercetools_TextInputHint;
+  inputTip?: Maybe<Scalars['String']['output']>;
+  inputTipAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  isRequired: Scalars['Boolean']['output'];
+  isSearchable: Scalars['Boolean']['output'];
+  label?: Maybe<Scalars['String']['output']>;
+  labelAllLocales: Array<Commercetools_LocalizedString>;
+  name: Scalars['String']['output'];
+  type: Commercetools_AttributeDefinitionType;
+};
+
+
+export type Commercetools_AttributeDefinitionInputTipArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_AttributeDefinitionLabelArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_AttributeDefinitionResult = {
+  __typename?: 'Commercetools_AttributeDefinitionResult';
+  limit?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  results: Array<Commercetools_AttributeDefinition>;
+  total: Scalars['Int']['output'];
+};
+
+/** (https://docs.commercetools.com/api/projects/productTypes#attributetype)[https://docs.commercetools.com/api/projects/productTypes#attributetype] */
+export type Commercetools_AttributeDefinitionType = {
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_AttributeGroup = Commercetools_Versioned & {
+  __typename?: 'Commercetools_AttributeGroup';
+  attributes: Array<Commercetools_AttributeReference>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_AttributeGroupDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_AttributeGroupNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_AttributeReference = {
+  __typename?: 'Commercetools_AttributeReference';
+  key: Scalars['String']['output'];
+};
+
+export type Commercetools_Attribution = {
+  __typename?: 'Commercetools_Attribution';
+  clientId?: Maybe<Scalars['String']['output']>;
+  source: Commercetools_AttributionSource;
+  userRef?: Maybe<Commercetools_Reference>;
+};
+
+export enum Commercetools_AttributionSource {
+  Export = 'Export',
+  Import = 'Import'
+}
+
+/** AuthenticationMode values. */
+export enum Commercetools_AuthenticationMode {
+  ExternalAuth = 'ExternalAuth',
+  Password = 'Password'
+}
+
+export type Commercetools_AuthorizationHeader = Commercetools_HttpDestinationAuthentication & {
+  __typename?: 'Commercetools_AuthorizationHeader';
+  headerValue: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_AwsAuthenticationMode {
+  Credentials = 'Credentials',
+  Iam = 'IAM'
+}
+
+export type Commercetools_AzureFunctionsAuthentication = Commercetools_HttpDestinationAuthentication & {
+  __typename?: 'Commercetools_AzureFunctionsAuthentication';
+  key: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_AzureServiceBusDestination = Commercetools_Destination & {
+  __typename?: 'Commercetools_AzureServiceBusDestination';
+  connectionString: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BaseMoney = {
+  centAmount: Scalars['Commercetools_Long']['output'];
+  currencyCode: Scalars['Commercetools_Currency']['output'];
+  fractionDigits: Scalars['Int']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BooleanAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_BooleanAttributeDefinitionType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_BooleanType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_BooleanType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnit = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_BusinessUnit';
+  addresses: Array<Commercetools_Address>;
+  /** This field contains the BusinessUnits KeyReferences from the Company to the parent Division of this BusinessUnit in that order. */
+  ancestors: Array<Commercetools_BusinessUnit>;
+  approvalRuleMode?: Maybe<Commercetools_BusinessUnitApprovalRuleMode>;
+  associateMode: Commercetools_BusinessUnitAssociateMode;
+  associates: Array<Commercetools_Associate>;
+  billingAddressIds: Array<Scalars['String']['output']>;
+  billingAddresses: Array<Commercetools_Address>;
+  contactEmail?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  defaultBillingAddress?: Maybe<Commercetools_Address>;
+  defaultBillingAddressId?: Maybe<Scalars['String']['output']>;
+  defaultShippingAddress?: Maybe<Commercetools_Address>;
+  defaultShippingAddressId?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  inheritedAssociates?: Maybe<Array<Commercetools_InheritedAssociate>>;
+  /** This field contains the inherited stores from its parentUnit if storeMode is set to FromParent. */
+  inheritedStores?: Maybe<Array<Commercetools_InheritedStore>>;
+  key: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name: Scalars['String']['output'];
+  parentUnit?: Maybe<Commercetools_BusinessUnit>;
+  parentUnitRef?: Maybe<Commercetools_KeyReference>;
+  shippingAddressIds: Array<Scalars['String']['output']>;
+  shippingAddresses: Array<Commercetools_Address>;
+  status: Commercetools_BusinessUnitStatus;
+  storeMode?: Maybe<Scalars['String']['output']>;
+  stores?: Maybe<Array<Commercetools_Store>>;
+  storesRef?: Maybe<Array<Commercetools_KeyReference>>;
+  topLevelUnit: Commercetools_BusinessUnit;
+  topLevelUnitRef?: Maybe<Commercetools_KeyReference>;
+  unitType: Commercetools_BusinessUnitType;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_BusinessUnitAddressAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAddressAdded';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAddressChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAddressChanged';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAddressCustomFieldAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAddressCustomFieldAdded';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_BusinessUnitAddressCustomFieldChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAddressCustomFieldChanged';
+  name: Scalars['String']['output'];
+  oldValue?: Maybe<Scalars['Json']['output']>;
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_BusinessUnitAddressCustomFieldRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAddressCustomFieldRemoved';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAddressCustomTypeRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAddressCustomTypeRemoved';
+  oldTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAddressCustomTypeSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAddressCustomTypeSet';
+  customFields: Commercetools_CustomFieldsType;
+  oldTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAddressRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAddressRemoved';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_BusinessUnitApprovalRuleMode {
+  Explicit = 'Explicit',
+  ExplicitAndFromParent = 'ExplicitAndFromParent'
+}
+
+export type Commercetools_BusinessUnitApprovalRuleModeChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitApprovalRuleModeChanged';
+  approvalRuleMode: Commercetools_BusinessUnitApprovalRuleMode;
+  oldApprovalRuleMode?: Maybe<Commercetools_BusinessUnitApprovalRuleMode>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAssociateAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAssociateAdded';
+  associate: Commercetools_Associate;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAssociateChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAssociateChanged';
+  associate: Commercetools_Associate;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_BusinessUnitAssociateMode {
+  Explicit = 'Explicit',
+  ExplicitAndFromParent = 'ExplicitAndFromParent'
+}
+
+export type Commercetools_BusinessUnitAssociateModeChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAssociateModeChanged';
+  associateMode: Commercetools_BusinessUnitAssociateMode;
+  oldAssociateMode?: Maybe<Commercetools_BusinessUnitAssociateMode>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAssociateRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAssociateRemoved';
+  associate: Commercetools_Associate;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitAssociatesSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitAssociatesSet';
+  associates: Array<Commercetools_Associate>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitBillingAddressAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitBillingAddressAdded';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitBillingAddressRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitBillingAddressRemoved';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitContactEmailSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitContactEmailSet';
+  contactEmail?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitCreated';
+  businessUnit: Commercetools_BusinessUnit;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitCustomFieldAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitCustomFieldAdded';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_BusinessUnitCustomFieldChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitCustomFieldChanged';
+  name: Scalars['String']['output'];
+  oldValue?: Maybe<Scalars['Json']['output']>;
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_BusinessUnitCustomFieldRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitCustomFieldRemoved';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitCustomTypeRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitCustomTypeRemoved';
+  oldTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitCustomTypeSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitCustomTypeSet';
+  customFields: Commercetools_CustomFieldsType;
+  oldTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitDefaultBillingAddressSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitDefaultBillingAddressSet';
+  address?: Maybe<Commercetools_Address>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitDefaultShippingAddressSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitDefaultShippingAddressSet';
+  address?: Maybe<Commercetools_Address>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitDeleted';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitNameChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitNameChanged';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitParentChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitParentChanged';
+  newParentUnit?: Maybe<Commercetools_BusinessUnit>;
+  newParentUnitRef?: Maybe<Commercetools_KeyReference>;
+  oldParentUnit?: Maybe<Commercetools_BusinessUnit>;
+  oldParentUnitRef?: Maybe<Commercetools_KeyReference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitShippingAddressAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitShippingAddressAdded';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitShippingAddressRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitShippingAddressRemoved';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_BusinessUnitStatus {
+  Active = 'Active',
+  Inactive = 'Inactive'
+}
+
+export type Commercetools_BusinessUnitStatusChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitStatusChanged';
+  status: Commercetools_BusinessUnitStatus;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitStoreAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitStoreAdded';
+  store: Commercetools_Store;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitStoreModeChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitStoreModeChanged';
+  oldStoreMode: Scalars['String']['output'];
+  oldStores?: Maybe<Array<Commercetools_Store>>;
+  oldStoresRef?: Maybe<Array<Commercetools_KeyReference>>;
+  storeMode: Scalars['String']['output'];
+  stores?: Maybe<Array<Commercetools_Store>>;
+  storesRef?: Maybe<Array<Commercetools_KeyReference>>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitStoreRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitStoreRemoved';
+  store: Commercetools_Store;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_BusinessUnitStoresSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_BusinessUnitStoresSet';
+  stores: Array<Commercetools_Store>;
+  storesRef: Array<Commercetools_KeyReference>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_BusinessUnitType {
+  Company = 'Company',
+  Division = 'Division'
+}
+
+/** A shopping cart holds product variants and can be ordered. Each cart either belongs to a registered customer or is an anonymous cart. */
+export type Commercetools_Cart = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Cart';
+  anonymousId?: Maybe<Scalars['String']['output']>;
+  billingAddress?: Maybe<Commercetools_Address>;
+  businessUnit?: Maybe<Commercetools_BusinessUnit>;
+  businessUnitRef?: Maybe<Commercetools_KeyReference>;
+  cartState: Commercetools_CartState;
+  country?: Maybe<Scalars['Commercetools_Country']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customLineItems: Array<Commercetools_CustomLineItem>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerEmail?: Maybe<Scalars['String']['output']>;
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  customerId?: Maybe<Scalars['String']['output']>;
+  deleteDaysAfterLastModification?: Maybe<Scalars['Int']['output']>;
+  directDiscounts: Array<Commercetools_DirectDiscount>;
+  discountCodes: Array<Commercetools_DiscountCodeInfo>;
+  discountOnTotalPrice?: Maybe<Commercetools_DiscountOnTotalPrice>;
+  id: Scalars['String']['output'];
+  inventoryMode: Commercetools_InventoryMode;
+  itemShippingAddresses: Array<Commercetools_Address>;
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  lineItems: Array<Commercetools_LineItem>;
+  locale?: Maybe<Scalars['Commercetools_Locale']['output']>;
+  origin: Commercetools_CartOrigin;
+  paymentInfo?: Maybe<Commercetools_PaymentInfo>;
+  refusedGifts: Array<Commercetools_CartDiscount>;
+  refusedGiftsRefs: Array<Commercetools_Reference>;
+  shipping: Array<Commercetools_Shipping>;
+  shippingAddress?: Maybe<Commercetools_Address>;
+  shippingCustomFields?: Maybe<Commercetools_CustomFieldsType>;
+  shippingInfo?: Maybe<Commercetools_ShippingInfo>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  shippingMode: Commercetools_ShippingMode;
+  shippingRateInput?: Maybe<Commercetools_ShippingRateInput>;
+  store?: Maybe<Commercetools_Store>;
+  storeRef?: Maybe<Commercetools_KeyReference>;
+  taxCalculationMode: Commercetools_TaxCalculationMode;
+  taxMode: Commercetools_TaxMode;
+  taxRoundingMode: Commercetools_RoundingMode;
+  taxedPrice?: Maybe<Commercetools_TaxedPrice>;
+  taxedShippingPrice?: Maybe<Commercetools_TaxedPrice>;
+  totalLineItemQuantity?: Maybe<Scalars['Commercetools_Long']['output']>;
+  totalPrice: Commercetools_Money;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/** A shopping cart holds product variants and can be ordered. Each cart either belongs to a registered customer or is an anonymous cart. */
+export type Commercetools_CartLineItemsArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Commercetools_CartCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CartCreated';
+  discountCodesRefs: Array<Commercetools_Reference>;
+  lineItemCount: Scalars['Int']['output'];
+  totalPrice: Commercetools_Money;
+  type: Scalars['String']['output'];
+};
+
+/**
+ *
+ * Cart discounts are recalculated every time LineItems or CustomLineItems are added or removed from the Cart or an order is created from the cart.
+ *
+ * The number of active cart discounts that do not require a discount code (isActive=true and requiresDiscountCode=false) is limited to 100.
+ *
+ */
+export type Commercetools_CartDiscount = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_CartDiscount';
+  cartPredicate: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  id: Scalars['String']['output'];
+  isActive: Scalars['Boolean']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  referenceRefs: Array<Commercetools_Reference>;
+  requiresDiscountCode: Scalars['Boolean']['output'];
+  sortOrder: Scalars['String']['output'];
+  stackingMode: Commercetools_StackingMode;
+  stores: Array<Commercetools_Store>;
+  storesRef: Array<Commercetools_KeyReference>;
+  target?: Maybe<Commercetools_CartDiscountTarget>;
+  validFrom?: Maybe<Scalars['DateTime']['output']>;
+  validUntil?: Maybe<Scalars['DateTime']['output']>;
+  value: Commercetools_CartDiscountValue;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/**
+ *
+ * Cart discounts are recalculated every time LineItems or CustomLineItems are added or removed from the Cart or an order is created from the cart.
+ *
+ * The number of active cart discounts that do not require a discount code (isActive=true and requiresDiscountCode=false) is limited to 100.
+ *
+ */
+export type Commercetools_CartDiscountDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+/**
+ *
+ * Cart discounts are recalculated every time LineItems or CustomLineItems are added or removed from the Cart or an order is created from the cart.
+ *
+ * The number of active cart discounts that do not require a discount code (isActive=true and requiresDiscountCode=false) is limited to 100.
+ *
+ */
+export type Commercetools_CartDiscountNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_CartDiscountCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CartDiscountCreated';
+  cartDiscount: Commercetools_CartDiscount;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CartDiscountDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CartDiscountDeleted';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CartDiscountStoreAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CartDiscountStoreAdded';
+  store: Commercetools_Store;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CartDiscountStoreRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CartDiscountStoreRemoved';
+  store: Commercetools_Store;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CartDiscountStoresSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CartDiscountStoresSet';
+  stores: Array<Commercetools_Store>;
+  storesRef: Array<Commercetools_KeyReference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CartDiscountTarget = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CartDiscountTotalPriceTarget = Commercetools_CartDiscountTarget & {
+  __typename?: 'Commercetools_CartDiscountTotalPriceTarget';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CartDiscountValue = {
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_CartOrigin {
+  /** The cart was created by the customer. This is the default value */
+  Customer = 'Customer',
+  /** The cart was created by the merchant on behalf of the customer */
+  Merchant = 'Merchant',
+  /** The cart was created by our platform and belongs to a Quote. */
+  Quote = 'Quote'
+}
+
+export enum Commercetools_CartState {
+  /** The cart can be updated and ordered. It is the default state. */
+  Active = 'Active',
+  /** The cart is frozen. The cart is ready for checkout and a few update actions are not allowed. */
+  Frozen = 'Frozen',
+  /** Anonymous cart whose content was merged into a customers cart on signin. No further operations on the cart are allowed. */
+  Merged = 'Merged',
+  /** The cart was ordered. No further operations on the cart are allowed. */
+  Ordered = 'Ordered'
+}
+
+export type Commercetools_Category = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Category';
+  ancestors: Array<Commercetools_Category>;
+  ancestorsRef: Array<Commercetools_Reference>;
+  assets: Array<Commercetools_Asset>;
+  /** Number of direct child categories. */
+  childCount: Scalars['Int']['output'];
+  /** Direct child categories. */
+  children?: Maybe<Array<Commercetools_Category>>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  externalId?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  metaDescription?: Maybe<Scalars['String']['output']>;
+  metaDescriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaKeywords?: Maybe<Scalars['String']['output']>;
+  metaKeywordsAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaTitle?: Maybe<Scalars['String']['output']>;
+  metaTitleAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  orderHint: Scalars['String']['output'];
+  parent?: Maybe<Commercetools_Category>;
+  parentRef?: Maybe<Commercetools_Reference>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales: Array<Commercetools_LocalizedString>;
+  /** Number of staged products in the category subtree. */
+  stagedProductCount: Scalars['Int']['output'];
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_CategoryDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_CategoryMetaDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_CategoryMetaKeywordsArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_CategoryMetaTitleArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_CategoryNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_CategorySlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_CategoryCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CategoryCreated';
+  category: Commercetools_Category;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CategoryOrderHint = {
+  __typename?: 'Commercetools_CategoryOrderHint';
+  categoryId: Scalars['String']['output'];
+  orderHint: Scalars['String']['output'];
+};
+
+export type Commercetools_CategorySlugChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CategorySlugChanged';
+  oldSlug?: Maybe<Scalars['String']['output']>;
+  oldSlugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales: Array<Commercetools_LocalizedString>;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_CategorySlugChangedOldSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_CategorySlugChangedSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ChangeStagedOrderCustomLineItemMoneyOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderCustomLineItemMoneyOutput';
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  money: Commercetools_BaseMoney;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeStagedOrderCustomLineItemQuantityOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderCustomLineItemQuantityOutput';
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  quantity: Scalars['Commercetools_Long']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeStagedOrderLineItemQuantityOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderLineItemQuantityOutput';
+  externalPrice?: Maybe<Commercetools_BaseMoney>;
+  externalTotalPrice?: Maybe<Commercetools_ExternalLineItemTotalPrice>;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  quantity: Scalars['Commercetools_Long']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeStagedOrderOrderStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderOrderStateOutput';
+  orderState: Commercetools_OrderState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeStagedOrderPaymentStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderPaymentStateOutput';
+  paymentState: Commercetools_PaymentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeStagedOrderShipmentStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderShipmentStateOutput';
+  shipmentState: Commercetools_ShipmentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeStagedOrderTaxCalculationModeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderTaxCalculationModeOutput';
+  taxCalculationMode: Commercetools_TaxCalculationMode;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeStagedOrderTaxModeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderTaxModeOutput';
+  taxMode: Commercetools_TaxMode;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeStagedOrderTaxRoundingModeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ChangeStagedOrderTaxRoundingModeOutput';
+  taxRoundingMode: Commercetools_RoundingMode;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ChangeSubscription = {
+  __typename?: 'Commercetools_ChangeSubscription';
+  resourceTypeId: Scalars['String']['output'];
+};
+
+export type Commercetools_Channel = Commercetools_ReferenceExpandable & Commercetools_ReviewTarget & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Channel';
+  address?: Maybe<Commercetools_Address>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  geoLocation?: Maybe<Commercetools_Geometry>;
+  id: Scalars['String']['output'];
+  key: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  reviewRatingStatistics?: Maybe<Commercetools_ReviewRatingStatistics>;
+  roles: Array<Commercetools_ChannelRole>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_ChannelDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ChannelNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ChannelReferenceIdentifier = {
+  __typename?: 'Commercetools_ChannelReferenceIdentifier';
+  id?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  typeId: Scalars['String']['output'];
+};
+
+export enum Commercetools_ChannelRole {
+  /** Role tells that this channel can be used to track inventory entries.Channels with this role can be treated as warehouses */
+  InventorySupply = 'InventorySupply',
+  /** Role tells that this channel can be used to track order export activities. */
+  OrderExport = 'OrderExport',
+  /** Role tells that this channel can be used to track order import activities. */
+  OrderImport = 'OrderImport',
+  /** This role can be combined with some other roles (e.g. with `InventorySupply`) to represent the fact that this particular channel is the primary/master channel among the channels of the same type. */
+  Primary = 'Primary',
+  /** Role tells that this channel can be used to expose products to a specific distribution channel. It can be used by the cart to select a product price. */
+  ProductDistribution = 'ProductDistribution'
+}
+
+export type Commercetools_ClassificationShippingRateInput = Commercetools_ShippingRateInput & {
+  __typename?: 'Commercetools_ClassificationShippingRateInput';
+  key: Scalars['String']['output'];
+  label?: Maybe<Scalars['String']['output']>;
+  labelAllLocales: Array<Commercetools_LocalizedString>;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_ClassificationShippingRateInputLabelArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ClassificationShippingRateInputDraftOutput = Commercetools_ShippingRateInputDraftOutput & {
+  __typename?: 'Commercetools_ClassificationShippingRateInputDraftOutput';
+  key: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CloudEventsSubscriptionsFormat = Commercetools_NotificationFormat & {
+  __typename?: 'Commercetools_CloudEventsSubscriptionsFormat';
+  cloudEventsVersion: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CommercetoolsSubscription = Commercetools_Versioned & {
+  __typename?: 'Commercetools_CommercetoolsSubscription';
+  changes: Array<Commercetools_ChangeSubscription>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  destination: Commercetools_Destination;
+  format: Commercetools_NotificationFormat;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  messages: Array<Commercetools_MessageSubscription>;
+  status: Commercetools_SubscriptionHealthStatus;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ConfluentCloudDestination = Commercetools_Destination & {
+  __typename?: 'Commercetools_ConfluentCloudDestination';
+  acks: Scalars['String']['output'];
+  apiKey: Scalars['String']['output'];
+  apiSecret: Scalars['String']['output'];
+  bootstrapServer: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  topic: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomFieldsCommand = {
+  __typename?: 'Commercetools_CustomFieldsCommand';
+  fields: Scalars['Json']['output'];
+  typeId?: Maybe<Scalars['String']['output']>;
+  typeKey?: Maybe<Scalars['String']['output']>;
+  typeResId?: Maybe<Commercetools_ResourceIdentifier>;
+};
+
+export type Commercetools_CustomFieldsType = {
+  __typename?: 'Commercetools_CustomFieldsType';
+  /** This field contains non-typed data. */
+  customFieldsRaw?: Maybe<Array<Commercetools_RawCustomField>>;
+  type?: Maybe<Commercetools_TypeDefinition>;
+  typeRef: Commercetools_Reference;
+};
+
+
+export type Commercetools_CustomFieldsTypeCustomFieldsRawArgs = {
+  excludeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+  includeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** A custom line item is a generic item that can be added to the cart but is not bound to a product. You can use it for discounts (negative money), vouchers, complex cart rules, additional services or fees. You control the lifecycle of this item. */
+export type Commercetools_CustomLineItem = {
+  __typename?: 'Commercetools_CustomLineItem';
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  discountedPricePerQuantity: Array<Commercetools_DiscountedLineItemPriceForQuantity>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  money: Commercetools_BaseMoney;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  perMethodTaxRate: Array<Commercetools_MethodTaxRate>;
+  priceMode: Commercetools_CustomLineItemPriceMode;
+  quantity: Scalars['Commercetools_Long']['output'];
+  shippingDetails?: Maybe<Commercetools_ItemShippingDetails>;
+  slug: Scalars['String']['output'];
+  state: Array<Commercetools_ItemState>;
+  taxCategory?: Maybe<Commercetools_TaxCategory>;
+  taxCategoryRef?: Maybe<Commercetools_Reference>;
+  taxRate?: Maybe<Commercetools_TaxRate>;
+  taxedPrice?: Maybe<Commercetools_TaxedItemPrice>;
+  taxedPricePortions: Array<Commercetools_MethodTaxedPrice>;
+  totalPrice: Commercetools_Money;
+};
+
+
+/** A custom line item is a generic item that can be added to the cart but is not bound to a product. You can use it for discounts (negative money), vouchers, complex cart rules, additional services or fees. You control the lifecycle of this item. */
+export type Commercetools_CustomLineItemNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_CustomLineItemDraftOutput = {
+  __typename?: 'Commercetools_CustomLineItemDraftOutput';
+  custom?: Maybe<Commercetools_CustomFieldsCommand>;
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  key?: Maybe<Scalars['String']['output']>;
+  money: Commercetools_BaseMoney;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  priceMode: Commercetools_CustomLineItemPriceMode;
+  quantity?: Maybe<Scalars['Commercetools_Long']['output']>;
+  shippingDetails?: Maybe<Commercetools_ItemShippingDetailsDraftOutput>;
+  slug: Scalars['String']['output'];
+  taxCategoryResId?: Maybe<Commercetools_ResourceIdentifier>;
+};
+
+
+export type Commercetools_CustomLineItemDraftOutputNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export enum Commercetools_CustomLineItemPriceMode {
+  /** Cart discounts are deactivated for the custom line items with this price mode. */
+  External = 'External',
+  /** This is the default mode. */
+  Standard = 'Standard'
+}
+
+export type Commercetools_CustomLineItemReturnItem = Commercetools_ReturnItem & {
+  __typename?: 'Commercetools_CustomLineItemReturnItem';
+  comment?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customLineItemId: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  paymentState: Commercetools_ReturnPaymentState;
+  quantity: Scalars['Commercetools_Long']['output'];
+  shipmentState: Commercetools_ReturnShipmentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomLineItemStateTransition = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_CustomLineItemStateTransition';
+  customLineItemId: Scalars['String']['output'];
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  fromState?: Maybe<Commercetools_State>;
+  fromStateRef: Commercetools_Reference;
+  quantity: Scalars['Commercetools_Long']['output'];
+  toState?: Maybe<Commercetools_State>;
+  toStateRef: Commercetools_Reference;
+  transitionDate: Scalars['DateTime']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomLineItemsTarget = Commercetools_CartDiscountTarget & {
+  __typename?: 'Commercetools_CustomLineItemsTarget';
+  predicate: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomObject = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_CustomObject';
+  container: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  id: Scalars['String']['output'];
+  key: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  value: Scalars['Json']['output'];
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_CustomSuggestTokenizer = Commercetools_SuggestTokenizer & {
+  __typename?: 'Commercetools_CustomSuggestTokenizer';
+  inputs: Array<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+/** A customer is a person purchasing products. Carts, Orders and Reviews can be associated to a customer. */
+export type Commercetools_Customer = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Customer';
+  addresses: Array<Commercetools_Address>;
+  authenticationMode?: Maybe<Commercetools_AuthenticationMode>;
+  billingAddressIds: Array<Scalars['String']['output']>;
+  billingAddresses: Array<Commercetools_Address>;
+  companyName?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  /** CLOSED BETA: This feature is subject to change and should not be used in production. https://docs.commercetools.com/api/contract#closed-beta */
+  customerGroupAssignments?: Maybe<Array<Commercetools_CustomerGroupAssignment>>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  customerNumber?: Maybe<Scalars['String']['output']>;
+  dateOfBirth?: Maybe<Scalars['Date']['output']>;
+  defaultBillingAddress?: Maybe<Commercetools_Address>;
+  defaultBillingAddressId?: Maybe<Scalars['String']['output']>;
+  defaultShippingAddress?: Maybe<Commercetools_Address>;
+  defaultShippingAddressId?: Maybe<Scalars['String']['output']>;
+  email: Scalars['String']['output'];
+  externalId?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  isEmailVerified: Scalars['Boolean']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  locale?: Maybe<Scalars['Commercetools_Locale']['output']>;
+  middleName?: Maybe<Scalars['String']['output']>;
+  password?: Maybe<Scalars['String']['output']>;
+  salutation?: Maybe<Scalars['String']['output']>;
+  shippingAddressIds: Array<Scalars['String']['output']>;
+  shippingAddresses: Array<Commercetools_Address>;
+  stores: Array<Commercetools_Store>;
+  storesRef: Array<Commercetools_KeyReference>;
+  title?: Maybe<Scalars['String']['output']>;
+  vatId?: Maybe<Scalars['String']['output']>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_CustomerAddressAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerAddressAdded';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerAddressChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerAddressChanged';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerAddressCustomFieldAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerAddressCustomFieldAdded';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_CustomerAddressCustomFieldChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerAddressCustomFieldChanged';
+  name: Scalars['String']['output'];
+  previousValue?: Maybe<Scalars['Json']['output']>;
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_CustomerAddressCustomFieldRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerAddressCustomFieldRemoved';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerAddressCustomTypeRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerAddressCustomTypeRemoved';
+  previousTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerAddressCustomTypeSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerAddressCustomTypeSet';
+  customFields: Commercetools_CustomFieldsType;
+  previousTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerAddressRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerAddressRemoved';
+  address: Commercetools_Address;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerCompanyNameSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerCompanyNameSet';
+  companyName?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerCreated';
+  customer: Commercetools_Customer;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerCustomFieldAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerCustomFieldAdded';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_CustomerCustomFieldChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerCustomFieldChanged';
+  name: Scalars['String']['output'];
+  previousValue?: Maybe<Scalars['Json']['output']>;
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_CustomerCustomFieldRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerCustomFieldRemoved';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerCustomTypeRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerCustomTypeRemoved';
+  previousTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerCustomTypeSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerCustomTypeSet';
+  customFields: Commercetools_CustomFieldsType;
+  previousTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerDateOfBirthSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerDateOfBirthSet';
+  dateOfBirth?: Maybe<Scalars['Date']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerDeleted';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerEmailChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerEmailChanged';
+  email: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerEmailToken = Commercetools_Versioned & {
+  __typename?: 'Commercetools_CustomerEmailToken';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  customerId: Scalars['String']['output'];
+  expiresAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  value: Scalars['String']['output'];
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_CustomerEmailTokenCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerEmailTokenCreated';
+  customerId: Scalars['String']['output'];
+  expiresAt: Scalars['DateTime']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerEmailVerified = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerEmailVerified';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerFirstNameSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerFirstNameSet';
+  firstName?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+/** A customer can be a member in a customer group (e.g. reseller, gold member). A customer group can be used in price calculations with special prices being assigned to certain customer groups. */
+export type Commercetools_CustomerGroup = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_CustomerGroup';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name: Scalars['String']['output'];
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+/** CLOSED BETA: This feature is subject to change and should not be used in production. https://docs.commercetools.com/api/contract#closed-beta */
+export type Commercetools_CustomerGroupAssignment = {
+  __typename?: 'Commercetools_CustomerGroupAssignment';
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+};
+
+/** CLOSED BETA: This feature is subject to change and should not be used in production. https://docs.commercetools.com/api/contract#closed-beta */
+export type Commercetools_CustomerGroupAssignmentAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupAssignmentAdded';
+  customerGroupAssignment: Commercetools_CustomerGroupAssignment;
+  type: Scalars['String']['output'];
+};
+
+/** CLOSED BETA: This feature is subject to change and should not be used in production. https://docs.commercetools.com/api/contract#closed-beta */
+export type Commercetools_CustomerGroupAssignmentRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupAssignmentRemoved';
+  customerGroupAssignment: Commercetools_CustomerGroupAssignment;
+  type: Scalars['String']['output'];
+};
+
+/** CLOSED BETA: This feature is subject to change and should not be used in production. https://docs.commercetools.com/api/contract#closed-beta */
+export type Commercetools_CustomerGroupAssignmentsSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupAssignmentsSet';
+  customerGroupAssignments: Array<Commercetools_CustomerGroupAssignment>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerGroupCustomFieldAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupCustomFieldAdded';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_CustomerGroupCustomFieldChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupCustomFieldChanged';
+  name: Scalars['String']['output'];
+  oldValue?: Maybe<Scalars['Json']['output']>;
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_CustomerGroupCustomFieldRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupCustomFieldRemoved';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerGroupCustomTypeRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupCustomTypeRemoved';
+  oldTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerGroupCustomTypeSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupCustomTypeSet';
+  customFields: Commercetools_CustomFieldsType;
+  oldTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerGroupReferenceIdentifier = {
+  __typename?: 'Commercetools_CustomerGroupReferenceIdentifier';
+  id?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  typeId: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerGroupSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerGroupSet';
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerLastNameSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerLastNameSet';
+  lastName?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerPasswordToken = Commercetools_Versioned & {
+  __typename?: 'Commercetools_CustomerPasswordToken';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  customerId: Scalars['String']['output'];
+  expiresAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  value: Scalars['String']['output'];
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_CustomerPasswordTokenCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerPasswordTokenCreated';
+  customerId: Scalars['String']['output'];
+  expiresAt: Scalars['DateTime']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerPasswordUpdated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerPasswordUpdated';
+  reset: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_CustomerTitleSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_CustomerTitleSet';
+  title?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_DateAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_DateAttributeDefinitionType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_DateTimeAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_DateTimeAttributeDefinitionType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_DateTimeType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_DateTimeType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_DateType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_DateType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_Delivery = {
+  __typename?: 'Commercetools_Delivery';
+  address?: Maybe<Commercetools_Address>;
+  createdAt: Scalars['DateTime']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  items: Array<Commercetools_DeliveryItem>;
+  key?: Maybe<Scalars['String']['output']>;
+  parcels: Array<Commercetools_Parcel>;
+};
+
+export type Commercetools_DeliveryAdded = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_DeliveryAdded';
+  delivery: Commercetools_Delivery;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_DeliveryAddressSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_DeliveryAddressSet';
+  address?: Maybe<Commercetools_Address>;
+  deliveryId: Scalars['String']['output'];
+  oldAddress?: Maybe<Commercetools_Address>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_DeliveryItem = {
+  __typename?: 'Commercetools_DeliveryItem';
+  id: Scalars['String']['output'];
+  quantity: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_DeliveryItemsUpdated = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_DeliveryItemsUpdated';
+  deliveryId: Scalars['String']['output'];
+  items: Array<Commercetools_DeliveryItem>;
+  oldItems: Array<Commercetools_DeliveryItem>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_DeliveryRemoved = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_DeliveryRemoved';
+  delivery: Commercetools_Delivery;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_Destination = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_Dimensions = {
+  __typename?: 'Commercetools_Dimensions';
+  height: Scalars['Int']['output'];
+  width: Scalars['Int']['output'];
+};
+
+export type Commercetools_DirectDiscount = {
+  __typename?: 'Commercetools_DirectDiscount';
+  id: Scalars['String']['output'];
+  target?: Maybe<Commercetools_CartDiscountTarget>;
+  value: Commercetools_CartDiscountValue;
+};
+
+export type Commercetools_DirectDiscountDraftOutput = {
+  __typename?: 'Commercetools_DirectDiscountDraftOutput';
+  target?: Maybe<Commercetools_CartDiscountTarget>;
+  value: Commercetools_CartDiscountValue;
+};
+
+/** With discount codes it is possible to give specific cart discounts to an eligible amount of users. They are defined by a string value which can be added to a cart so that specific cart discounts can be applied to the cart. */
+export type Commercetools_DiscountCode = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_DiscountCode';
+  /** How many times this discount code was applied (only applications that were part of a successful checkout are considered) */
+  applicationCount: Scalars['Commercetools_Long']['output'];
+  applicationVersion?: Maybe<Scalars['Commercetools_Long']['output']>;
+  cartDiscountRefs: Array<Commercetools_Reference>;
+  cartDiscounts: Array<Commercetools_CartDiscount>;
+  cartPredicate?: Maybe<Scalars['String']['output']>;
+  code: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  groups: Array<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  isActive: Scalars['Boolean']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  maxApplications?: Maybe<Scalars['Commercetools_Long']['output']>;
+  maxApplicationsPerCustomer?: Maybe<Scalars['Commercetools_Long']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  referenceRefs: Array<Commercetools_Reference>;
+  validFrom?: Maybe<Scalars['DateTime']['output']>;
+  validUntil?: Maybe<Scalars['DateTime']['output']>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/** With discount codes it is possible to give specific cart discounts to an eligible amount of users. They are defined by a string value which can be added to a cart so that specific cart discounts can be applied to the cart. */
+export type Commercetools_DiscountCodeDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+/** With discount codes it is possible to give specific cart discounts to an eligible amount of users. They are defined by a string value which can be added to a cart so that specific cart discounts can be applied to the cart. */
+export type Commercetools_DiscountCodeNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_DiscountCodeCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_DiscountCodeCreated';
+  discountCode: Commercetools_DiscountCode;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_DiscountCodeDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_DiscountCodeDeleted';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_DiscountCodeInfo = {
+  __typename?: 'Commercetools_DiscountCodeInfo';
+  discountCode?: Maybe<Commercetools_DiscountCode>;
+  discountCodeRef: Commercetools_Reference;
+  state?: Maybe<Commercetools_DiscountCodeState>;
+};
+
+export type Commercetools_DiscountCodeKeySet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_DiscountCodeKeySet';
+  key?: Maybe<Scalars['String']['output']>;
+  oldKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_DiscountCodeState {
+  /** The discount code is active and none of the discounts were applied because the discount application was stopped by one discount that has the StackingMode of StopAfterThisDiscount defined */
+  ApplicationStoppedByPreviousDiscount = 'ApplicationStoppedByPreviousDiscount',
+  /** The discount code is active and it contains at least one active and valid CartDiscount. But its cart predicate does not match the cart or none of the contained active discount’s cart predicates match the cart */
+  DoesNotMatchCart = 'DoesNotMatchCart',
+  /** The discount code is active and it contains at least one active and valid CartDiscount. The discount code cartPredicate matches the cart and at least one of the contained active discount’s cart predicates matches the cart. */
+  MatchesCart = 'MatchesCart',
+  /** maxApplications or maxApplicationsPerCustomer for discountCode has been reached. */
+  MaxApplicationReached = 'MaxApplicationReached',
+  /** The discount code is not active or it does not contain any active cart discounts. */
+  NotActive = 'NotActive',
+  /** The discount code is not valid or it does not contain any valid cart discounts. Validity is determined based on the validFrom and validUntil dates */
+  NotValid = 'NotValid'
+}
+
+export type Commercetools_DiscountOnTotalPrice = {
+  __typename?: 'Commercetools_DiscountOnTotalPrice';
+  discountedAmount: Commercetools_BaseMoney;
+  discountedGrossAmount?: Maybe<Commercetools_BaseMoney>;
+  discountedNetAmount?: Maybe<Commercetools_BaseMoney>;
+  includedDiscounts: Array<Commercetools_DiscountedTotalPricePortion>;
+};
+
+export type Commercetools_DiscountedLineItemPortion = {
+  __typename?: 'Commercetools_DiscountedLineItemPortion';
+  discount?: Maybe<Commercetools_CartDiscount>;
+  discountRef: Commercetools_Reference;
+  discountedAmount: Commercetools_BaseMoney;
+};
+
+export type Commercetools_DiscountedLineItemPrice = {
+  __typename?: 'Commercetools_DiscountedLineItemPrice';
+  includedDiscounts: Array<Commercetools_DiscountedLineItemPortion>;
+  value: Commercetools_BaseMoney;
+};
+
+export type Commercetools_DiscountedLineItemPriceForQuantity = {
+  __typename?: 'Commercetools_DiscountedLineItemPriceForQuantity';
+  discountedPrice: Commercetools_DiscountedLineItemPrice;
+  quantity: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_DiscountedProductPriceValue = {
+  __typename?: 'Commercetools_DiscountedProductPriceValue';
+  discount?: Maybe<Commercetools_ProductDiscount>;
+  discountRef: Commercetools_Reference;
+  value: Commercetools_BaseMoney;
+};
+
+export type Commercetools_DiscountedTotalPricePortion = {
+  __typename?: 'Commercetools_DiscountedTotalPricePortion';
+  discount?: Maybe<Commercetools_CartDiscount>;
+  discountRef: Commercetools_Reference;
+  discountedAmount: Commercetools_BaseMoney;
+};
+
+export type Commercetools_EnumAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_EnumAttributeDefinitionType';
+  name: Scalars['String']['output'];
+  values: Commercetools_PlainEnumValueResult;
+};
+
+
+export type Commercetools_EnumAttributeDefinitionTypeValuesArgs = {
+  excludeKeys?: InputMaybe<Array<Scalars['String']['input']>>;
+  includeKeys?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type Commercetools_EnumType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_EnumType';
+  name: Scalars['String']['output'];
+  values: Array<Commercetools_EnumValue>;
+};
+
+export type Commercetools_EnumValue = {
+  __typename?: 'Commercetools_EnumValue';
+  key: Scalars['String']['output'];
+  label: Scalars['String']['output'];
+};
+
+export type Commercetools_EventBridgeDestination = Commercetools_Destination & {
+  __typename?: 'Commercetools_EventBridgeDestination';
+  accountId: Scalars['String']['output'];
+  region: Scalars['String']['output'];
+  source: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_EventGridDestination = Commercetools_Destination & {
+  __typename?: 'Commercetools_EventGridDestination';
+  accessKey: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  uri: Scalars['String']['output'];
+};
+
+export type Commercetools_Extension = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Extension';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  destination: Commercetools_ExtensionDestination;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  timeoutInMs?: Maybe<Scalars['Int']['output']>;
+  triggers: Array<Commercetools_Trigger>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ExtensionDestination = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ExternalDiscountValue = Commercetools_ProductDiscountValue & {
+  __typename?: 'Commercetools_ExternalDiscountValue';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ExternalLineItemTotalPrice = {
+  __typename?: 'Commercetools_ExternalLineItemTotalPrice';
+  price: Commercetools_BaseMoney;
+  totalPrice: Commercetools_Money;
+};
+
+export type Commercetools_ExternalTaxAmountDraftOutput = {
+  __typename?: 'Commercetools_ExternalTaxAmountDraftOutput';
+  taxRate: Commercetools_ExternalTaxRateDraftOutput;
+  totalGross: Commercetools_Money;
+};
+
+export type Commercetools_ExternalTaxRateDraftOutput = {
+  __typename?: 'Commercetools_ExternalTaxRateDraftOutput';
+  amount?: Maybe<Scalars['Float']['output']>;
+  country: Scalars['Commercetools_Country']['output'];
+  includedInPrice: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  state?: Maybe<Scalars['String']['output']>;
+  subRates: Array<Commercetools_SubRate>;
+};
+
+/** Field definitions describe custom fields and allow you to define some meta-information associated with the field. */
+export type Commercetools_FieldDefinition = {
+  __typename?: 'Commercetools_FieldDefinition';
+  inputHint: Commercetools_TextInputHint;
+  label?: Maybe<Scalars['String']['output']>;
+  labelAllLocales: Array<Commercetools_LocalizedString>;
+  name: Scalars['String']['output'];
+  required: Scalars['Boolean']['output'];
+  type: Commercetools_FieldType;
+};
+
+
+/** Field definitions describe custom fields and allow you to define some meta-information associated with the field. */
+export type Commercetools_FieldDefinitionLabelArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_FieldType = {
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_FixedPriceDiscountValue = Commercetools_CartDiscountValue & {
+  __typename?: 'Commercetools_FixedPriceDiscountValue';
+  money: Array<Commercetools_BaseMoney>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_Geometry = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_GiftLineItemValue = Commercetools_CartDiscountValue & {
+  __typename?: 'Commercetools_GiftLineItemValue';
+  distributionChannelRef?: Maybe<Commercetools_ChannelReferenceIdentifier>;
+  productRef: Commercetools_ProductReferenceIdentifier;
+  supplyChannelRef?: Maybe<Commercetools_ChannelReferenceIdentifier>;
+  type: Scalars['String']['output'];
+  variantId: Scalars['Int']['output'];
+};
+
+export type Commercetools_GoogleCloudFunctionDestination = Commercetools_ExtensionDestination & {
+  __typename?: 'Commercetools_GoogleCloudFunctionDestination';
+  type: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+};
+
+export type Commercetools_GoogleCloudPubSubDestination = Commercetools_Destination & {
+  __typename?: 'Commercetools_GoogleCloudPubSubDestination';
+  projectId: Scalars['String']['output'];
+  topic: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_HasProductTailoringData = {
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaDescription?: Maybe<Scalars['String']['output']>;
+  metaDescriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaKeywords?: Maybe<Scalars['String']['output']>;
+  metaKeywordsAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaTitle?: Maybe<Scalars['String']['output']>;
+  metaTitleAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+};
+
+
+export type Commercetools_HasProductTailoringDataDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_HasProductTailoringDataMetaDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_HasProductTailoringDataMetaKeywordsArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_HasProductTailoringDataMetaTitleArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_HasProductTailoringDataNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_HasProductTailoringDataSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_HighPrecisionMoney = Commercetools_BaseMoney & {
+  __typename?: 'Commercetools_HighPrecisionMoney';
+  centAmount: Scalars['Commercetools_Long']['output'];
+  currencyCode: Scalars['Commercetools_Currency']['output'];
+  fractionDigits: Scalars['Int']['output'];
+  preciseAmount: Scalars['Commercetools_Long']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_HttpDestination = Commercetools_ExtensionDestination & {
+  __typename?: 'Commercetools_HttpDestination';
+  authentication?: Maybe<Commercetools_HttpDestinationAuthentication>;
+  type: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+};
+
+export type Commercetools_HttpDestinationAuthentication = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_Image = {
+  __typename?: 'Commercetools_Image';
+  dimensions: Commercetools_Dimensions;
+  label?: Maybe<Scalars['String']['output']>;
+  url: Scalars['String']['output'];
+};
+
+export type Commercetools_ImportStagedOrderCustomLineItemStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ImportStagedOrderCustomLineItemStateOutput';
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  state: Scalars['Commercetools_Set']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ImportStagedOrderLineItemStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_ImportStagedOrderLineItemStateOutput';
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  state: Scalars['Commercetools_Set']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_InheritedAssociate = {
+  __typename?: 'Commercetools_InheritedAssociate';
+  associateRoleAssignments: Array<Commercetools_InheritedAssociateRoleAssignment>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerRef?: Maybe<Commercetools_Reference>;
+};
+
+export type Commercetools_InheritedAssociateRoleAssignment = {
+  __typename?: 'Commercetools_InheritedAssociateRoleAssignment';
+  associateRole: Commercetools_AssociateRole;
+  associateRoleRef: Commercetools_KeyReference;
+  source: Commercetools_BusinessUnit;
+  sourceRef: Commercetools_KeyReference;
+};
+
+export type Commercetools_InheritedStore = {
+  __typename?: 'Commercetools_InheritedStore';
+  store?: Maybe<Commercetools_Store>;
+  storeRef: Commercetools_KeyReference;
+};
+
+export type Commercetools_Initiator = {
+  __typename?: 'Commercetools_Initiator';
+  anonymousId?: Maybe<Scalars['String']['output']>;
+  associateRef?: Maybe<Commercetools_Reference>;
+  attributedTo?: Maybe<Commercetools_Attribution>;
+  clientId?: Maybe<Scalars['String']['output']>;
+  customerRef?: Maybe<Commercetools_Reference>;
+  externalUserId?: Maybe<Scalars['String']['output']>;
+  isPlatformClient?: Maybe<Scalars['Boolean']['output']>;
+  userRef?: Maybe<Commercetools_Reference>;
+};
+
+export type Commercetools_InterfaceInteractionsRaw = {
+  __typename?: 'Commercetools_InterfaceInteractionsRaw';
+  fields: Array<Commercetools_RawCustomField>;
+  type?: Maybe<Commercetools_TypeDefinition>;
+  typeRef: Commercetools_Reference;
+};
+
+
+export type Commercetools_InterfaceInteractionsRawFieldsArgs = {
+  excludeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+  includeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type Commercetools_InterfaceInteractionsRawResult = {
+  __typename?: 'Commercetools_InterfaceInteractionsRawResult';
+  limit?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  results: Array<Commercetools_InterfaceInteractionsRaw>;
+  total: Scalars['Int']['output'];
+};
+
+/** Inventory allows you to track stock quantity per SKU and optionally per supply channel */
+export type Commercetools_InventoryEntry = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_InventoryEntry';
+  availableQuantity: Scalars['Commercetools_Long']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  expectedDelivery?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  quantityOnStock: Scalars['Commercetools_Long']['output'];
+  restockableInDays?: Maybe<Scalars['Int']['output']>;
+  sku: Scalars['String']['output'];
+  supplyChannel?: Maybe<Commercetools_Channel>;
+  supplyChannelRef?: Maybe<Commercetools_Reference>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_InventoryEntryCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_InventoryEntryCreated';
+  inventoryEntry: Commercetools_InventoryEntry;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_InventoryEntryDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_InventoryEntryDeleted';
+  sku: Scalars['String']['output'];
+  supplyChannel?: Maybe<Commercetools_Channel>;
+  supplyChannelRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_InventoryEntryQuantitySet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_InventoryEntryQuantitySet';
+  newAvailableQuantity: Scalars['Commercetools_Long']['output'];
+  newQuantityOnStock: Scalars['Commercetools_Long']['output'];
+  oldAvailableQuantity: Scalars['Commercetools_Long']['output'];
+  oldQuantityOnStock: Scalars['Commercetools_Long']['output'];
+  supplyChannel?: Maybe<Commercetools_Channel>;
+  supplyChannelRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_InventoryMode {
+  /**
+   * Adding items to cart and ordering is independent of inventory. No inventory checks or modifications.
+   * This is the default mode for a new cart.
+   */
+  None = 'None',
+  /**
+   * Creating an order will fail with an OutOfStock error if an unavailable line item exists. Line items in the cart
+   * are only reserved for the duration of the ordering transaction.
+   */
+  ReserveOnOrder = 'ReserveOnOrder',
+  /**
+   * Orders are tracked on inventory. That means, ordering a LineItem will decrement the available quantity on the
+   * respective InventoryEntry. Creating an order will succeed even if the line item’s available quantity is zero or
+   * negative. But creating an order will fail with an OutOfStock error if no matching inventory entry exists for a
+   * line item.
+   */
+  TrackOnly = 'TrackOnly'
+}
+
+export type Commercetools_ItemShippingAddressTargetDraftOutput = {
+  __typename?: 'Commercetools_ItemShippingAddressTargetDraftOutput';
+  addressKey: Scalars['String']['output'];
+  quantity: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ItemShippingDetails = {
+  __typename?: 'Commercetools_ItemShippingDetails';
+  targets: Array<Commercetools_ItemShippingTarget>;
+  valid: Scalars['Boolean']['output'];
+};
+
+export type Commercetools_ItemShippingDetailsDraftOutput = {
+  __typename?: 'Commercetools_ItemShippingDetailsDraftOutput';
+  itemShippingAddressTargets: Array<Commercetools_ItemShippingAddressTargetDraftOutput>;
+  shippingTargets: Array<Commercetools_ShippingMethodTargetDraftOutput>;
+  targets: Array<Commercetools_ItemShippingTarget>;
+};
+
+export type Commercetools_ItemShippingTarget = {
+  __typename?: 'Commercetools_ItemShippingTarget';
+  addressKey: Scalars['String']['output'];
+  quantity: Scalars['Commercetools_Long']['output'];
+  shippingMethodKey?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_ItemState = {
+  __typename?: 'Commercetools_ItemState';
+  quantity: Scalars['Commercetools_Long']['output'];
+  state?: Maybe<Commercetools_State>;
+  stateRef: Commercetools_Reference;
+};
+
+export type Commercetools_KeyReference = {
+  __typename?: 'Commercetools_KeyReference';
+  key: Scalars['String']['output'];
+  typeId: Scalars['String']['output'];
+};
+
+/**
+ * A line item is a snapshot of a product variant at the time it was added to the cart.
+ *
+ * Since a product variant may change at any time, the ProductVariant data is copied into the field variant.
+ * The relation to the Product is kept but the line item will not automatically update if the product variant changes.
+ * On the cart, the line item can be updated manually. The productSlug refers to the current version of the product.
+ * It can be used to link to the product. If the product has been deleted, the line item remains but refers to a
+ * non-existent product and the productSlug is left empty.
+ *
+ * Please also note that creating an order is impossible if the product or product variant a line item relates to has been deleted.
+ */
+export type Commercetools_LineItem = {
+  __typename?: 'Commercetools_LineItem';
+  addedAt?: Maybe<Scalars['DateTime']['output']>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  discountedPricePerQuantity: Array<Commercetools_DiscountedLineItemPriceForQuantity>;
+  distributionChannel?: Maybe<Commercetools_Channel>;
+  distributionChannelRef?: Maybe<Commercetools_Reference>;
+  id: Scalars['String']['output'];
+  inventoryMode?: Maybe<Commercetools_InventoryMode>;
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt?: Maybe<Scalars['DateTime']['output']>;
+  lineItemMode: Commercetools_LineItemMode;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  perMethodTaxRate: Array<Commercetools_MethodTaxRate>;
+  price: Commercetools_ProductPrice;
+  priceMode: Commercetools_LineItemPriceMode;
+  productId: Scalars['String']['output'];
+  productKey?: Maybe<Scalars['String']['output']>;
+  productSlug?: Maybe<Scalars['String']['output']>;
+  productSlugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  productType?: Maybe<Commercetools_ProductTypeDefinition>;
+  productTypeRef?: Maybe<Commercetools_Reference>;
+  quantity: Scalars['Commercetools_Long']['output'];
+  shippingDetails?: Maybe<Commercetools_ItemShippingDetails>;
+  state: Array<Commercetools_ItemState>;
+  supplyChannel?: Maybe<Commercetools_Channel>;
+  supplyChannelRef?: Maybe<Commercetools_Reference>;
+  taxRate?: Maybe<Commercetools_TaxRate>;
+  taxedPrice?: Maybe<Commercetools_TaxedItemPrice>;
+  taxedPricePortions: Array<Commercetools_MethodTaxedPrice>;
+  totalPrice?: Maybe<Commercetools_Money>;
+  variant?: Maybe<Commercetools_ProductVariant>;
+};
+
+
+/**
+ * A line item is a snapshot of a product variant at the time it was added to the cart.
+ *
+ * Since a product variant may change at any time, the ProductVariant data is copied into the field variant.
+ * The relation to the Product is kept but the line item will not automatically update if the product variant changes.
+ * On the cart, the line item can be updated manually. The productSlug refers to the current version of the product.
+ * It can be used to link to the product. If the product has been deleted, the line item remains but refers to a
+ * non-existent product and the productSlug is left empty.
+ *
+ * Please also note that creating an order is impossible if the product or product variant a line item relates to has been deleted.
+ */
+export type Commercetools_LineItemNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+/**
+ * A line item is a snapshot of a product variant at the time it was added to the cart.
+ *
+ * Since a product variant may change at any time, the ProductVariant data is copied into the field variant.
+ * The relation to the Product is kept but the line item will not automatically update if the product variant changes.
+ * On the cart, the line item can be updated manually. The productSlug refers to the current version of the product.
+ * It can be used to link to the product. If the product has been deleted, the line item remains but refers to a
+ * non-existent product and the productSlug is left empty.
+ *
+ * Please also note that creating an order is impossible if the product or product variant a line item relates to has been deleted.
+ */
+export type Commercetools_LineItemProductSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_LineItemDraftOutput = {
+  __typename?: 'Commercetools_LineItemDraftOutput';
+  addedAt?: Maybe<Scalars['DateTime']['output']>;
+  custom?: Maybe<Commercetools_CustomFieldsCommand>;
+  distributionChannelResId?: Maybe<Commercetools_ResourceIdentifier>;
+  externalPrice?: Maybe<Commercetools_BaseMoney>;
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  externalTotalPrice?: Maybe<Commercetools_ExternalLineItemTotalPrice>;
+  inventoryMode?: Maybe<Commercetools_InventoryMode>;
+  key?: Maybe<Scalars['String']['output']>;
+  perMethodExternalTaxRate: Array<Commercetools_MethodExternalTaxRateDraftOutput>;
+  productId?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Commercetools_Long']['output']>;
+  shippingDetails?: Maybe<Commercetools_ItemShippingDetailsDraftOutput>;
+  sku?: Maybe<Scalars['String']['output']>;
+  supplyChannelResId?: Maybe<Commercetools_ResourceIdentifier>;
+  variantId?: Maybe<Scalars['Int']['output']>;
+};
+
+export enum Commercetools_LineItemMode {
+  /**
+   * The line item was added automatically, because a discount has added a free gift to the cart.
+   * The quantity can not be increased, and it won’t be merged when the same product variant is added.
+   * If the gift is removed, an entry is added to the "refusedGifts" array and the discount won’t be applied again
+   * to the cart. The price can not be changed externally.
+   * All other updates, such as the ones related to custom fields, can be used.
+   */
+  GiftLineItem = 'GiftLineItem',
+  /**
+   * The line item was added during cart creation or with the update action addLineItem. Its quantity can be
+   * changed without restrictions.
+   */
+  Standard = 'Standard'
+}
+
+export enum Commercetools_LineItemPriceMode {
+  /** The line item price was set externally. Cart discounts can apply to line items with this price mode. All update actions that change the quantity of a line item with this price mode require the externalPrice field to be given. */
+  ExternalPrice = 'ExternalPrice',
+  /** The line item price with the total was set externally. */
+  ExternalTotal = 'ExternalTotal',
+  /** The price is selected form the product variant. This is the default mode. */
+  Platform = 'Platform'
+}
+
+export type Commercetools_LineItemReturnItem = Commercetools_ReturnItem & {
+  __typename?: 'Commercetools_LineItemReturnItem';
+  comment?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lineItemId: Scalars['String']['output'];
+  paymentState: Commercetools_ReturnPaymentState;
+  quantity: Scalars['Commercetools_Long']['output'];
+  shipmentState: Commercetools_ReturnShipmentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_LineItemStateTransition = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_LineItemStateTransition';
+  fromState?: Maybe<Commercetools_State>;
+  fromStateRef: Commercetools_Reference;
+  lineItemId: Scalars['String']['output'];
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  quantity: Scalars['Commercetools_Long']['output'];
+  toState?: Maybe<Commercetools_State>;
+  toStateRef: Commercetools_Reference;
+  transitionDate: Scalars['DateTime']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_LineItemsTarget = Commercetools_CartDiscountTarget & {
+  __typename?: 'Commercetools_LineItemsTarget';
+  predicate: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_LocalizableEnumAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_LocalizableEnumAttributeDefinitionType';
+  name: Scalars['String']['output'];
+  values: Commercetools_LocalizableEnumValueTypeResult;
+};
+
+
+export type Commercetools_LocalizableEnumAttributeDefinitionTypeValuesArgs = {
+  excludeKeys?: InputMaybe<Array<Scalars['String']['input']>>;
+  includeKeys?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type Commercetools_LocalizableEnumValueType = {
+  __typename?: 'Commercetools_LocalizableEnumValueType';
+  key: Scalars['String']['output'];
+  label?: Maybe<Scalars['String']['output']>;
+  labelAllLocales: Array<Commercetools_LocalizedString>;
+};
+
+
+export type Commercetools_LocalizableEnumValueTypeLabelArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_LocalizableEnumValueTypeResult = {
+  __typename?: 'Commercetools_LocalizableEnumValueTypeResult';
+  limit?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  results: Array<Commercetools_LocalizableEnumValueType>;
+  total: Scalars['Int']['output'];
+};
+
+export type Commercetools_LocalizableTextAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_LocalizableTextAttributeDefinitionType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_LocalizedEnumType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_LocalizedEnumType';
+  name: Scalars['String']['output'];
+  values: Array<Commercetools_LocalizedEnumValue>;
+};
+
+export type Commercetools_LocalizedEnumValue = {
+  __typename?: 'Commercetools_LocalizedEnumValue';
+  key: Scalars['String']['output'];
+  label?: Maybe<Scalars['String']['output']>;
+  labelAllLocales: Array<Commercetools_LocalizedString>;
+};
+
+
+export type Commercetools_LocalizedEnumValueLabelArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_LocalizedString = {
+  __typename?: 'Commercetools_LocalizedString';
+  locale: Scalars['Commercetools_Locale']['output'];
+  value: Scalars['String']['output'];
+};
+
+export type Commercetools_LocalizedStringType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_LocalizedStringType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_Location = {
+  __typename?: 'Commercetools_Location';
+  country: Scalars['Commercetools_Country']['output'];
+  state?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_Message = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Message';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  id: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  payload: Commercetools_MessagePayload;
+  resourceRef: Commercetools_Reference;
+  resourceVersion: Scalars['Commercetools_Long']['output'];
+  sequenceNumber: Scalars['Commercetools_Long']['output'];
+  type: Scalars['String']['output'];
+  userProvidedIdentifiers?: Maybe<Commercetools_UserProvidedIdentifiers>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_MessagePayload = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_MessageSubscription = {
+  __typename?: 'Commercetools_MessageSubscription';
+  resourceTypeId: Scalars['String']['output'];
+  types: Array<Scalars['String']['output']>;
+};
+
+export type Commercetools_MethodExternalTaxRateDraftOutput = {
+  __typename?: 'Commercetools_MethodExternalTaxRateDraftOutput';
+  shippingMethodKey: Scalars['String']['output'];
+  taxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+};
+
+export type Commercetools_MethodTaxRate = {
+  __typename?: 'Commercetools_MethodTaxRate';
+  shippingMethodKey: Scalars['String']['output'];
+  taxRate?: Maybe<Commercetools_TaxRate>;
+};
+
+export type Commercetools_MethodTaxedPrice = {
+  __typename?: 'Commercetools_MethodTaxedPrice';
+  shippingMethodKey: Scalars['String']['output'];
+  taxedPrice?: Maybe<Commercetools_TaxedItemPrice>;
+};
+
+export type Commercetools_Money = Commercetools_BaseMoney & {
+  __typename?: 'Commercetools_Money';
+  centAmount: Scalars['Commercetools_Long']['output'];
+  currencyCode: Scalars['Commercetools_Currency']['output'];
+  /** For the `Money` it equals to the default number of fraction digits used with the currency. */
+  fractionDigits: Scalars['Int']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_MoneyAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_MoneyAttributeDefinitionType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_MoneyType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_MoneyType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_MultiBuyCustomLineItemsTarget = Commercetools_CartDiscountTarget & {
+  __typename?: 'Commercetools_MultiBuyCustomLineItemsTarget';
+  discountedQuantity: Scalars['Commercetools_Long']['output'];
+  maxOccurrence?: Maybe<Scalars['Int']['output']>;
+  predicate: Scalars['String']['output'];
+  selectionMode: Commercetools_SelectionMode;
+  triggerQuantity: Scalars['Commercetools_Long']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_MultiBuyLineItemsTarget = Commercetools_CartDiscountTarget & {
+  __typename?: 'Commercetools_MultiBuyLineItemsTarget';
+  discountedQuantity: Scalars['Commercetools_Long']['output'];
+  maxOccurrence?: Maybe<Scalars['Int']['output']>;
+  predicate: Scalars['String']['output'];
+  selectionMode: Commercetools_SelectionMode;
+  triggerQuantity: Scalars['Commercetools_Long']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_NestedAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_NestedAttributeDefinitionType';
+  name: Scalars['String']['output'];
+  typeRef: Commercetools_Reference;
+};
+
+export type Commercetools_NotProcessed = Commercetools_OrderEditResult & {
+  __typename?: 'Commercetools_NotProcessed';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_NotificationFormat = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_NumberAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_NumberAttributeDefinitionType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_NumberType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_NumberType';
+  name: Scalars['String']['output'];
+};
+
+/**
+ * An order can be created from a cart, usually after a checkout process has been completed.
+ * [documentation](https://docs.commercetools.com/api/projects/orders)
+ */
+export type Commercetools_Order = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Order';
+  anonymousId?: Maybe<Scalars['String']['output']>;
+  billingAddress?: Maybe<Commercetools_Address>;
+  businessUnit?: Maybe<Commercetools_BusinessUnit>;
+  businessUnitRef?: Maybe<Commercetools_KeyReference>;
+  cart?: Maybe<Commercetools_Cart>;
+  cartRef?: Maybe<Commercetools_Reference>;
+  completedAt?: Maybe<Scalars['DateTime']['output']>;
+  country?: Maybe<Scalars['Commercetools_Country']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customLineItems: Array<Commercetools_CustomLineItem>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerEmail?: Maybe<Scalars['String']['output']>;
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  customerId?: Maybe<Scalars['String']['output']>;
+  directDiscounts: Array<Commercetools_DirectDiscount>;
+  discountCodes: Array<Commercetools_DiscountCodeInfo>;
+  discountOnTotalPrice?: Maybe<Commercetools_DiscountOnTotalPrice>;
+  id: Scalars['String']['output'];
+  inventoryMode: Commercetools_InventoryMode;
+  itemShippingAddresses: Array<Commercetools_Address>;
+  /** @deprecated An internal field that should not be used in customer logic */
+  lastMessageSequenceNumber: Scalars['Commercetools_Long']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  lineItems: Array<Commercetools_LineItem>;
+  locale?: Maybe<Scalars['Commercetools_Locale']['output']>;
+  orderNumber?: Maybe<Scalars['String']['output']>;
+  orderState: Commercetools_OrderState;
+  origin: Commercetools_CartOrigin;
+  paymentInfo?: Maybe<Commercetools_PaymentInfo>;
+  paymentState?: Maybe<Commercetools_PaymentState>;
+  purchaseOrderNumber?: Maybe<Scalars['String']['output']>;
+  quote?: Maybe<Commercetools_Quote>;
+  quoteRef?: Maybe<Commercetools_Reference>;
+  refusedGifts: Array<Commercetools_CartDiscount>;
+  refusedGiftsRefs: Array<Commercetools_Reference>;
+  returnInfo: Array<Commercetools_ReturnInfo>;
+  shipmentState?: Maybe<Commercetools_ShipmentState>;
+  shipping: Array<Commercetools_Shipping>;
+  shippingAddress?: Maybe<Commercetools_Address>;
+  shippingCustomFields?: Maybe<Commercetools_CustomFieldsType>;
+  shippingInfo?: Maybe<Commercetools_ShippingInfo>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  shippingMode: Commercetools_ShippingMode;
+  shippingRateInput?: Maybe<Commercetools_ShippingRateInput>;
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+  store?: Maybe<Commercetools_Store>;
+  storeRef?: Maybe<Commercetools_KeyReference>;
+  syncInfo: Array<Commercetools_SyncInfo>;
+  taxCalculationMode: Commercetools_TaxCalculationMode;
+  taxMode: Commercetools_TaxMode;
+  taxRoundingMode: Commercetools_RoundingMode;
+  taxedPrice?: Maybe<Commercetools_TaxedPrice>;
+  taxedShippingPrice?: Maybe<Commercetools_TaxedPrice>;
+  totalPrice: Commercetools_Money;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/**
+ * An order can be created from a cart, usually after a checkout process has been completed.
+ * [documentation](https://docs.commercetools.com/api/projects/orders)
+ */
+export type Commercetools_OrderLineItemsArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Commercetools_OrderBillingAddressSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderBillingAddressSet';
+  address?: Maybe<Commercetools_Address>;
+  oldAddress?: Maybe<Commercetools_Address>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCreated = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCreated';
+  order: Commercetools_Order;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomFieldAdded = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomFieldAdded';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_OrderCustomFieldChanged = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomFieldChanged';
+  name: Scalars['String']['output'];
+  previousValue?: Maybe<Scalars['Json']['output']>;
+  type: Scalars['String']['output'];
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_OrderCustomFieldRemoved = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomFieldRemoved';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomLineItemAdded = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomLineItemAdded';
+  customLineItem: Commercetools_CustomLineItem;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomLineItemDiscountSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomLineItemDiscountSet';
+  customLineItemId: Scalars['String']['output'];
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  discountedPricePerQuantity: Array<Commercetools_DiscountedLineItemPriceForQuantity>;
+  taxedPrice?: Maybe<Commercetools_TaxedItemPrice>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomLineItemQuantityChanged = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomLineItemQuantityChanged';
+  customLineItemId: Scalars['String']['output'];
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  oldQuantity?: Maybe<Scalars['Commercetools_Long']['output']>;
+  quantity: Scalars['Commercetools_Long']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomLineItemRemoved = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomLineItemRemoved';
+  customLineItem?: Maybe<Commercetools_CustomLineItem>;
+  customLineItemId: Scalars['String']['output'];
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomTypeRemoved = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomTypeRemoved';
+  previousTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomTypeSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomTypeSet';
+  customFields: Commercetools_CustomFieldsType;
+  previousTypeId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomerEmailSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomerEmailSet';
+  email?: Maybe<Scalars['String']['output']>;
+  oldEmail?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomerGroupSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomerGroupSet';
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  oldCustomerGroup?: Maybe<Commercetools_CustomerGroup>;
+  oldCustomerGroupRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderCustomerSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderCustomerSet';
+  customer?: Maybe<Commercetools_Customer>;
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  customerRef?: Maybe<Commercetools_Reference>;
+  oldCustomer?: Maybe<Commercetools_Customer>;
+  oldCustomerGroup?: Maybe<Commercetools_CustomerGroup>;
+  oldCustomerGroupRef?: Maybe<Commercetools_Reference>;
+  oldCustomerRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderDeleted = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderDeleted';
+  order?: Maybe<Commercetools_Order>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderDiscountCodeAdded = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderDiscountCodeAdded';
+  discountCode?: Maybe<Commercetools_DiscountCode>;
+  discountCodeRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderDiscountCodeRemoved = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderDiscountCodeRemoved';
+  discountCode?: Maybe<Commercetools_DiscountCode>;
+  discountCodeRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderDiscountCodeStateSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderDiscountCodeStateSet';
+  discountCode?: Maybe<Commercetools_DiscountCode>;
+  discountCodeRef: Commercetools_Reference;
+  oldState?: Maybe<Commercetools_DiscountCodeState>;
+  state: Commercetools_DiscountCodeState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderEdit = Commercetools_Versioned & {
+  __typename?: 'Commercetools_OrderEdit';
+  comment?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  resource?: Maybe<Commercetools_Order>;
+  resourceRef: Commercetools_Reference;
+  result: Commercetools_OrderEditResult;
+  stagedActions: Array<Commercetools_StagedOrderUpdateActionOutput>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_OrderEditApplied = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderEditApplied';
+  edit?: Maybe<Commercetools_OrderEdit>;
+  editRef: Commercetools_Reference;
+  result: Commercetools_Applied;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderEditResult = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderExcerpt = {
+  __typename?: 'Commercetools_OrderExcerpt';
+  taxedPrice?: Maybe<Commercetools_TaxedPrice>;
+  totalPrice: Commercetools_Money;
+  version?: Maybe<Scalars['Commercetools_Long']['output']>;
+};
+
+export type Commercetools_OrderImported = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderImported';
+  order: Commercetools_Order;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderLineItemAdded = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderLineItemAdded';
+  addedQuantity: Scalars['Commercetools_Long']['output'];
+  lineItem: Commercetools_LineItem;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderLineItemDiscountSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderLineItemDiscountSet';
+  discountedPricePerQuantity: Array<Commercetools_DiscountedLineItemPriceForQuantity>;
+  lineItemId: Scalars['String']['output'];
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  taxedPrice?: Maybe<Commercetools_TaxedItemPrice>;
+  taxedPricePortions: Array<Commercetools_MethodTaxedPrice>;
+  totalPrice: Commercetools_Money;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderLineItemDistributionChannelSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderLineItemDistributionChannelSet';
+  distributionChannel?: Maybe<Commercetools_Channel>;
+  distributionChannelRef?: Maybe<Commercetools_Reference>;
+  lineItemId: Scalars['String']['output'];
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderLineItemRemoved = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderLineItemRemoved';
+  lineItemId: Scalars['String']['output'];
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  newPrice?: Maybe<Commercetools_ProductPrice>;
+  newQuantity: Scalars['Commercetools_Long']['output'];
+  newShippingDetails?: Maybe<Commercetools_ItemShippingDetails>;
+  newState: Scalars['Commercetools_Set']['output'];
+  newTaxedPrice?: Maybe<Commercetools_TaxedItemPrice>;
+  newTotalPrice: Commercetools_Money;
+  removedQuantity: Scalars['Commercetools_Long']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderMessagePayload = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderPaymentAdded = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderPaymentAdded';
+  paymentRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderPaymentRemoved = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderPaymentRemoved';
+  paymentRef: Commercetools_Reference;
+  removedPaymentInfo: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderPaymentStateChanged = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderPaymentStateChanged';
+  oldPaymentState?: Maybe<Commercetools_PaymentState>;
+  paymentState: Commercetools_PaymentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderReturnShipmentStateChanged = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderReturnShipmentStateChanged';
+  returnItemId: Scalars['String']['output'];
+  returnShipmentState: Commercetools_ReturnShipmentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderShipmentStateChanged = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderShipmentStateChanged';
+  oldShipmentState?: Maybe<Commercetools_ShipmentState>;
+  shipmentState: Commercetools_ShipmentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderShippingAddressSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderShippingAddressSet';
+  address?: Maybe<Commercetools_Address>;
+  oldAddress?: Maybe<Commercetools_Address>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderShippingInfoSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderShippingInfoSet';
+  oldShippingInfo?: Maybe<Commercetools_ShippingInfo>;
+  shippingInfo?: Maybe<Commercetools_ShippingInfo>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderShippingRateInputSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderShippingRateInputSet';
+  oldShippingRateInput?: Maybe<Commercetools_ShippingRateInput>;
+  shippingRateInput?: Maybe<Commercetools_ShippingRateInput>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_OrderState {
+  Cancelled = 'Cancelled',
+  Complete = 'Complete',
+  Confirmed = 'Confirmed',
+  Open = 'Open'
+}
+
+export type Commercetools_OrderStateChanged = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderStateChanged';
+  oldOrderState?: Maybe<Commercetools_OrderState>;
+  orderId: Scalars['String']['output'];
+  orderState: Commercetools_OrderState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderStateTransition = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderStateTransition';
+  force: Scalars['Boolean']['output'];
+  oldState?: Maybe<Commercetools_State>;
+  oldStateRef?: Maybe<Commercetools_Reference>;
+  state?: Maybe<Commercetools_State>;
+  stateRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_OrderStoreSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_OrderStoreSet';
+  oldStore?: Maybe<Commercetools_Store>;
+  oldStoreRef?: Maybe<Commercetools_KeyReference>;
+  store?: Maybe<Commercetools_Store>;
+  storeRef?: Maybe<Commercetools_KeyReference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_Parcel = {
+  __typename?: 'Commercetools_Parcel';
+  createdAt: Scalars['DateTime']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  items: Array<Commercetools_DeliveryItem>;
+  key?: Maybe<Scalars['String']['output']>;
+  measurements?: Maybe<Commercetools_ParcelMeasurements>;
+  trackingData?: Maybe<Commercetools_TrackingData>;
+};
+
+export type Commercetools_ParcelAddedToDelivery = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_ParcelAddedToDelivery';
+  delivery: Commercetools_Delivery;
+  parcel: Commercetools_Parcel;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ParcelData = {
+  __typename?: 'Commercetools_ParcelData';
+  custom?: Maybe<Commercetools_CustomFieldsCommand>;
+  items: Array<Commercetools_DeliveryItem>;
+  key?: Maybe<Scalars['String']['output']>;
+  measurements?: Maybe<Commercetools_ParcelMeasurements>;
+  trackingData?: Maybe<Commercetools_TrackingData>;
+};
+
+export type Commercetools_ParcelItemsUpdated = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_ParcelItemsUpdated';
+  deliveryId: Scalars['String']['output'];
+  items: Array<Commercetools_DeliveryItem>;
+  oldItems: Array<Commercetools_DeliveryItem>;
+  parcelId: Scalars['String']['output'];
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ParcelMeasurements = {
+  __typename?: 'Commercetools_ParcelMeasurements';
+  heightInMillimeter?: Maybe<Scalars['Int']['output']>;
+  lengthInMillimeter?: Maybe<Scalars['Int']['output']>;
+  weightInGram?: Maybe<Scalars['Int']['output']>;
+  widthInMillimeter?: Maybe<Scalars['Int']['output']>;
+};
+
+export type Commercetools_ParcelMeasurementsUpdated = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_ParcelMeasurementsUpdated';
+  deliveryId: Scalars['String']['output'];
+  measurements?: Maybe<Commercetools_ParcelMeasurements>;
+  parcelId: Scalars['String']['output'];
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ParcelRemovedFromDelivery = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_ParcelRemovedFromDelivery';
+  deliveryId: Scalars['String']['output'];
+  parcel: Commercetools_Parcel;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ParcelTrackingDataUpdated = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_ParcelTrackingDataUpdated';
+  deliveryId: Scalars['String']['output'];
+  parcelId: Scalars['String']['output'];
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  trackingData?: Maybe<Commercetools_TrackingData>;
+  type: Scalars['String']['output'];
+};
+
+/**
+ * Payments hold information about the current state of receiving and/or refunding money.
+ * [documentation](https://docs.commercetools.com/api/projects/payments)
+ */
+export type Commercetools_Payment = Commercetools_Versioned & {
+  __typename?: 'Commercetools_Payment';
+  amountPlanned: Commercetools_Money;
+  anonymousId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerRef?: Maybe<Commercetools_Reference>;
+  id: Scalars['String']['output'];
+  interfaceId?: Maybe<Scalars['String']['output']>;
+  interfaceInteractionsRaw: Commercetools_InterfaceInteractionsRawResult;
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  paymentMethodInfo: Commercetools_PaymentMethodInfo;
+  paymentStatus: Commercetools_PaymentStatus;
+  transactions: Array<Commercetools_Transaction>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/**
+ * Payments hold information about the current state of receiving and/or refunding money.
+ * [documentation](https://docs.commercetools.com/api/projects/payments)
+ */
+export type Commercetools_PaymentInterfaceInteractionsRawArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type Commercetools_PaymentCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_PaymentCreated';
+  payment: Commercetools_Payment;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_PaymentInfo = {
+  __typename?: 'Commercetools_PaymentInfo';
+  paymentRefs: Array<Commercetools_Reference>;
+  payments: Array<Commercetools_Payment>;
+};
+
+export type Commercetools_PaymentInteractionAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_PaymentInteractionAdded';
+  interaction: Commercetools_CustomFieldsType;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_PaymentMethodInfo = {
+  __typename?: 'Commercetools_PaymentMethodInfo';
+  method?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  paymentInterface?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Commercetools_PaymentMethodInfoNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export enum Commercetools_PaymentState {
+  BalanceDue = 'BalanceDue',
+  CreditOwed = 'CreditOwed',
+  Failed = 'Failed',
+  Paid = 'Paid',
+  Pending = 'Pending'
+}
+
+export type Commercetools_PaymentStatus = {
+  __typename?: 'Commercetools_PaymentStatus';
+  interfaceCode?: Maybe<Scalars['String']['output']>;
+  interfaceText?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+};
+
+export type Commercetools_PaymentStatusInterfaceCodeSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_PaymentStatusInterfaceCodeSet';
+  interfaceCode?: Maybe<Scalars['String']['output']>;
+  paymentId: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_PaymentStatusStateTransition = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_PaymentStatusStateTransition';
+  force: Scalars['Boolean']['output'];
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_PaymentTransactionAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_PaymentTransactionAdded';
+  transaction: Commercetools_Transaction;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_PaymentTransactionStateChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_PaymentTransactionStateChanged';
+  state: Commercetools_TransactionState;
+  transactionId: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_Permission {
+  AcceptMyQuotes = 'AcceptMyQuotes',
+  AcceptOthersQuotes = 'AcceptOthersQuotes',
+  AddChildUnits = 'AddChildUnits',
+  CreateApprovalRules = 'CreateApprovalRules',
+  CreateMyCarts = 'CreateMyCarts',
+  CreateMyOrdersFromMyCarts = 'CreateMyOrdersFromMyCarts',
+  CreateMyOrdersFromMyQuotes = 'CreateMyOrdersFromMyQuotes',
+  CreateMyQuoteRequestsFromMyCarts = 'CreateMyQuoteRequestsFromMyCarts',
+  CreateOrdersFromOthersCarts = 'CreateOrdersFromOthersCarts',
+  CreateOrdersFromOthersQuotes = 'CreateOrdersFromOthersQuotes',
+  CreateOthersCarts = 'CreateOthersCarts',
+  CreateQuoteRequestsFromOthersCarts = 'CreateQuoteRequestsFromOthersCarts',
+  DeclineMyQuotes = 'DeclineMyQuotes',
+  DeclineOthersQuotes = 'DeclineOthersQuotes',
+  DeleteMyCarts = 'DeleteMyCarts',
+  DeleteOthersCarts = 'DeleteOthersCarts',
+  ReassignMyQuotes = 'ReassignMyQuotes',
+  ReassignOthersQuotes = 'ReassignOthersQuotes',
+  RenegotiateMyQuotes = 'RenegotiateMyQuotes',
+  RenegotiateOthersQuotes = 'RenegotiateOthersQuotes',
+  UpdateApprovalFlows = 'UpdateApprovalFlows',
+  UpdateApprovalRules = 'UpdateApprovalRules',
+  UpdateAssociates = 'UpdateAssociates',
+  UpdateBusinessUnitDetails = 'UpdateBusinessUnitDetails',
+  UpdateMyCarts = 'UpdateMyCarts',
+  UpdateMyOrders = 'UpdateMyOrders',
+  UpdateMyQuoteRequests = 'UpdateMyQuoteRequests',
+  UpdateOthersCarts = 'UpdateOthersCarts',
+  UpdateOthersOrders = 'UpdateOthersOrders',
+  UpdateOthersQuoteRequests = 'UpdateOthersQuoteRequests',
+  UpdateParentUnit = 'UpdateParentUnit',
+  ViewMyCarts = 'ViewMyCarts',
+  ViewMyOrders = 'ViewMyOrders',
+  ViewMyQuoteRequests = 'ViewMyQuoteRequests',
+  ViewMyQuotes = 'ViewMyQuotes',
+  ViewOthersCarts = 'ViewOthersCarts',
+  ViewOthersOrders = 'ViewOthersOrders',
+  ViewOthersQuoteRequests = 'ViewOthersQuoteRequests',
+  ViewOthersQuotes = 'ViewOthersQuotes'
+}
+
+export type Commercetools_PlainEnumValue = {
+  __typename?: 'Commercetools_PlainEnumValue';
+  key: Scalars['String']['output'];
+  label: Scalars['String']['output'];
+};
+
+export type Commercetools_PlainEnumValueResult = {
+  __typename?: 'Commercetools_PlainEnumValueResult';
+  limit?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  results: Array<Commercetools_PlainEnumValue>;
+  total: Scalars['Int']['output'];
+};
+
+export type Commercetools_PlatformFormat = Commercetools_NotificationFormat & {
+  __typename?: 'Commercetools_PlatformFormat';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_Point = Commercetools_Geometry & {
+  __typename?: 'Commercetools_Point';
+  coordinates: Array<Scalars['Float']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_PreviewFailure = Commercetools_OrderEditResult & {
+  __typename?: 'Commercetools_PreviewFailure';
+  errors: Array<Scalars['Json']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_PreviewSuccess = Commercetools_OrderEditResult & {
+  __typename?: 'Commercetools_PreviewSuccess';
+  messagePayloads: Array<Commercetools_OrderMessagePayload>;
+  preview: Commercetools_Order;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_PriceFunction = {
+  __typename?: 'Commercetools_PriceFunction';
+  currencyCode: Scalars['Commercetools_Currency']['output'];
+  function: Scalars['String']['output'];
+};
+
+/**
+ * This mode determines which type of Prices the system uses for
+ * Product Price Selection as well as for LineItem Price selection
+ */
+export enum Commercetools_PriceMode {
+  /** The system looks up prices from the `prices` field of the ProductVariant inside a Product. */
+  Embedded = 'Embedded',
+  /** The system looks up prices from Standalone Prices, stored separately from Products. */
+  Standalone = 'Standalone'
+}
+
+export type Commercetools_Product = Commercetools_ReferenceExpandable & Commercetools_ReviewTarget & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Product';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  masterData: Commercetools_ProductCatalogData;
+  priceMode?: Maybe<Commercetools_PriceMode>;
+  productSelectionRefs: Commercetools_SelectionOfProductQueryResult;
+  productType?: Maybe<Commercetools_ProductTypeDefinition>;
+  productTypeRef: Commercetools_Reference;
+  reviewRatingStatistics?: Maybe<Commercetools_ReviewRatingStatistics>;
+  skus: Array<Scalars['String']['output']>;
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+  taxCategory?: Maybe<Commercetools_TaxCategory>;
+  taxCategoryRef?: Maybe<Commercetools_Reference>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_ProductProductSelectionRefsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<Scalars['String']['input']>>;
+  where?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Commercetools_ProductAddedToCategory = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductAddedToCategory';
+  category: Commercetools_ReferenceId;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductCatalogData = {
+  __typename?: 'Commercetools_ProductCatalogData';
+  current?: Maybe<Commercetools_ProductData>;
+  hasStagedChanges: Scalars['Boolean']['output'];
+  published: Scalars['Boolean']['output'];
+  staged?: Maybe<Commercetools_ProductData>;
+};
+
+export type Commercetools_ProductCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductCreated';
+  productProjection: Commercetools_ProductProjectionMessagePayload;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductData = {
+  __typename?: 'Commercetools_ProductData';
+  allVariants: Array<Commercetools_ProductVariant>;
+  categories: Array<Commercetools_Category>;
+  categoriesRef: Array<Commercetools_Reference>;
+  categoryOrderHint?: Maybe<Scalars['String']['output']>;
+  categoryOrderHints: Array<Commercetools_CategoryOrderHint>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  masterVariant: Commercetools_ProductVariant;
+  metaDescription?: Maybe<Scalars['String']['output']>;
+  metaDescriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaKeywords?: Maybe<Scalars['String']['output']>;
+  metaKeywordsAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaTitle?: Maybe<Scalars['String']['output']>;
+  metaTitleAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  searchKeyword?: Maybe<Array<Commercetools_SearchKeyword>>;
+  searchKeywords: Array<Commercetools_SearchKeywords>;
+  skus: Array<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales: Array<Commercetools_LocalizedString>;
+  variant?: Maybe<Commercetools_ProductVariant>;
+  variants: Array<Commercetools_ProductVariant>;
+};
+
+
+export type Commercetools_ProductDataAllVariantsArgs = {
+  hasImages?: InputMaybe<Scalars['Boolean']['input']>;
+  isOnStock?: InputMaybe<Scalars['Boolean']['input']>;
+  skus?: InputMaybe<Array<Scalars['String']['input']>>;
+  stockChannelIds?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+
+export type Commercetools_ProductDataCategoryOrderHintArgs = {
+  categoryId: Scalars['String']['input'];
+};
+
+
+export type Commercetools_ProductDataDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductDataMetaDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductDataMetaKeywordsArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductDataMetaTitleArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductDataNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductDataSearchKeywordArgs = {
+  locale: Scalars['Commercetools_Locale']['input'];
+};
+
+
+export type Commercetools_ProductDataSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductDataVariantArgs = {
+  key?: InputMaybe<Scalars['String']['input']>;
+  sku?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Commercetools_ProductDataVariantsArgs = {
+  hasImages?: InputMaybe<Scalars['Boolean']['input']>;
+  isOnStock?: InputMaybe<Scalars['Boolean']['input']>;
+  skus?: InputMaybe<Array<Scalars['String']['input']>>;
+  stockChannelIds?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type Commercetools_ProductDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductDeleted';
+  currentProjection?: Maybe<Commercetools_ProductProjectionMessagePayload>;
+  removedImageUrls: Scalars['Commercetools_Set']['output'];
+  type: Scalars['String']['output'];
+};
+
+/**
+ *
+ * A product price can be discounted in two ways:
+ *
+ * * with a relative or an absolute product discount, which will be automatically applied to all prices in a product that match a discount predicate.
+ *   A relative discount reduces the matching price by a fraction (for example 10 % off). An absolute discount reduces the matching price by a fixed amount (for example 10€ off). If more than one product discount matches a price, the discount sort order determines which one will be applied.
+ * * with an external product discount, which can then be used to explicitly set a discounted value on a particular product price.
+ *
+ * The discounted price is stored in the discounted field of the Product Price.
+ *
+ * Note that when a discount is created, updated or removed it can take up to 15 minutes to update all the prices with the discounts.
+ *
+ * The maximum number of ProductDiscounts that can be active at the same time is **200**.
+ *
+ */
+export type Commercetools_ProductDiscount = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_ProductDiscount';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  id: Scalars['String']['output'];
+  isActive: Scalars['Boolean']['output'];
+  isValid: Scalars['Boolean']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  predicate: Scalars['String']['output'];
+  referenceRefs: Array<Commercetools_Reference>;
+  sortOrder: Scalars['String']['output'];
+  validFrom?: Maybe<Scalars['DateTime']['output']>;
+  validUntil?: Maybe<Scalars['DateTime']['output']>;
+  value: Commercetools_ProductDiscountValue;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/**
+ *
+ * A product price can be discounted in two ways:
+ *
+ * * with a relative or an absolute product discount, which will be automatically applied to all prices in a product that match a discount predicate.
+ *   A relative discount reduces the matching price by a fraction (for example 10 % off). An absolute discount reduces the matching price by a fixed amount (for example 10€ off). If more than one product discount matches a price, the discount sort order determines which one will be applied.
+ * * with an external product discount, which can then be used to explicitly set a discounted value on a particular product price.
+ *
+ * The discounted price is stored in the discounted field of the Product Price.
+ *
+ * Note that when a discount is created, updated or removed it can take up to 15 minutes to update all the prices with the discounts.
+ *
+ * The maximum number of ProductDiscounts that can be active at the same time is **200**.
+ *
+ */
+export type Commercetools_ProductDiscountDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+/**
+ *
+ * A product price can be discounted in two ways:
+ *
+ * * with a relative or an absolute product discount, which will be automatically applied to all prices in a product that match a discount predicate.
+ *   A relative discount reduces the matching price by a fraction (for example 10 % off). An absolute discount reduces the matching price by a fixed amount (for example 10€ off). If more than one product discount matches a price, the discount sort order determines which one will be applied.
+ * * with an external product discount, which can then be used to explicitly set a discounted value on a particular product price.
+ *
+ * The discounted price is stored in the discounted field of the Product Price.
+ *
+ * Note that when a discount is created, updated or removed it can take up to 15 minutes to update all the prices with the discounts.
+ *
+ * The maximum number of ProductDiscounts that can be active at the same time is **200**.
+ *
+ */
+export type Commercetools_ProductDiscountNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ProductDiscountValue = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductImageAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductImageAdded';
+  image: Commercetools_Image;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  variantId: Scalars['Int']['output'];
+};
+
+export type Commercetools_ProductOfSelection = {
+  __typename?: 'Commercetools_ProductOfSelection';
+  product?: Maybe<Commercetools_Product>;
+  productRef: Commercetools_Reference;
+  variantExclusion?: Maybe<Commercetools_ProductVariantExclusion>;
+  variantSelection?: Maybe<Commercetools_ProductVariantSelection>;
+};
+
+export type Commercetools_ProductOfSelectionQueryResult = {
+  __typename?: 'Commercetools_ProductOfSelectionQueryResult';
+  count: Scalars['Int']['output'];
+  exists: Scalars['Boolean']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<Commercetools_ProductOfSelection>;
+  total: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ProductPrice = {
+  __typename?: 'Commercetools_ProductPrice';
+  channel?: Maybe<Commercetools_Channel>;
+  channelRef?: Maybe<Commercetools_Reference>;
+  country?: Maybe<Scalars['Commercetools_Country']['output']>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  discounted?: Maybe<Commercetools_DiscountedProductPriceValue>;
+  id?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  tiers?: Maybe<Array<Commercetools_ProductPriceTier>>;
+  validFrom?: Maybe<Scalars['DateTime']['output']>;
+  validUntil?: Maybe<Scalars['DateTime']['output']>;
+  value: Commercetools_BaseMoney;
+};
+
+export type Commercetools_ProductPriceAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPriceAdded';
+  price: Commercetools_ProductPrice;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  variantId: Scalars['Int']['output'];
+};
+
+export type Commercetools_ProductPriceChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPriceChanged';
+  newPrice: Commercetools_ProductPrice;
+  oldPrice: Commercetools_ProductPrice;
+  oldStagedPrice?: Maybe<Commercetools_ProductPrice>;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  variantId: Scalars['Int']['output'];
+};
+
+export type Commercetools_ProductPriceDiscountUpdateMessagePayload = {
+  __typename?: 'Commercetools_ProductPriceDiscountUpdateMessagePayload';
+  discounted?: Maybe<Commercetools_DiscountedProductPriceValue>;
+  priceId: Scalars['String']['output'];
+  sku?: Maybe<Scalars['String']['output']>;
+  staged: Scalars['Boolean']['output'];
+  variantId: Scalars['Int']['output'];
+  variantKey?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_ProductPriceDiscountsSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPriceDiscountsSet';
+  type: Scalars['String']['output'];
+  updatedPrices: Array<Commercetools_ProductPriceDiscountUpdateMessagePayload>;
+};
+
+export type Commercetools_ProductPriceExternalDiscountSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPriceExternalDiscountSet';
+  discounted?: Maybe<Commercetools_DiscountedProductPriceValue>;
+  priceId: Scalars['String']['output'];
+  sku?: Maybe<Scalars['String']['output']>;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  variantId: Scalars['Int']['output'];
+  variantKey?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_ProductPriceKeySet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPriceKeySet';
+  key?: Maybe<Scalars['String']['output']>;
+  oldKey?: Maybe<Scalars['String']['output']>;
+  priceId?: Maybe<Scalars['String']['output']>;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  variantId: Scalars['Int']['output'];
+};
+
+export type Commercetools_ProductPriceModeSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPriceModeSet';
+  to?: Maybe<Commercetools_PriceMode>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductPriceRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPriceRemoved';
+  price: Commercetools_ProductPrice;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  variantId: Scalars['Int']['output'];
+};
+
+export type Commercetools_ProductPriceTier = {
+  __typename?: 'Commercetools_ProductPriceTier';
+  minimumQuantity: Scalars['Int']['output'];
+  value: Commercetools_BaseMoney;
+};
+
+export type Commercetools_ProductPricesSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPricesSet';
+  prices: Array<Commercetools_ProductPrice>;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  variantId: Scalars['Int']['output'];
+};
+
+export type Commercetools_ProductProjectionMessagePayload = {
+  __typename?: 'Commercetools_ProductProjectionMessagePayload';
+  categories: Array<Commercetools_Category>;
+  categoriesRef: Array<Commercetools_Reference>;
+  categoryOrderHints: Array<Commercetools_CategoryOrderHint>;
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  hasStagedChanges: Scalars['Boolean']['output'];
+  id: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  masterVariant: Commercetools_ProductVariant;
+  metaDescription?: Maybe<Scalars['String']['output']>;
+  metaDescriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaKeywords?: Maybe<Scalars['String']['output']>;
+  metaKeywordsAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaTitle?: Maybe<Scalars['String']['output']>;
+  metaTitleAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  productType?: Maybe<Commercetools_ProductTypeDefinition>;
+  productTypeRef: Commercetools_Reference;
+  published: Scalars['Boolean']['output'];
+  reviewRatingStatistics?: Maybe<Commercetools_ReviewRatingStatistics>;
+  searchKeywords: Array<Commercetools_SearchKeywords>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales: Array<Commercetools_LocalizedString>;
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+  taxCategory?: Maybe<Commercetools_TaxCategory>;
+  taxCategoryRef?: Maybe<Commercetools_Reference>;
+  variants: Array<Commercetools_ProductVariant>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_ProductProjectionMessagePayloadDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductProjectionMessagePayloadMetaDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductProjectionMessagePayloadMetaKeywordsArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductProjectionMessagePayloadMetaTitleArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductProjectionMessagePayloadNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductProjectionMessagePayloadSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ProductPublished = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductPublished';
+  productProjection: Commercetools_ProductProjectionMessagePayload;
+  removedImageUrls: Array<Scalars['String']['output']>;
+  scope: Commercetools_PublishScope;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductReferenceIdentifier = {
+  __typename?: 'Commercetools_ProductReferenceIdentifier';
+  id?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  typeId: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductRemovedFromCategory = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductRemovedFromCategory';
+  category: Commercetools_ReferenceId;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductRevertedStagedChanges = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductRevertedStagedChanges';
+  removedImageUrls: Scalars['Commercetools_Set']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductSelection = Commercetools_Versioned & {
+  __typename?: 'Commercetools_ProductSelection';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  mode: Commercetools_ProductSelectionMode;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  productCount: Scalars['Int']['output'];
+  productRefs: Commercetools_ProductOfSelectionQueryResult;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_ProductSelectionNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductSelectionProductRefsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<Scalars['String']['input']>>;
+  where?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Commercetools_ProductSelectionCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductSelectionCreated';
+  productSelection: Commercetools_ProductSelection;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductSelectionDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductSelectionDeleted';
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_ProductSelectionMode {
+  /** Mode of Product Selection used to include a specific list of individual Products */
+  Individual = 'Individual',
+  /** Mode of Product Selection used to exclude a specific list of individual Products */
+  IndividualExclusion = 'IndividualExclusion'
+}
+
+export type Commercetools_ProductSelectionProductAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductSelectionProductAdded';
+  product?: Maybe<Commercetools_Product>;
+  productRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+  variantSelection?: Maybe<Commercetools_ProductVariantSelection>;
+};
+
+export type Commercetools_ProductSelectionProductExcluded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductSelectionProductExcluded';
+  product?: Maybe<Commercetools_Product>;
+  productRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+  variantExclusion?: Maybe<Commercetools_ProductVariantExclusion>;
+};
+
+export type Commercetools_ProductSelectionProductRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductSelectionProductRemoved';
+  product?: Maybe<Commercetools_Product>;
+  productRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductSelectionSetting = {
+  __typename?: 'Commercetools_ProductSelectionSetting';
+  active: Scalars['Boolean']['output'];
+  productSelection?: Maybe<Commercetools_ProductSelection>;
+  productSelectionRef: Commercetools_Reference;
+};
+
+export type Commercetools_ProductSelectionVariantExclusionChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductSelectionVariantExclusionChanged';
+  newVariantExclusion?: Maybe<Commercetools_ProductVariantExclusion>;
+  oldVariantExclusion?: Maybe<Commercetools_ProductVariantExclusion>;
+  product?: Maybe<Commercetools_Product>;
+  productRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductSelectionVariantSelectionChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductSelectionVariantSelectionChanged';
+  newVariantSelection?: Maybe<Commercetools_ProductVariantSelection>;
+  oldVariantSelection?: Maybe<Commercetools_ProductVariantSelection>;
+  product?: Maybe<Commercetools_Product>;
+  productRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductSlugChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductSlugChanged';
+  oldSlug?: Maybe<Scalars['String']['output']>;
+  oldSlugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales: Array<Commercetools_LocalizedString>;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_ProductSlugChangedOldSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductSlugChangedSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ProductStateTransition = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductStateTransition';
+  force: Scalars['Boolean']['output'];
+  state?: Maybe<Commercetools_State>;
+  stateRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductTailoring = Commercetools_Versioned & {
+  __typename?: 'Commercetools_ProductTailoring';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  current?: Maybe<Commercetools_ProductTailoringData>;
+  hasStagedChanges: Scalars['Boolean']['output'];
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  product?: Maybe<Commercetools_Product>;
+  productRef: Commercetools_Reference;
+  published: Scalars['Boolean']['output'];
+  staged?: Maybe<Commercetools_ProductTailoringData>;
+  store?: Maybe<Commercetools_Store>;
+  storeRef: Commercetools_KeyReference;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ProductTailoringCreated = Commercetools_HasProductTailoringData & Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductTailoringCreated';
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  key?: Maybe<Scalars['String']['output']>;
+  metaDescription?: Maybe<Scalars['String']['output']>;
+  metaDescriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaKeywords?: Maybe<Scalars['String']['output']>;
+  metaKeywordsAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaTitle?: Maybe<Scalars['String']['output']>;
+  metaTitleAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  productKey?: Maybe<Scalars['String']['output']>;
+  productRef: Commercetools_Reference;
+  publish: Scalars['Boolean']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_ProductTailoringCreatedDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringCreatedMetaDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringCreatedMetaKeywordsArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringCreatedMetaTitleArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringCreatedNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringCreatedSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ProductTailoringData = Commercetools_HasProductTailoringData & {
+  __typename?: 'Commercetools_ProductTailoringData';
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaDescription?: Maybe<Scalars['String']['output']>;
+  metaDescriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaKeywords?: Maybe<Scalars['String']['output']>;
+  metaKeywordsAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  metaTitle?: Maybe<Scalars['String']['output']>;
+  metaTitleAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+};
+
+
+export type Commercetools_ProductTailoringDataDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringDataMetaDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringDataMetaKeywordsArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringDataMetaTitleArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringDataNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringDataSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ProductTailoringDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductTailoringDeleted';
+  productKey?: Maybe<Scalars['String']['output']>;
+  productRef: Commercetools_Reference;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductTailoringDescriptionSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductTailoringDescriptionSet';
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  oldDescription?: Maybe<Scalars['String']['output']>;
+  oldDescriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  productKey?: Maybe<Scalars['String']['output']>;
+  productRef: Commercetools_Reference;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_ProductTailoringDescriptionSetDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringDescriptionSetOldDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ProductTailoringNameSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductTailoringNameSet';
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  oldName?: Maybe<Scalars['String']['output']>;
+  oldNameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  productKey?: Maybe<Scalars['String']['output']>;
+  productRef: Commercetools_Reference;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_ProductTailoringNameSetNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringNameSetOldNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ProductTailoringPublished = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductTailoringPublished';
+  productKey?: Maybe<Scalars['String']['output']>;
+  productRef: Commercetools_Reference;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductTailoringSlugSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductTailoringSlugSet';
+  oldSlug?: Maybe<Scalars['String']['output']>;
+  oldSlugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  productKey?: Maybe<Scalars['String']['output']>;
+  productRef: Commercetools_Reference;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_ProductTailoringSlugSetOldSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ProductTailoringSlugSetSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ProductTailoringUnpublished = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductTailoringUnpublished';
+  productKey?: Maybe<Scalars['String']['output']>;
+  productRef: Commercetools_Reference;
+  storeRef: Commercetools_KeyReference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductTypeDefinition = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_ProductTypeDefinition';
+  attributeDefinitions: Commercetools_AttributeDefinitionResult;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  description: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name: Scalars['String']['output'];
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_ProductTypeDefinitionAttributeDefinitionsArgs = {
+  excludeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+  includeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type Commercetools_ProductUnpublished = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductUnpublished';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductVariant = {
+  __typename?: 'Commercetools_ProductVariant';
+  assets: Array<Commercetools_Asset>;
+  /** This field contains raw attributes data */
+  attributesRaw: Array<Commercetools_RawProductAttribute>;
+  availability?: Maybe<Commercetools_ProductVariantAvailabilityWithChannels>;
+  id: Scalars['Int']['output'];
+  images: Array<Commercetools_Image>;
+  key?: Maybe<Scalars['String']['output']>;
+  /** Returns a single price based on the price selection rules. */
+  price?: Maybe<Commercetools_ProductPrice>;
+  prices?: Maybe<Array<Commercetools_ProductPrice>>;
+  sku?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Commercetools_ProductVariantAttributesRawArgs = {
+  excludeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+  includeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+
+export type Commercetools_ProductVariantPriceArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['Commercetools_Country']['input']>;
+  currency: Scalars['Commercetools_Currency']['input'];
+  customerGroupId?: InputMaybe<Scalars['String']['input']>;
+  date?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type Commercetools_ProductVariantAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductVariantAdded';
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  variant: Commercetools_ProductVariant;
+};
+
+/** Product variant availabilities */
+export type Commercetools_ProductVariantAvailabilitiesResult = {
+  __typename?: 'Commercetools_ProductVariantAvailabilitiesResult';
+  limit?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  results: Array<Commercetools_ProductVariantAvailabilityWithChannel>;
+  total: Scalars['Int']['output'];
+};
+
+/** Product variant availability */
+export type Commercetools_ProductVariantAvailability = {
+  __typename?: 'Commercetools_ProductVariantAvailability';
+  availableQuantity?: Maybe<Scalars['Commercetools_Long']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  isOnStock: Scalars['Boolean']['output'];
+  restockableInDays?: Maybe<Scalars['Int']['output']>;
+  version?: Maybe<Scalars['Commercetools_Long']['output']>;
+};
+
+export type Commercetools_ProductVariantAvailabilityWithChannel = {
+  __typename?: 'Commercetools_ProductVariantAvailabilityWithChannel';
+  availability: Commercetools_ProductVariantAvailability;
+  channel?: Maybe<Commercetools_Channel>;
+  channelRef: Commercetools_Reference;
+};
+
+export type Commercetools_ProductVariantAvailabilityWithChannels = {
+  __typename?: 'Commercetools_ProductVariantAvailabilityWithChannels';
+  channels: Commercetools_ProductVariantAvailabilitiesResult;
+  noChannel?: Maybe<Commercetools_ProductVariantAvailability>;
+};
+
+
+export type Commercetools_ProductVariantAvailabilityWithChannelsChannelsArgs = {
+  excludeChannelIds?: InputMaybe<Array<Scalars['String']['input']>>;
+  includeChannelIds?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type Commercetools_ProductVariantDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ProductVariantDeleted';
+  removedImageUrls: Scalars['Commercetools_Set']['output'];
+  staged?: Maybe<Scalars['Boolean']['output']>;
+  type: Scalars['String']['output'];
+  variant?: Maybe<Commercetools_ProductVariant>;
+};
+
+export type Commercetools_ProductVariantExclusion = {
+  __typename?: 'Commercetools_ProductVariantExclusion';
+  skus: Array<Scalars['String']['output']>;
+};
+
+export type Commercetools_ProductVariantSelection = {
+  skus: Array<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductVariantSelectionIncludeAllExcept = Commercetools_ProductVariantSelection & {
+  __typename?: 'Commercetools_ProductVariantSelectionIncludeAllExcept';
+  skus: Array<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ProductVariantSelectionIncludeOnly = Commercetools_ProductVariantSelection & {
+  __typename?: 'Commercetools_ProductVariantSelectionIncludeOnly';
+  skus: Array<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_PublishScope {
+  /** Publishes the complete staged projection */
+  All = 'All',
+  /** Publishes only prices on the staged projection */
+  Prices = 'Prices'
+}
+
+export type Commercetools_PurchaseOrderNumberSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_PurchaseOrderNumberSet';
+  oldPurchaseOrderNumber?: Maybe<Scalars['String']['output']>;
+  purchaseOrderNumber?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_Quote = Commercetools_Versioned & {
+  __typename?: 'Commercetools_Quote';
+  billingAddress?: Maybe<Commercetools_Address>;
+  businessUnit?: Maybe<Commercetools_BusinessUnit>;
+  businessUnitRef?: Maybe<Commercetools_KeyReference>;
+  buyerComment?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['Commercetools_Country']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customLineItems: Array<Commercetools_CustomLineItem>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  customerRef?: Maybe<Commercetools_Reference>;
+  /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+  directDiscounts: Array<Commercetools_DirectDiscount>;
+  id: Scalars['String']['output'];
+  inventoryMode: Commercetools_InventoryMode;
+  itemShippingAddresses: Array<Commercetools_Address>;
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  lineItems: Array<Commercetools_LineItem>;
+  paymentInfo?: Maybe<Commercetools_PaymentInfo>;
+  purchaseOrderNumber?: Maybe<Scalars['String']['output']>;
+  quoteRequest?: Maybe<Commercetools_QuoteRequest>;
+  quoteRequestRef: Commercetools_Reference;
+  quoteState: Commercetools_QuoteState;
+  sellerComment?: Maybe<Scalars['String']['output']>;
+  shippingAddress?: Maybe<Commercetools_Address>;
+  shippingInfo?: Maybe<Commercetools_ShippingInfo>;
+  shippingRateInput?: Maybe<Commercetools_ShippingRateInput>;
+  stagedQuote?: Maybe<Commercetools_StagedQuote>;
+  stagedQuoteRef: Commercetools_Reference;
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+  store?: Maybe<Commercetools_Store>;
+  storeRef?: Maybe<Commercetools_KeyReference>;
+  taxCalculationMode: Commercetools_TaxCalculationMode;
+  taxMode: Commercetools_TaxMode;
+  taxRoundingMode: Commercetools_RoundingMode;
+  taxedPrice?: Maybe<Commercetools_TaxedPrice>;
+  totalPrice: Commercetools_Money;
+  validTo?: Maybe<Scalars['DateTime']['output']>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_QuoteLineItemsArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Commercetools_QuoteCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteCreated';
+  quote: Commercetools_Quote;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_QuoteCustomerChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteCustomerChanged';
+  customer?: Maybe<Commercetools_Customer>;
+  customerRef: Commercetools_Reference;
+  previousCustomer?: Maybe<Commercetools_Customer>;
+  previousCustomerRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_QuoteDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteDeleted';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_QuoteRenegotiationRequested = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteRenegotiationRequested';
+  buyerComment?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_QuoteRequest = Commercetools_Versioned & {
+  __typename?: 'Commercetools_QuoteRequest';
+  billingAddress?: Maybe<Commercetools_Address>;
+  businessUnit?: Maybe<Commercetools_BusinessUnit>;
+  businessUnitRef?: Maybe<Commercetools_KeyReference>;
+  cartRef?: Maybe<Commercetools_Reference>;
+  comment?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['Commercetools_Country']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customLineItems: Array<Commercetools_CustomLineItem>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  customerRef?: Maybe<Commercetools_Reference>;
+  /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+  directDiscounts: Array<Commercetools_DirectDiscount>;
+  id: Scalars['String']['output'];
+  inventoryMode: Commercetools_InventoryMode;
+  itemShippingAddresses: Array<Commercetools_Address>;
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  lineItems: Array<Commercetools_LineItem>;
+  paymentInfo?: Maybe<Commercetools_PaymentInfo>;
+  purchaseOrderNumber?: Maybe<Scalars['String']['output']>;
+  quoteRequestState: Commercetools_QuoteRequestState;
+  shippingAddress?: Maybe<Commercetools_Address>;
+  shippingInfo?: Maybe<Commercetools_ShippingInfo>;
+  shippingRateInput?: Maybe<Commercetools_ShippingRateInput>;
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+  store?: Maybe<Commercetools_Store>;
+  storeRef?: Maybe<Commercetools_KeyReference>;
+  taxCalculationMode: Commercetools_TaxCalculationMode;
+  taxMode: Commercetools_TaxMode;
+  taxRoundingMode: Commercetools_RoundingMode;
+  taxedPrice?: Maybe<Commercetools_TaxedPrice>;
+  totalPrice: Commercetools_Money;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_QuoteRequestLineItemsArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Commercetools_QuoteRequestCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteRequestCreated';
+  quoteRequest: Commercetools_QuoteRequest;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_QuoteRequestCustomerChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteRequestCustomerChanged';
+  customer?: Maybe<Commercetools_Customer>;
+  customerRef: Commercetools_Reference;
+  previousCustomer?: Maybe<Commercetools_Customer>;
+  previousCustomerRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_QuoteRequestDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteRequestDeleted';
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_QuoteRequestState {
+  Accepted = 'Accepted',
+  Cancelled = 'Cancelled',
+  Closed = 'Closed',
+  Rejected = 'Rejected',
+  Submitted = 'Submitted',
+  UnderReview = 'UnderReview'
+}
+
+export type Commercetools_QuoteRequestStateChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteRequestStateChanged';
+  oldQuoteRequestState: Commercetools_QuoteRequestState;
+  quoteRequestState: Commercetools_QuoteRequestState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_QuoteRequestStateTransition = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteRequestStateTransition';
+  force: Scalars['Boolean']['output'];
+  oldState?: Maybe<Commercetools_State>;
+  oldStateRef?: Maybe<Commercetools_Reference>;
+  state?: Maybe<Commercetools_State>;
+  stateRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_QuoteState {
+  Accepted = 'Accepted',
+  Declined = 'Declined',
+  DeclinedForRenegotiation = 'DeclinedForRenegotiation',
+  Pending = 'Pending',
+  RenegotiationAddressed = 'RenegotiationAddressed',
+  Withdrawn = 'Withdrawn'
+}
+
+export type Commercetools_QuoteStateChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteStateChanged';
+  oldQuoteState: Commercetools_QuoteState;
+  quoteState: Commercetools_QuoteState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_QuoteStateTransition = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_QuoteStateTransition';
+  force: Scalars['Boolean']['output'];
+  oldState?: Maybe<Commercetools_State>;
+  oldStateRef?: Maybe<Commercetools_Reference>;
+  state?: Maybe<Commercetools_State>;
+  stateRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_RawCustomField = {
+  __typename?: 'Commercetools_RawCustomField';
+  name: Scalars['String']['output'];
+  /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+  referencedResource?: Maybe<Commercetools_ReferenceExpandable>;
+  /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+  referencedResourceSet: Array<Commercetools_ReferenceExpandable>;
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_RawProductAttribute = {
+  __typename?: 'Commercetools_RawProductAttribute';
+  attributeDefinition?: Maybe<Commercetools_AttributeDefinition>;
+  name: Scalars['String']['output'];
+  /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+  referencedResource?: Maybe<Commercetools_ReferenceExpandable>;
+  /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+  referencedResourceSet: Array<Commercetools_ReferenceExpandable>;
+  value: Scalars['Json']['output'];
+};
+
+export type Commercetools_Reference = {
+  __typename?: 'Commercetools_Reference';
+  id: Scalars['String']['output'];
+  typeId: Scalars['String']['output'];
+};
+
+export type Commercetools_ReferenceAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_ReferenceAttributeDefinitionType';
+  name: Scalars['String']['output'];
+  referenceTypeId: Scalars['String']['output'];
+};
+
+export type Commercetools_ReferenceExpandable = {
+  id: Scalars['String']['output'];
+};
+
+export type Commercetools_ReferenceId = {
+  __typename?: 'Commercetools_ReferenceId';
+  id: Scalars['String']['output'];
+  typeId: Scalars['String']['output'];
+};
+
+export type Commercetools_ReferenceType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_ReferenceType';
+  name: Scalars['String']['output'];
+  referenceTypeId: Scalars['String']['output'];
+};
+
+export type Commercetools_RelativeDiscountValue = Commercetools_CartDiscountValue & Commercetools_ProductDiscountValue & {
+  __typename?: 'Commercetools_RelativeDiscountValue';
+  permyriad: Scalars['Int']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_RemoveStagedOrderCustomLineItemOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_RemoveStagedOrderCustomLineItemOutput';
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_RemoveStagedOrderDeliveryOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_RemoveStagedOrderDeliveryOutput';
+  deliveryId?: Maybe<Scalars['String']['output']>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_RemoveStagedOrderDiscountCodeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_RemoveStagedOrderDiscountCodeOutput';
+  discountCode?: Maybe<Commercetools_DiscountCode>;
+  discountCodeRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_RemoveStagedOrderItemShippingAddressOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_RemoveStagedOrderItemShippingAddressOutput';
+  addressKey: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_RemoveStagedOrderLineItemOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_RemoveStagedOrderLineItemOutput';
+  externalPrice?: Maybe<Commercetools_BaseMoney>;
+  externalTotalPrice?: Maybe<Commercetools_ExternalLineItemTotalPrice>;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Commercetools_Long']['output']>;
+  shippingDetailsToRemove?: Maybe<Commercetools_ItemShippingDetailsDraftOutput>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_RemoveStagedOrderParcelFromDeliveryOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_RemoveStagedOrderParcelFromDeliveryOutput';
+  parcelId?: Maybe<Scalars['String']['output']>;
+  parcelKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_RemoveStagedOrderPaymentOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_RemoveStagedOrderPaymentOutput';
+  paymentResId: Commercetools_ResourceIdentifier;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ResourceIdentifier = {
+  __typename?: 'Commercetools_ResourceIdentifier';
+  id?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  typeId: Scalars['String']['output'];
+};
+
+/** Stores information about returns connected to this order. */
+export type Commercetools_ReturnInfo = {
+  __typename?: 'Commercetools_ReturnInfo';
+  items: Array<Commercetools_ReturnItem>;
+  returnDate?: Maybe<Scalars['DateTime']['output']>;
+  returnTrackingId?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_ReturnInfoAdded = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_ReturnInfoAdded';
+  returnInfo: Commercetools_ReturnInfo;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ReturnInfoDraftTypeOutput = {
+  __typename?: 'Commercetools_ReturnInfoDraftTypeOutput';
+  items: Array<Commercetools_ReturnItemDraftTypeOutput>;
+  returnDate?: Maybe<Scalars['DateTime']['output']>;
+  returnTrackingId?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_ReturnInfoSet = Commercetools_MessagePayload & Commercetools_OrderMessagePayload & {
+  __typename?: 'Commercetools_ReturnInfoSet';
+  returnInfo?: Maybe<Array<Commercetools_ReturnInfo>>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ReturnItem = {
+  comment?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  paymentState: Commercetools_ReturnPaymentState;
+  quantity: Scalars['Commercetools_Long']['output'];
+  shipmentState: Commercetools_ReturnShipmentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ReturnItemDraftTypeOutput = {
+  __typename?: 'Commercetools_ReturnItemDraftTypeOutput';
+  comment?: Maybe<Scalars['String']['output']>;
+  custom?: Maybe<Commercetools_CustomFieldsCommand>;
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  quantity: Scalars['Commercetools_Long']['output'];
+  shipmentState: Commercetools_ReturnShipmentState;
+};
+
+export enum Commercetools_ReturnPaymentState {
+  Initial = 'Initial',
+  NonRefundable = 'NonRefundable',
+  NotRefunded = 'NotRefunded',
+  Refunded = 'Refunded'
+}
+
+export enum Commercetools_ReturnShipmentState {
+  Advised = 'Advised',
+  BackInStock = 'BackInStock',
+  Returned = 'Returned',
+  Unusable = 'Unusable'
+}
+
+export type Commercetools_Review = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Review';
+  authorName?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerRef?: Maybe<Commercetools_Reference>;
+  id: Scalars['String']['output'];
+  includedInStatistics: Scalars['Boolean']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  locale?: Maybe<Scalars['Commercetools_Locale']['output']>;
+  rating?: Maybe<Scalars['Int']['output']>;
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+  target?: Maybe<Commercetools_ReviewTarget>;
+  targetRef?: Maybe<Commercetools_Reference>;
+  text?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  uniquenessValue?: Maybe<Scalars['String']['output']>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ReviewCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ReviewCreated';
+  review: Commercetools_Review;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ReviewRatingSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ReviewRatingSet';
+  includedInStatistics: Scalars['Boolean']['output'];
+  newRating?: Maybe<Scalars['Int']['output']>;
+  oldRating?: Maybe<Scalars['Int']['output']>;
+  target?: Maybe<Commercetools_ReviewTarget>;
+  targetRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ReviewRatingStatistics = {
+  __typename?: 'Commercetools_ReviewRatingStatistics';
+  averageRating: Scalars['Float']['output'];
+  count: Scalars['Commercetools_Long']['output'];
+  highestRating: Scalars['Int']['output'];
+  lowestRating: Scalars['Int']['output'];
+  ratingsDistribution: Scalars['Json']['output'];
+};
+
+export type Commercetools_ReviewStateTransition = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_ReviewStateTransition';
+  force: Scalars['Boolean']['output'];
+  newIncludedInStatistics: Scalars['Boolean']['output'];
+  newState?: Maybe<Commercetools_State>;
+  newStateRef: Commercetools_Reference;
+  oldIncludedInStatistics: Scalars['Boolean']['output'];
+  oldState?: Maybe<Commercetools_State>;
+  oldStateRef?: Maybe<Commercetools_Reference>;
+  target?: Maybe<Commercetools_ReviewTarget>;
+  targetRef?: Maybe<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ReviewTarget = {
+  id: Scalars['String']['output'];
+};
+
+export enum Commercetools_RoundingMode {
+  /** [Round half down](https://en.wikipedia.org/wiki/Rounding#Round_half_down) */
+  HalfDown = 'HalfDown',
+  /** [Round half to even](https://en.wikipedia.org/wiki/Rounding#Round_half_to_even). Default rounding mode as used in IEEE 754 computing functions and operators. */
+  HalfEven = 'HalfEven',
+  /** [Round half up](https://en.wikipedia.org/wiki/Rounding#Round_half_up) */
+  HalfUp = 'HalfUp'
+}
+
+export type Commercetools_RuleApprover = {
+  __typename?: 'Commercetools_RuleApprover';
+  associateRole: Commercetools_AssociateRole;
+  associateRoleRef: Commercetools_KeyReference;
+};
+
+export type Commercetools_RuleRequester = {
+  __typename?: 'Commercetools_RuleRequester';
+  associateRole: Commercetools_AssociateRole;
+  associateRoleRef: Commercetools_KeyReference;
+};
+
+export type Commercetools_SnsDestination = Commercetools_Destination & {
+  __typename?: 'Commercetools_SNSDestination';
+  accessKey?: Maybe<Scalars['String']['output']>;
+  accessSecret?: Maybe<Scalars['String']['output']>;
+  authenticationMode: Commercetools_AwsAuthenticationMode;
+  topicArn: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SqsDestination = Commercetools_Destination & {
+  __typename?: 'Commercetools_SQSDestination';
+  accessKey?: Maybe<Scalars['String']['output']>;
+  accessSecret?: Maybe<Scalars['String']['output']>;
+  authenticationMode: Commercetools_AwsAuthenticationMode;
+  queueUrl: Scalars['String']['output'];
+  region: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ScoreShippingRateInput = Commercetools_ShippingRateInput & {
+  __typename?: 'Commercetools_ScoreShippingRateInput';
+  score: Scalars['Int']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ScoreShippingRateInputDraftOutput = Commercetools_ShippingRateInputDraftOutput & {
+  __typename?: 'Commercetools_ScoreShippingRateInputDraftOutput';
+  score: Scalars['Int']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SearchKeyword = {
+  __typename?: 'Commercetools_SearchKeyword';
+  suggestTokenizer?: Maybe<Commercetools_SuggestTokenizer>;
+  text: Scalars['String']['output'];
+};
+
+export type Commercetools_SearchKeywords = {
+  __typename?: 'Commercetools_SearchKeywords';
+  locale: Scalars['Commercetools_Locale']['output'];
+  searchKeywords: Array<Commercetools_SearchKeyword>;
+};
+
+/** In order to decide which of the matching items will actually be discounted */
+export enum Commercetools_SelectionMode {
+  Cheapest = 'Cheapest',
+  MostExpensive = 'MostExpensive'
+}
+
+export type Commercetools_SelectionOfProduct = {
+  __typename?: 'Commercetools_SelectionOfProduct';
+  createdAt: Scalars['DateTime']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  productSelection?: Maybe<Commercetools_ProductSelection>;
+  productSelectionRef: Commercetools_Reference;
+  variantExclusion?: Maybe<Commercetools_ProductVariantExclusion>;
+  variantSelection?: Maybe<Commercetools_ProductVariantSelection>;
+};
+
+export type Commercetools_SelectionOfProductQueryResult = {
+  __typename?: 'Commercetools_SelectionOfProductQueryResult';
+  count: Scalars['Int']['output'];
+  exists: Scalars['Boolean']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<Commercetools_SelectionOfProduct>;
+  total: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_SetAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_SetAttributeDefinitionType';
+  elementType: Commercetools_AttributeDefinitionType;
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderBillingAddressCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderBillingAddressCustomFieldOutput';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderBillingAddressCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderBillingAddressCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderBillingAddressOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderBillingAddressOutput';
+  address?: Maybe<Commercetools_AddressDraft>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCountryOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCountryOutput';
+  country?: Maybe<Scalars['Commercetools_Country']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomFieldOutput';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderCustomLineItemCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomLineItemCustomFieldOutput';
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderCustomLineItemCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomLineItemCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomLineItemShippingDetailsOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomLineItemShippingDetailsOutput';
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  shippingDetails?: Maybe<Commercetools_ItemShippingDetailsDraftOutput>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomLineItemTaxAmountOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomLineItemTaxAmountOutput';
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  externalTaxAmount?: Maybe<Commercetools_ExternalTaxAmountDraftOutput>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomLineItemTaxRateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomLineItemTaxRateOutput';
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomShippingMethodOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomShippingMethodOutput';
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  shippingMethodName: Scalars['String']['output'];
+  shippingRate: Commercetools_ShippingRate;
+  taxCategoryResId?: Maybe<Commercetools_ResourceIdentifier>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomerEmailOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomerEmailOutput';
+  email?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomerGroupOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomerGroupOutput';
+  customerGroupResId?: Maybe<Commercetools_CustomerGroupReferenceIdentifier>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderCustomerIdOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderCustomerIdOutput';
+  customerId?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderDeliveryAddressCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderDeliveryAddressCustomFieldOutput';
+  deliveryId?: Maybe<Scalars['String']['output']>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderDeliveryAddressCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderDeliveryAddressCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  deliveryId?: Maybe<Scalars['String']['output']>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderDeliveryAddressOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderDeliveryAddressOutput';
+  address?: Maybe<Commercetools_AddressDraft>;
+  deliveryId?: Maybe<Scalars['String']['output']>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderDeliveryCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderDeliveryCustomFieldOutput';
+  deliveryId?: Maybe<Scalars['String']['output']>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderDeliveryCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderDeliveryCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  deliveryId?: Maybe<Scalars['String']['output']>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderDeliveryItemsOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderDeliveryItemsOutput';
+  deliveryId?: Maybe<Scalars['String']['output']>;
+  deliveryKey?: Maybe<Scalars['String']['output']>;
+  items: Array<Commercetools_DeliveryItem>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderDirectDiscountsOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderDirectDiscountsOutput';
+  discounts: Array<Commercetools_DirectDiscountDraftOutput>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderItemShippingAddressCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderItemShippingAddressCustomFieldOutput';
+  addressKey: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderItemShippingAddressCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderItemShippingAddressCustomTypeOutput';
+  addressKey: Scalars['String']['output'];
+  custom: Commercetools_CustomFieldsCommand;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderLineItemCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLineItemCustomFieldOutput';
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderLineItemCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLineItemCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderLineItemDistributionChannelOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLineItemDistributionChannelOutput';
+  distributionChannelResId?: Maybe<Commercetools_ChannelReferenceIdentifier>;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderLineItemPriceOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLineItemPriceOutput';
+  externalPrice?: Maybe<Commercetools_BaseMoney>;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderLineItemShippingDetailsOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLineItemShippingDetailsOutput';
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  shippingDetails?: Maybe<Commercetools_ItemShippingDetailsDraftOutput>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderLineItemTaxAmountOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLineItemTaxAmountOutput';
+  externalTaxAmount?: Maybe<Commercetools_ExternalTaxAmountDraftOutput>;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderLineItemTaxRateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLineItemTaxRateOutput';
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderLineItemTotalPriceOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLineItemTotalPriceOutput';
+  externalTotalPrice?: Maybe<Commercetools_ExternalLineItemTotalPrice>;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderLocaleOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderLocaleOutput';
+  locale?: Maybe<Scalars['Commercetools_Locale']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderOrderNumberOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderOrderNumberOutput';
+  orderNumber?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderOrderTotalTaxOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderOrderTotalTaxOutput';
+  externalTaxPortions: Array<Commercetools_TaxPortion>;
+  externalTotalGross?: Maybe<Commercetools_Money>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderParcelCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderParcelCustomFieldOutput';
+  name: Scalars['String']['output'];
+  parcelId?: Maybe<Scalars['String']['output']>;
+  parcelKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderParcelCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderParcelCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  parcelId?: Maybe<Scalars['String']['output']>;
+  parcelKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderParcelItemsOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderParcelItemsOutput';
+  items: Array<Commercetools_DeliveryItem>;
+  parcelId?: Maybe<Scalars['String']['output']>;
+  parcelKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderParcelMeasurementsOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderParcelMeasurementsOutput';
+  measurements?: Maybe<Commercetools_ParcelMeasurements>;
+  parcelId?: Maybe<Scalars['String']['output']>;
+  parcelKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderParcelTrackingDataOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderParcelTrackingDataOutput';
+  parcelId?: Maybe<Scalars['String']['output']>;
+  parcelKey?: Maybe<Scalars['String']['output']>;
+  trackingData?: Maybe<Commercetools_TrackingData>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderPurchaseOrderNumberOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderPurchaseOrderNumberOutput';
+  purchaseOrderNumber?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderReturnInfoOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderReturnInfoOutput';
+  items: Array<Commercetools_ReturnInfoDraftTypeOutput>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderReturnItemCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderReturnItemCustomFieldOutput';
+  name: Scalars['String']['output'];
+  returnItemId?: Maybe<Scalars['String']['output']>;
+  returnItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderReturnItemCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderReturnItemCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  returnItemId?: Maybe<Scalars['String']['output']>;
+  returnItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderReturnPaymentStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderReturnPaymentStateOutput';
+  paymentState: Commercetools_ReturnPaymentState;
+  returnItemId?: Maybe<Scalars['String']['output']>;
+  returnItemKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderReturnShipmentStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderReturnShipmentStateOutput';
+  returnItemId?: Maybe<Scalars['String']['output']>;
+  returnItemKey?: Maybe<Scalars['String']['output']>;
+  shipmentState: Commercetools_ReturnShipmentState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingAddressAndCustomShippingMethodOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingAddressAndCustomShippingMethodOutput';
+  address: Commercetools_AddressDraft;
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  shippingMethodName: Scalars['String']['output'];
+  shippingRate: Commercetools_ShippingRate;
+  taxCategoryResId?: Maybe<Commercetools_ResourceIdentifier>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingAddressAndShippingMethodOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingAddressAndShippingMethodOutput';
+  address: Commercetools_AddressDraft;
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  shippingMethodResId?: Maybe<Commercetools_ResourceIdentifier>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingAddressCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingAddressCustomFieldOutput';
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderShippingAddressCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingAddressCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingAddressOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingAddressOutput';
+  address?: Maybe<Commercetools_AddressDraft>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingCustomFieldOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingCustomFieldOutput';
+  name: Scalars['String']['output'];
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+  value?: Maybe<Scalars['Json']['output']>;
+};
+
+export type Commercetools_SetStagedOrderShippingCustomTypeOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingCustomTypeOutput';
+  custom: Commercetools_CustomFieldsCommand;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingMethodOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingMethodOutput';
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  shippingMethodResId?: Maybe<Commercetools_ResourceIdentifier>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingMethodTaxAmountOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingMethodTaxAmountOutput';
+  externalTaxAmount?: Maybe<Commercetools_ExternalTaxAmountDraftOutput>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingMethodTaxRateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingMethodTaxRateOutput';
+  externalTaxRate?: Maybe<Commercetools_ExternalTaxRateDraftOutput>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderShippingRateInputOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderShippingRateInputOutput';
+  shippingRateInput?: Maybe<Commercetools_ShippingRateInputDraftOutput>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetStagedOrderStoreOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_SetStagedOrderStoreOutput';
+  storeResId?: Maybe<Commercetools_ResourceIdentifier>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_SetType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_SetType';
+  elementType: Commercetools_FieldType;
+  name: Scalars['String']['output'];
+};
+
+export enum Commercetools_ShipmentState {
+  Backorder = 'Backorder',
+  Delayed = 'Delayed',
+  Delivered = 'Delivered',
+  Partial = 'Partial',
+  Pending = 'Pending',
+  Ready = 'Ready',
+  Shipped = 'Shipped'
+}
+
+export type Commercetools_Shipping = {
+  __typename?: 'Commercetools_Shipping';
+  shippingAddress?: Maybe<Commercetools_Address>;
+  shippingCustomFields?: Maybe<Commercetools_CustomFieldsType>;
+  shippingInfo?: Maybe<Commercetools_ShippingInfo>;
+  shippingKey?: Maybe<Scalars['String']['output']>;
+  shippingRateInput?: Maybe<Commercetools_ShippingRateInput>;
+};
+
+export type Commercetools_ShippingInfo = {
+  __typename?: 'Commercetools_ShippingInfo';
+  deliveries: Array<Commercetools_Delivery>;
+  discountedPrice?: Maybe<Commercetools_DiscountedLineItemPrice>;
+  price: Commercetools_Money;
+  shippingMethod?: Maybe<Commercetools_ShippingMethod>;
+  shippingMethodName: Scalars['String']['output'];
+  shippingMethodRef?: Maybe<Commercetools_Reference>;
+  shippingMethodState: Commercetools_ShippingMethodState;
+  shippingRate: Commercetools_ShippingRate;
+  taxCategory?: Maybe<Commercetools_TaxCategory>;
+  taxCategoryRef?: Maybe<Commercetools_Reference>;
+  taxRate?: Maybe<Commercetools_TaxRate>;
+  taxedPrice?: Maybe<Commercetools_TaxedItemPrice>;
+};
+
+export type Commercetools_ShippingMethod = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_ShippingMethod';
+  active: Scalars['Boolean']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  isDefault: Scalars['Boolean']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  localizedDescription?: Maybe<Scalars['String']['output']>;
+  localizedDescriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  localizedName?: Maybe<Scalars['String']['output']>;
+  localizedNameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  name: Scalars['String']['output'];
+  predicate?: Maybe<Scalars['String']['output']>;
+  taxCategory?: Maybe<Commercetools_TaxCategory>;
+  taxCategoryRef?: Maybe<Commercetools_Reference>;
+  version: Scalars['Commercetools_Long']['output'];
+  zoneRates: Array<Commercetools_ZoneRate>;
+};
+
+
+export type Commercetools_ShippingMethodLocalizedDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ShippingMethodLocalizedNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export enum Commercetools_ShippingMethodState {
+  /** The ShippingMethod predicate does not match the cart. Ordering this cart will fail with error ShippingMethodDoesNotMatchCart */
+  DoesNotMatchCart = 'DoesNotMatchCart',
+  /** Either there is no predicate defined for the ShippingMethod or the given predicate matches the cart */
+  MatchesCart = 'MatchesCart'
+}
+
+export type Commercetools_ShippingMethodTargetDraftOutput = {
+  __typename?: 'Commercetools_ShippingMethodTargetDraftOutput';
+  quantity: Scalars['Commercetools_Long']['output'];
+  shippingMethodKey: Scalars['String']['output'];
+};
+
+export enum Commercetools_ShippingMode {
+  /** Allows multiple shipping methods for the cart with their respective shipping addresses */
+  Multiple = 'Multiple',
+  /** Allows only one shipping method and shipping address for the cart */
+  Single = 'Single'
+}
+
+/** Shipping Rate */
+export type Commercetools_ShippingRate = {
+  __typename?: 'Commercetools_ShippingRate';
+  freeAbove?: Maybe<Commercetools_Money>;
+  isMatching?: Maybe<Scalars['Boolean']['output']>;
+  price: Commercetools_Money;
+  tiers: Array<Commercetools_ShippingRatePriceTier>;
+};
+
+export type Commercetools_ShippingRateCartClassificationPriceTier = Commercetools_ShippingRatePriceTier & {
+  __typename?: 'Commercetools_ShippingRateCartClassificationPriceTier';
+  isMatching?: Maybe<Scalars['Boolean']['output']>;
+  price: Commercetools_Money;
+  type: Scalars['String']['output'];
+  value: Scalars['String']['output'];
+};
+
+export type Commercetools_ShippingRateCartScorePriceTier = Commercetools_ShippingRatePriceTier & {
+  __typename?: 'Commercetools_ShippingRateCartScorePriceTier';
+  isMatching?: Maybe<Scalars['Boolean']['output']>;
+  price?: Maybe<Commercetools_Money>;
+  priceFunction?: Maybe<Commercetools_PriceFunction>;
+  score: Scalars['Int']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ShippingRateCartValuePriceTier = Commercetools_ShippingRatePriceTier & {
+  __typename?: 'Commercetools_ShippingRateCartValuePriceTier';
+  isMatching?: Maybe<Scalars['Boolean']['output']>;
+  minimumCentAmount: Scalars['Int']['output'];
+  price: Commercetools_Money;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ShippingRateInput = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ShippingRateInputDraftOutput = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ShippingRatePriceTier = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ShippingTarget = Commercetools_CartDiscountTarget & {
+  __typename?: 'Commercetools_ShippingTarget';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_ShoppingList = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_ShoppingList';
+  anonymousId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerRef?: Maybe<Commercetools_Reference>;
+  deleteDaysAfterLastModification?: Maybe<Scalars['Int']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  lineItems: Array<Commercetools_ShoppingListLineItem>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  store?: Maybe<Commercetools_Store>;
+  storeRef?: Maybe<Commercetools_KeyReference>;
+  textLineItems: Array<Commercetools_TextLineItem>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+export type Commercetools_ShoppingListDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ShoppingListNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ShoppingListSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_ShoppingListLineItem = {
+  __typename?: 'Commercetools_ShoppingListLineItem';
+  addedAt: Scalars['DateTime']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  deactivatedAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  productId: Scalars['String']['output'];
+  productSlug?: Maybe<Scalars['String']['output']>;
+  productSlugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  productType: Commercetools_ProductTypeDefinition;
+  productTypeRef: Commercetools_Reference;
+  quantity: Scalars['Int']['output'];
+  variant?: Maybe<Commercetools_ProductVariant>;
+  variantId?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type Commercetools_ShoppingListLineItemNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_ShoppingListLineItemProductSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+/** Describes how this discount interacts with other discounts */
+export enum Commercetools_StackingMode {
+  /** Default. Continue applying other matching discounts after applying this one. */
+  Stacking = 'Stacking',
+  /** Don’t apply any more matching discounts after this one. */
+  StopAfterThisDiscount = 'StopAfterThisDiscount'
+}
+
+export type Commercetools_StagedOrderUpdateActionOutput = {
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StagedQuote = Commercetools_Versioned & {
+  __typename?: 'Commercetools_StagedQuote';
+  businessUnit?: Maybe<Commercetools_BusinessUnit>;
+  businessUnitRef?: Maybe<Commercetools_KeyReference>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customer?: Maybe<Commercetools_Customer>;
+  customerRef?: Maybe<Commercetools_Reference>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  purchaseOrderNumber?: Maybe<Scalars['String']['output']>;
+  quotationCart?: Maybe<Commercetools_Cart>;
+  quotationCartRef: Commercetools_Reference;
+  quoteRequest?: Maybe<Commercetools_QuoteRequest>;
+  quoteRequestRef: Commercetools_Reference;
+  sellerComment?: Maybe<Scalars['String']['output']>;
+  stagedQuoteState: Commercetools_StagedQuoteState;
+  state?: Maybe<Commercetools_State>;
+  stateRef?: Maybe<Commercetools_Reference>;
+  store?: Maybe<Commercetools_Store>;
+  storeRef?: Maybe<Commercetools_KeyReference>;
+  validTo?: Maybe<Scalars['DateTime']['output']>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_StagedQuoteCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StagedQuoteCreated';
+  stagedQuote: Commercetools_StagedQuote;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StagedQuoteDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StagedQuoteDeleted';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StagedQuoteSellerCommentSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StagedQuoteSellerCommentSet';
+  sellerComment?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export enum Commercetools_StagedQuoteState {
+  Closed = 'Closed',
+  InProgress = 'InProgress',
+  Sent = 'Sent'
+}
+
+export type Commercetools_StagedQuoteStateChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StagedQuoteStateChanged';
+  oldStagedQuoteState: Commercetools_StagedQuoteState;
+  stagedQuoteState: Commercetools_StagedQuoteState;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StagedQuoteStateTransition = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StagedQuoteStateTransition';
+  force: Scalars['Boolean']['output'];
+  oldState?: Maybe<Commercetools_State>;
+  oldStateRef?: Maybe<Commercetools_Reference>;
+  state?: Maybe<Commercetools_State>;
+  stateRef: Commercetools_Reference;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StagedQuoteValidToSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StagedQuoteValidToSet';
+  type: Scalars['String']['output'];
+  validTo?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Commercetools_StagedStandalonePrice = {
+  __typename?: 'Commercetools_StagedStandalonePrice';
+  discounted?: Maybe<Commercetools_DiscountedProductPriceValue>;
+  value: Commercetools_BaseMoney;
+};
+
+/**
+ * StandalonePrices are managed and queried through the StandalonePrices API
+ * and associated to a ProductVariant through the sku field.
+ */
+export type Commercetools_StandalonePrice = Commercetools_Versioned & {
+  __typename?: 'Commercetools_StandalonePrice';
+  active: Scalars['Boolean']['output'];
+  channel?: Maybe<Commercetools_Channel>;
+  channelRef?: Maybe<Commercetools_Reference>;
+  country?: Maybe<Scalars['Commercetools_Country']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  customerGroup?: Maybe<Commercetools_CustomerGroup>;
+  customerGroupRef?: Maybe<Commercetools_Reference>;
+  discounted?: Maybe<Commercetools_DiscountedProductPriceValue>;
+  expiresAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  sku: Scalars['String']['output'];
+  staged?: Maybe<Commercetools_StagedStandalonePrice>;
+  tiers?: Maybe<Array<Commercetools_ProductPriceTier>>;
+  validFrom?: Maybe<Scalars['DateTime']['output']>;
+  validUntil?: Maybe<Scalars['DateTime']['output']>;
+  value: Commercetools_BaseMoney;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_StandalonePriceActiveChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceActiveChanged';
+  active: Scalars['Boolean']['output'];
+  oldActive: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceCreated';
+  standalonePrice: Commercetools_StandalonePrice;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceDeleted';
+  sku?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceDiscountSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceDiscountSet';
+  discounted?: Maybe<Commercetools_DiscountedProductPriceValue>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceExpiresAtSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceExpiresAtSet';
+  expiresAt?: Maybe<Scalars['DateTime']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceExternalDiscountSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceExternalDiscountSet';
+  discounted?: Maybe<Commercetools_DiscountedProductPriceValue>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceKeySet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceKeySet';
+  key?: Maybe<Scalars['String']['output']>;
+  oldKey?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceStagedChangesApplied = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceStagedChangesApplied';
+  stagedChanges: Commercetools_StagedStandalonePrice;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceStagedChangesRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceStagedChangesRemoved';
+  stagedChanges?: Maybe<Commercetools_StagedStandalonePrice>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceTierAdded = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceTierAdded';
+  tier: Commercetools_ProductPriceTier;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceTierRemoved = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceTierRemoved';
+  tier: Commercetools_ProductPriceTier;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceTiersSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceTiersSet';
+  previousTiers: Array<Commercetools_ProductPriceTier>;
+  tiers: Array<Commercetools_ProductPriceTier>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StandalonePriceValidFromAndUntilSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceValidFromAndUntilSet';
+  previousValidFrom?: Maybe<Scalars['DateTime']['output']>;
+  previousValidUntil?: Maybe<Scalars['DateTime']['output']>;
+  type: Scalars['String']['output'];
+  validFrom?: Maybe<Scalars['DateTime']['output']>;
+  validUntil?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Commercetools_StandalonePriceValidFromSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceValidFromSet';
+  previousValidFrom?: Maybe<Scalars['DateTime']['output']>;
+  type: Scalars['String']['output'];
+  validFrom?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Commercetools_StandalonePriceValidUntilSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceValidUntilSet';
+  previousValidUntil?: Maybe<Scalars['DateTime']['output']>;
+  type: Scalars['String']['output'];
+  validUntil?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Commercetools_StandalonePriceValueChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StandalonePriceValueChanged';
+  oldValue?: Maybe<Commercetools_BaseMoney>;
+  staged: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+  value: Commercetools_BaseMoney;
+};
+
+/** [State](https://docs.commercetools.com/api/projects/states) */
+export type Commercetools_State = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_State';
+  builtIn: Scalars['Boolean']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  id: Scalars['String']['output'];
+  initial: Scalars['Boolean']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  roles: Array<Commercetools_StateRole>;
+  transitions?: Maybe<Array<Commercetools_State>>;
+  transitionsRef?: Maybe<Array<Commercetools_Reference>>;
+  type: Commercetools_StateType;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/** [State](https://docs.commercetools.com/api/projects/states) */
+export type Commercetools_StateDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+/** [State](https://docs.commercetools.com/api/projects/states) */
+export type Commercetools_StateNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export enum Commercetools_StateRole {
+  Return = 'Return',
+  ReviewIncludedInStatistics = 'ReviewIncludedInStatistics'
+}
+
+export enum Commercetools_StateType {
+  LineItemState = 'LineItemState',
+  OrderState = 'OrderState',
+  PaymentState = 'PaymentState',
+  ProductState = 'ProductState',
+  QuoteRequestState = 'QuoteRequestState',
+  QuoteState = 'QuoteState',
+  ReviewState = 'ReviewState',
+  StagedQuoteState = 'StagedQuoteState'
+}
+
+/** Stores allow defining different contexts for a project. */
+export type Commercetools_Store = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Store';
+  countries?: Maybe<Array<Commercetools_StoreCountry>>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  distributionChannels: Array<Commercetools_Channel>;
+  distributionChannelsRef: Array<Commercetools_Reference>;
+  id: Scalars['String']['output'];
+  key: Scalars['String']['output'];
+  languages?: Maybe<Array<Scalars['Commercetools_Locale']['output']>>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  productSelections: Array<Commercetools_ProductSelectionSetting>;
+  supplyChannels: Array<Commercetools_Channel>;
+  supplyChannelsRef: Array<Commercetools_Reference>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/** Stores allow defining different contexts for a project. */
+export type Commercetools_StoreNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_StoreCountriesChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StoreCountriesChanged';
+  addedCountries?: Maybe<Array<Commercetools_StoreCountry>>;
+  removedCountries?: Maybe<Array<Commercetools_StoreCountry>>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StoreCountry = {
+  __typename?: 'Commercetools_StoreCountry';
+  code: Scalars['Commercetools_Country']['output'];
+};
+
+export type Commercetools_StoreCreated = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StoreCreated';
+  countries?: Maybe<Array<Commercetools_StoreCountry>>;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  distributionChannels: Array<Commercetools_Channel>;
+  distributionChannelsRef: Array<Commercetools_Reference>;
+  languages: Array<Scalars['Commercetools_Locale']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  productSelections: Array<Commercetools_ProductSelectionSetting>;
+  productSelectionsRef: Array<Commercetools_Reference>;
+  supplyChannels: Array<Commercetools_Channel>;
+  supplyChannelsRef: Array<Commercetools_Reference>;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_StoreCreatedNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_StoreDeleted = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StoreDeleted';
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StoreDistributionChannelsChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StoreDistributionChannelsChanged';
+  addedDistributionChannels?: Maybe<Array<Commercetools_Channel>>;
+  addedDistributionChannelsRef?: Maybe<Array<Commercetools_Reference>>;
+  removedDistributionChannels?: Maybe<Array<Commercetools_Channel>>;
+  removedDistributionChannelsRef?: Maybe<Array<Commercetools_Reference>>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StoreLanguagesChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StoreLanguagesChanged';
+  addedLanguages?: Maybe<Array<Scalars['Commercetools_Locale']['output']>>;
+  removedLanguages?: Maybe<Array<Scalars['Commercetools_Locale']['output']>>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StoreNameSet = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StoreNameSet';
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  type: Scalars['String']['output'];
+};
+
+
+export type Commercetools_StoreNameSetNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_StoreProductSelectionsChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StoreProductSelectionsChanged';
+  addedProductSelections?: Maybe<Array<Commercetools_ProductSelectionSetting>>;
+  removedProductSelections?: Maybe<Array<Commercetools_ProductSelectionSetting>>;
+  type: Scalars['String']['output'];
+  updatedProductSelections?: Maybe<Array<Commercetools_ProductSelectionSetting>>;
+};
+
+export type Commercetools_StoreSupplyChannelsChanged = Commercetools_MessagePayload & {
+  __typename?: 'Commercetools_StoreSupplyChannelsChanged';
+  addedSupplyChannels?: Maybe<Array<Commercetools_Channel>>;
+  addedSupplyChannelsRef?: Maybe<Array<Commercetools_Reference>>;
+  removedSupplyChannels?: Maybe<Array<Commercetools_Channel>>;
+  removedSupplyChannelsRef?: Maybe<Array<Commercetools_Reference>>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_StringType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_StringType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_SubRate = {
+  __typename?: 'Commercetools_SubRate';
+  amount: Scalars['Float']['output'];
+  name: Scalars['String']['output'];
+};
+
+export enum Commercetools_SubscriptionHealthStatus {
+  ConfigurationError = 'ConfigurationError',
+  ConfigurationErrorDeliveryStopped = 'ConfigurationErrorDeliveryStopped',
+  Healthy = 'Healthy',
+  ManuallySuspended = 'ManuallySuspended',
+  TemporaryError = 'TemporaryError'
+}
+
+export type Commercetools_SuggestTokenizer = {
+  type: Scalars['String']['output'];
+};
+
+/** Stores information about order synchronization activities (like export or import). */
+export type Commercetools_SyncInfo = {
+  __typename?: 'Commercetools_SyncInfo';
+  channel?: Maybe<Commercetools_Channel>;
+  channelRef: Commercetools_Reference;
+  externalId?: Maybe<Scalars['String']['output']>;
+  syncedAt: Scalars['DateTime']['output'];
+};
+
+export enum Commercetools_TaxCalculationMode {
+  /**
+   * Default. This calculation mode calculates the taxes after the unit price is multiplied with the quantity.
+   * E.g. `($1.08 * 3 = $3.24) * 1.19 = $3.8556 -> $3.86 rounded`
+   */
+  LineItemLevel = 'LineItemLevel',
+  /**
+   * This calculation mode calculates the taxes on the unit price before multiplying with the quantity.
+   * E.g. `($1.08 * 1.19 = $1.2852 -> $1.29 rounded) * 3 = $3.87`
+   */
+  UnitPriceLevel = 'UnitPriceLevel'
+}
+
+/** Tax Categories define how products are to be taxed in different countries. */
+export type Commercetools_TaxCategory = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_TaxCategory';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name: Scalars['String']['output'];
+  rates: Array<Commercetools_TaxRate>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export enum Commercetools_TaxMode {
+  /** No taxes are added to the cart. */
+  Disabled = 'Disabled',
+  /**
+   * The tax rates are set externally per ExternalTaxRateDraft. A cart with this tax mode can only be ordered if all
+   * line items, all custom line items and the shipping method have an external tax rate set. The totalNet and
+   * totalGross as well as the taxPortions fields are calculated according to the taxRoundingMode.
+   */
+  External = 'External',
+  /**
+   * The tax amounts and the tax rates as well as the tax portions are set externally per ExternalTaxAmountDraft.
+   * A cart with this tax mode can only be ordered if the cart itself and all line items, all custom line items and
+   * the shipping method have an external tax amount and rate set
+   */
+  ExternalAmount = 'ExternalAmount',
+  /**
+   * The tax rates are selected from the TaxCategories based on the cart shipping address.
+   * The totalNet and totalGross as well as the taxPortions fields are calculated according to the
+   * taxRoundingMode.
+   */
+  Platform = 'Platform'
+}
+
+/**
+ * Represents the portions that sum up to the totalGross field of a TaxedPrice. The portions are calculated
+ * from the TaxRates. If a tax rate has SubRates, they are used and can be identified by name. Tax portions
+ * from line items that have the same rate and name will be accumulated to the same tax portion.
+ */
+export type Commercetools_TaxPortion = {
+  __typename?: 'Commercetools_TaxPortion';
+  amount: Commercetools_Money;
+  name?: Maybe<Scalars['String']['output']>;
+  rate: Scalars['Float']['output'];
+};
+
+export type Commercetools_TaxRate = {
+  __typename?: 'Commercetools_TaxRate';
+  amount: Scalars['Float']['output'];
+  country: Scalars['Commercetools_Country']['output'];
+  id?: Maybe<Scalars['String']['output']>;
+  includedInPrice: Scalars['Boolean']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  state?: Maybe<Scalars['String']['output']>;
+  subRates: Array<Commercetools_SubRate>;
+};
+
+export type Commercetools_TaxedItemPrice = {
+  __typename?: 'Commercetools_TaxedItemPrice';
+  taxPortions: Array<Commercetools_TaxPortion>;
+  totalGross: Commercetools_Money;
+  totalNet: Commercetools_Money;
+  totalTax?: Maybe<Commercetools_Money>;
+};
+
+export type Commercetools_TaxedPrice = {
+  __typename?: 'Commercetools_TaxedPrice';
+  taxPortions: Array<Commercetools_TaxPortion>;
+  totalGross: Commercetools_Money;
+  totalNet: Commercetools_Money;
+  totalTax?: Maybe<Commercetools_Money>;
+};
+
+export type Commercetools_TextAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_TextAttributeDefinitionType';
+  name: Scalars['String']['output'];
+};
+
+/** UI hint telling what kind of edit control should be displayed for a text attribute. */
+export enum Commercetools_TextInputHint {
+  MultiLine = 'MultiLine',
+  SingleLine = 'SingleLine'
+}
+
+export type Commercetools_TextLineItem = {
+  __typename?: 'Commercetools_TextLineItem';
+  addedAt: Scalars['DateTime']['output'];
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  quantity: Scalars['Int']['output'];
+};
+
+
+export type Commercetools_TextLineItemDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+export type Commercetools_TextLineItemNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_TimeAttributeDefinitionType = Commercetools_AttributeDefinitionType & {
+  __typename?: 'Commercetools_TimeAttributeDefinitionType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_TimeType = Commercetools_FieldType & {
+  __typename?: 'Commercetools_TimeType';
+  name: Scalars['String']['output'];
+};
+
+export type Commercetools_TrackingData = {
+  __typename?: 'Commercetools_TrackingData';
+  carrier?: Maybe<Scalars['String']['output']>;
+  isReturn: Scalars['Boolean']['output'];
+  provider?: Maybe<Scalars['String']['output']>;
+  providerTransaction?: Maybe<Scalars['String']['output']>;
+  trackingId?: Maybe<Scalars['String']['output']>;
+};
+
+export type Commercetools_Transaction = {
+  __typename?: 'Commercetools_Transaction';
+  amount: Commercetools_Money;
+  custom?: Maybe<Commercetools_CustomFieldsType>;
+  id: Scalars['String']['output'];
+  interactionId?: Maybe<Scalars['String']['output']>;
+  state: Commercetools_TransactionState;
+  timestamp?: Maybe<Scalars['DateTime']['output']>;
+  type?: Maybe<Commercetools_TransactionType>;
+};
+
+export enum Commercetools_TransactionState {
+  Failure = 'Failure',
+  Initial = 'Initial',
+  Pending = 'Pending',
+  Success = 'Success'
+}
+
+export enum Commercetools_TransactionType {
+  Authorization = 'Authorization',
+  CancelAuthorization = 'CancelAuthorization',
+  Charge = 'Charge',
+  Chargeback = 'Chargeback',
+  Refund = 'Refund'
+}
+
+export type Commercetools_TransitionStagedOrderCustomLineItemStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_TransitionStagedOrderCustomLineItemStateOutput';
+  actualTransitionDate?: Maybe<Scalars['DateTime']['output']>;
+  customLineItemId?: Maybe<Scalars['String']['output']>;
+  customLineItemKey?: Maybe<Scalars['String']['output']>;
+  fromStateResId: Commercetools_ResourceIdentifier;
+  quantity: Scalars['Commercetools_Long']['output'];
+  toStateResId: Commercetools_ResourceIdentifier;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_TransitionStagedOrderLineItemStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_TransitionStagedOrderLineItemStateOutput';
+  actualTransitionDate?: Maybe<Scalars['DateTime']['output']>;
+  fromStateResId: Commercetools_ResourceIdentifier;
+  lineItemId?: Maybe<Scalars['String']['output']>;
+  lineItemKey?: Maybe<Scalars['String']['output']>;
+  quantity: Scalars['Commercetools_Long']['output'];
+  toStateResId: Commercetools_ResourceIdentifier;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_TransitionStagedOrderStateOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_TransitionStagedOrderStateOutput';
+  force: Scalars['Boolean']['output'];
+  stateResId: Commercetools_ResourceIdentifier;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_Trigger = {
+  __typename?: 'Commercetools_Trigger';
+  actions: Array<Commercetools_ActionType>;
+  condition?: Maybe<Scalars['String']['output']>;
+  resourceTypeId: Scalars['String']['output'];
+};
+
+/** Types allow you to define additional project-specific fields on resources and data types, so-called Custom Fields. */
+export type Commercetools_TypeDefinition = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_TypeDefinition';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptionAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+  fieldDefinitions: Array<Commercetools_FieldDefinition>;
+  id: Scalars['String']['output'];
+  key: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameAllLocales: Array<Commercetools_LocalizedString>;
+  resourceTypeIds: Array<Scalars['String']['output']>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+
+/** Types allow you to define additional project-specific fields on resources and data types, so-called Custom Fields. */
+export type Commercetools_TypeDefinitionDescriptionArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+
+/** Types allow you to define additional project-specific fields on resources and data types, so-called Custom Fields. */
+export type Commercetools_TypeDefinitionFieldDefinitionsArgs = {
+  excludeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+  includeNames?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+
+/** Types allow you to define additional project-specific fields on resources and data types, so-called Custom Fields. */
+export type Commercetools_TypeDefinitionNameArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+export type Commercetools_UpdateStagedOrderItemShippingAddressOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_UpdateStagedOrderItemShippingAddressOutput';
+  address: Commercetools_AddressDraft;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_UpdateStagedOrderSyncInfoOutput = Commercetools_StagedOrderUpdateActionOutput & {
+  __typename?: 'Commercetools_UpdateStagedOrderSyncInfoOutput';
+  channelResId: Commercetools_ChannelReferenceIdentifier;
+  externalId?: Maybe<Scalars['String']['output']>;
+  syncedAt?: Maybe<Scalars['DateTime']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type Commercetools_UserProvidedIdentifiers = {
+  __typename?: 'Commercetools_UserProvidedIdentifiers';
+  customerNumber?: Maybe<Scalars['String']['output']>;
+  externalId?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  orderNumber?: Maybe<Scalars['String']['output']>;
+  sku?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slugAllLocales?: Maybe<Array<Commercetools_LocalizedString>>;
+};
+
+
+export type Commercetools_UserProvidedIdentifiersSlugArgs = {
+  acceptLanguage?: InputMaybe<Array<Scalars['Commercetools_Locale']['input']>>;
+  locale?: InputMaybe<Scalars['Commercetools_Locale']['input']>;
+};
+
+/** Versioned object have an ID and version and modification. Every update of this object changes it's version. */
+export type Commercetools_Versioned = {
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  id: Scalars['String']['output'];
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_WhitespaceSuggestTokenizer = Commercetools_SuggestTokenizer & {
+  __typename?: 'Commercetools_WhitespaceSuggestTokenizer';
+  type: Scalars['String']['output'];
+};
+
+/** Zones allow defining ShippingRates for specific Locations. */
+export type Commercetools_Zone = Commercetools_ReferenceExpandable & Commercetools_Versioned & {
+  __typename?: 'Commercetools_Zone';
+  createdAt: Scalars['DateTime']['output'];
+  createdBy?: Maybe<Commercetools_Initiator>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  lastModifiedAt: Scalars['DateTime']['output'];
+  lastModifiedBy?: Maybe<Commercetools_Initiator>;
+  locations: Array<Commercetools_Location>;
+  name: Scalars['String']['output'];
+  version: Scalars['Commercetools_Long']['output'];
+};
+
+export type Commercetools_ZoneRate = {
+  __typename?: 'Commercetools_ZoneRate';
+  shippingRates: Array<Commercetools_ShippingRate>;
+  zone?: Maybe<Commercetools_Zone>;
+  zoneRef?: Maybe<Commercetools_Reference>;
+};
+
 export type ConnectPositionInput = {
   /** Connect document after specified document */
   after?: InputMaybe<Scalars['ID']['input']>;
@@ -2246,6 +8567,7 @@ export enum EntityTypeName {
   Editorial = 'Editorial',
   Hero = 'Hero',
   Navigation = 'Navigation',
+  NewsletterSubscriber = 'NewsletterSubscriber',
   Page = 'Page',
   Pdp = 'Pdp',
   ProductCard = 'ProductCard',
@@ -2272,6 +8594,21 @@ export type EntityWhereInput = {
   stage: Stage;
   /** The Type name of an object */
   typename: EntityTypeName;
+};
+
+export type FederateThisReviews_Review = {
+  __typename?: 'FederateThisReviews_Review';
+  comment?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  product?: Maybe<Scalars['Int']['output']>;
+  productSlug?: Maybe<Scalars['String']['output']>;
+  rating?: Maybe<Scalars['Float']['output']>;
+};
+
+export type FederateThisReviews_Reviews = {
+  __typename?: 'FederateThisReviews_Reviews';
+  data?: Maybe<Array<Maybe<FederateThisReviews_Review>>>;
 };
 
 export type FederateThisSkincre_Image = {
@@ -2781,6 +9118,8 @@ export type Mutation = {
   createAsset?: Maybe<Asset>;
   /** Create one navigation */
   createNavigation?: Maybe<Navigation>;
+  /** Create one newsletterSubscriber */
+  createNewsletterSubscriber?: Maybe<NewsletterSubscriber>;
   /** Create one page */
   createPage?: Maybe<Page>;
   /** Create one pdp */
@@ -2807,6 +9146,13 @@ export type Mutation = {
   deleteManyNavigations: BatchPayload;
   /** Delete many Navigation documents, return deleted documents */
   deleteManyNavigationsConnection: NavigationConnection;
+  /**
+   * Delete many NewsletterSubscriber documents
+   * @deprecated Please use the new paginated many mutation (deleteManyNewsletterSubscribersConnection)
+   */
+  deleteManyNewsletterSubscribers: BatchPayload;
+  /** Delete many NewsletterSubscriber documents, return deleted documents */
+  deleteManyNewsletterSubscribersConnection: NewsletterSubscriberConnection;
   /**
    * Delete many Page documents
    * @deprecated Please use the new paginated many mutation (deleteManyPagesConnection)
@@ -2837,6 +9183,8 @@ export type Mutation = {
   deleteManyRelatedProductListsConnection: RelatedProductListConnection;
   /** Delete one navigation from _all_ existing stages. Returns deleted document. */
   deleteNavigation?: Maybe<Navigation>;
+  /** Delete one newsletterSubscriber from _all_ existing stages. Returns deleted document. */
+  deleteNewsletterSubscriber?: Maybe<NewsletterSubscriber>;
   /** Delete one page from _all_ existing stages. Returns deleted document. */
   deletePage?: Maybe<Page>;
   /** Delete one pdp from _all_ existing stages. Returns deleted document. */
@@ -2865,6 +9213,13 @@ export type Mutation = {
   publishManyNavigations: BatchPayload;
   /** Publish many Navigation documents */
   publishManyNavigationsConnection: NavigationConnection;
+  /**
+   * Publish many NewsletterSubscriber documents
+   * @deprecated Please use the new paginated many mutation (publishManyNewsletterSubscribersConnection)
+   */
+  publishManyNewsletterSubscribers: BatchPayload;
+  /** Publish many NewsletterSubscriber documents */
+  publishManyNewsletterSubscribersConnection: NewsletterSubscriberConnection;
   /**
    * Publish many Page documents
    * @deprecated Please use the new paginated many mutation (publishManyPagesConnection)
@@ -2895,6 +9250,8 @@ export type Mutation = {
   publishManyRelatedProductListsConnection: RelatedProductListConnection;
   /** Publish one navigation */
   publishNavigation?: Maybe<Navigation>;
+  /** Publish one newsletterSubscriber */
+  publishNewsletterSubscriber?: Maybe<NewsletterSubscriber>;
   /** Publish one page */
   publishPage?: Maybe<Page>;
   /** Publish one pdp */
@@ -2907,6 +9264,8 @@ export type Mutation = {
   schedulePublishAsset?: Maybe<Asset>;
   /** Schedule to publish one navigation */
   schedulePublishNavigation?: Maybe<Navigation>;
+  /** Schedule to publish one newsletterSubscriber */
+  schedulePublishNewsletterSubscriber?: Maybe<NewsletterSubscriber>;
   /** Schedule to publish one page */
   schedulePublishPage?: Maybe<Page>;
   /** Schedule to publish one pdp */
@@ -2919,6 +9278,8 @@ export type Mutation = {
   scheduleUnpublishAsset?: Maybe<Asset>;
   /** Unpublish one navigation from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishNavigation?: Maybe<Navigation>;
+  /** Unpublish one newsletterSubscriber from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishNewsletterSubscriber?: Maybe<NewsletterSubscriber>;
   /** Unpublish one page from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishPage?: Maybe<Page>;
   /** Unpublish one pdp from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -2943,6 +9304,13 @@ export type Mutation = {
   unpublishManyNavigations: BatchPayload;
   /** Find many Navigation documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyNavigationsConnection: NavigationConnection;
+  /**
+   * Unpublish many NewsletterSubscriber documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyNewsletterSubscribersConnection)
+   */
+  unpublishManyNewsletterSubscribers: BatchPayload;
+  /** Find many NewsletterSubscriber documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyNewsletterSubscribersConnection: NewsletterSubscriberConnection;
   /**
    * Unpublish many Page documents
    * @deprecated Please use the new paginated many mutation (unpublishManyPagesConnection)
@@ -2973,6 +9341,8 @@ export type Mutation = {
   unpublishManyRelatedProductListsConnection: RelatedProductListConnection;
   /** Unpublish one navigation from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishNavigation?: Maybe<Navigation>;
+  /** Unpublish one newsletterSubscriber from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishNewsletterSubscriber?: Maybe<NewsletterSubscriber>;
   /** Unpublish one page from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishPage?: Maybe<Page>;
   /** Unpublish one pdp from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -2997,6 +9367,13 @@ export type Mutation = {
   updateManyNavigations: BatchPayload;
   /** Update many Navigation documents */
   updateManyNavigationsConnection: NavigationConnection;
+  /**
+   * Update many newsletterSubscribers
+   * @deprecated Please use the new paginated many mutation (updateManyNewsletterSubscribersConnection)
+   */
+  updateManyNewsletterSubscribers: BatchPayload;
+  /** Update many NewsletterSubscriber documents */
+  updateManyNewsletterSubscribersConnection: NewsletterSubscriberConnection;
   /**
    * Update many pages
    * @deprecated Please use the new paginated many mutation (updateManyPagesConnection)
@@ -3027,6 +9404,8 @@ export type Mutation = {
   updateManyRelatedProductListsConnection: RelatedProductListConnection;
   /** Update one navigation */
   updateNavigation?: Maybe<Navigation>;
+  /** Update one newsletterSubscriber */
+  updateNewsletterSubscriber?: Maybe<NewsletterSubscriber>;
   /** Update one page */
   updatePage?: Maybe<Page>;
   /** Update one pdp */
@@ -3041,6 +9420,8 @@ export type Mutation = {
   upsertAsset?: Maybe<Asset>;
   /** Upsert one navigation */
   upsertNavigation?: Maybe<Navigation>;
+  /** Upsert one newsletterSubscriber */
+  upsertNewsletterSubscriber?: Maybe<NewsletterSubscriber>;
   /** Upsert one page */
   upsertPage?: Maybe<Page>;
   /** Upsert one pdp */
@@ -3059,6 +9440,11 @@ export type MutationCreateAssetArgs = {
 
 export type MutationCreateNavigationArgs = {
   data: NavigationCreateInput;
+};
+
+
+export type MutationCreateNewsletterSubscriberArgs = {
+  data: NewsletterSubscriberCreateInput;
 };
 
 
@@ -3119,6 +9505,21 @@ export type MutationDeleteManyNavigationsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<NavigationManyWhereInput>;
+};
+
+
+export type MutationDeleteManyNewsletterSubscribersArgs = {
+  where?: InputMaybe<NewsletterSubscriberManyWhereInput>;
+};
+
+
+export type MutationDeleteManyNewsletterSubscribersConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']['input']>;
+  before?: InputMaybe<Scalars['ID']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NewsletterSubscriberManyWhereInput>;
 };
 
 
@@ -3184,6 +9585,11 @@ export type MutationDeleteManyRelatedProductListsConnectionArgs = {
 
 export type MutationDeleteNavigationArgs = {
   where: NavigationWhereUniqueInput;
+};
+
+
+export type MutationDeleteNewsletterSubscriberArgs = {
+  where: NewsletterSubscriberWhereUniqueInput;
 };
 
 
@@ -3265,6 +9671,24 @@ export type MutationPublishManyNavigationsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   to?: Array<Stage>;
   where?: InputMaybe<NavigationManyWhereInput>;
+};
+
+
+export type MutationPublishManyNewsletterSubscribersArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<NewsletterSubscriberManyWhereInput>;
+};
+
+
+export type MutationPublishManyNewsletterSubscribersConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']['input']>;
+  before?: InputMaybe<Scalars['ID']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<NewsletterSubscriberManyWhereInput>;
 };
 
 
@@ -3364,6 +9788,12 @@ export type MutationPublishNavigationArgs = {
 };
 
 
+export type MutationPublishNewsletterSubscriberArgs = {
+  to?: Array<Stage>;
+  where: NewsletterSubscriberWhereUniqueInput;
+};
+
+
 export type MutationPublishPageArgs = {
   locales?: InputMaybe<Array<Locale>>;
   publishBase?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3413,6 +9843,14 @@ export type MutationSchedulePublishNavigationArgs = {
   releaseId?: InputMaybe<Scalars['String']['input']>;
   to?: Array<Stage>;
   where: NavigationWhereUniqueInput;
+};
+
+
+export type MutationSchedulePublishNewsletterSubscriberArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
+  releaseId?: InputMaybe<Scalars['String']['input']>;
+  to?: Array<Stage>;
+  where: NewsletterSubscriberWhereUniqueInput;
 };
 
 
@@ -3472,6 +9910,14 @@ export type MutationScheduleUnpublishNavigationArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
   releaseId?: InputMaybe<Scalars['String']['input']>;
   where: NavigationWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishNewsletterSubscriberArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']['input']>;
+  releaseId?: InputMaybe<Scalars['String']['input']>;
+  where: NewsletterSubscriberWhereUniqueInput;
 };
 
 
@@ -3558,6 +10004,24 @@ export type MutationUnpublishManyNavigationsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   stage?: InputMaybe<Stage>;
   where?: InputMaybe<NavigationManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyNewsletterSubscribersArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<NewsletterSubscriberManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyNewsletterSubscribersConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']['input']>;
+  before?: InputMaybe<Scalars['ID']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<NewsletterSubscriberManyWhereInput>;
 };
 
 
@@ -3651,6 +10115,12 @@ export type MutationUnpublishNavigationArgs = {
 };
 
 
+export type MutationUnpublishNewsletterSubscriberArgs = {
+  from?: Array<Stage>;
+  where: NewsletterSubscriberWhereUniqueInput;
+};
+
+
 export type MutationUnpublishPageArgs = {
   from?: Array<Stage>;
   locales?: InputMaybe<Array<Locale>>;
@@ -3718,6 +10188,23 @@ export type MutationUpdateManyNavigationsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<NavigationManyWhereInput>;
+};
+
+
+export type MutationUpdateManyNewsletterSubscribersArgs = {
+  data: NewsletterSubscriberUpdateManyInput;
+  where?: InputMaybe<NewsletterSubscriberManyWhereInput>;
+};
+
+
+export type MutationUpdateManyNewsletterSubscribersConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']['input']>;
+  before?: InputMaybe<Scalars['ID']['input']>;
+  data: NewsletterSubscriberUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NewsletterSubscriberManyWhereInput>;
 };
 
 
@@ -3795,6 +10282,12 @@ export type MutationUpdateNavigationArgs = {
 };
 
 
+export type MutationUpdateNewsletterSubscriberArgs = {
+  data: NewsletterSubscriberUpdateInput;
+  where: NewsletterSubscriberWhereUniqueInput;
+};
+
+
 export type MutationUpdatePageArgs = {
   data: PageUpdateInput;
   where: PageWhereUniqueInput;
@@ -3834,6 +10327,12 @@ export type MutationUpsertAssetArgs = {
 export type MutationUpsertNavigationArgs = {
   upsert: NavigationUpsertInput;
   where: NavigationWhereUniqueInput;
+};
+
+
+export type MutationUpsertNewsletterSubscriberArgs = {
+  upsert: NewsletterSubscriberUpsertInput;
+  where: NewsletterSubscriberWhereUniqueInput;
 };
 
 
@@ -4355,6 +10854,436 @@ export type NavigationWhereStageInput = {
 
 /** References Navigation record uniquely */
 export type NavigationWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type NewsletterSubscriber = Entity & Node & {
+  __typename?: 'NewsletterSubscriber';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime']['output'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<NewsletterSubscriber>;
+  email?: Maybe<Scalars['String']['output']>;
+  /** List of NewsletterSubscriber versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID']['output'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime']['output'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type NewsletterSubscriberCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type NewsletterSubscriberDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean']['input'];
+  inheritLocale?: Scalars['Boolean']['input'];
+  stages?: Array<Stage>;
+};
+
+
+export type NewsletterSubscriberHistoryArgs = {
+  limit?: Scalars['Int']['input'];
+  skip?: Scalars['Int']['input'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type NewsletterSubscriberPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type NewsletterSubscriberScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type NewsletterSubscriberUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type NewsletterSubscriberConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: NewsletterSubscriberWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type NewsletterSubscriberConnection = {
+  __typename?: 'NewsletterSubscriberConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<NewsletterSubscriberEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type NewsletterSubscriberCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type NewsletterSubscriberCreateManyInlineInput = {
+  /** Connect multiple existing NewsletterSubscriber documents */
+  connect?: InputMaybe<Array<NewsletterSubscriberWhereUniqueInput>>;
+  /** Create and connect multiple existing NewsletterSubscriber documents */
+  create?: InputMaybe<Array<NewsletterSubscriberCreateInput>>;
+};
+
+export type NewsletterSubscriberCreateOneInlineInput = {
+  /** Connect one existing NewsletterSubscriber document */
+  connect?: InputMaybe<NewsletterSubscriberWhereUniqueInput>;
+  /** Create and connect one NewsletterSubscriber document */
+  create?: InputMaybe<NewsletterSubscriberCreateInput>;
+};
+
+/** An edge in a connection. */
+export type NewsletterSubscriberEdge = {
+  __typename?: 'NewsletterSubscriberEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of the edge. */
+  node: NewsletterSubscriber;
+};
+
+/** Identifies documents */
+export type NewsletterSubscriberManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<NewsletterSubscriberWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<NewsletterSubscriberWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<NewsletterSubscriberWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<NewsletterSubscriberWhereStageInput>;
+  documentInStages_none?: InputMaybe<NewsletterSubscriberWhereStageInput>;
+  documentInStages_some?: InputMaybe<NewsletterSubscriberWhereStageInput>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  email_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  email_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  email_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  email_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  email_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  email_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  email_starts_with?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']['input']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']['input']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum NewsletterSubscriberOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  EmailAsc = 'email_ASC',
+  EmailDesc = 'email_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type NewsletterSubscriberUpdateInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type NewsletterSubscriberUpdateManyInlineInput = {
+  /** Connect multiple existing NewsletterSubscriber documents */
+  connect?: InputMaybe<Array<NewsletterSubscriberConnectInput>>;
+  /** Create and connect multiple NewsletterSubscriber documents */
+  create?: InputMaybe<Array<NewsletterSubscriberCreateInput>>;
+  /** Delete multiple NewsletterSubscriber documents */
+  delete?: InputMaybe<Array<NewsletterSubscriberWhereUniqueInput>>;
+  /** Disconnect multiple NewsletterSubscriber documents */
+  disconnect?: InputMaybe<Array<NewsletterSubscriberWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing NewsletterSubscriber documents */
+  set?: InputMaybe<Array<NewsletterSubscriberWhereUniqueInput>>;
+  /** Update multiple NewsletterSubscriber documents */
+  update?: InputMaybe<Array<NewsletterSubscriberUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple NewsletterSubscriber documents */
+  upsert?: InputMaybe<Array<NewsletterSubscriberUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type NewsletterSubscriberUpdateManyInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type NewsletterSubscriberUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: NewsletterSubscriberUpdateManyInput;
+  /** Document search */
+  where: NewsletterSubscriberWhereInput;
+};
+
+export type NewsletterSubscriberUpdateOneInlineInput = {
+  /** Connect existing NewsletterSubscriber document */
+  connect?: InputMaybe<NewsletterSubscriberWhereUniqueInput>;
+  /** Create and connect one NewsletterSubscriber document */
+  create?: InputMaybe<NewsletterSubscriberCreateInput>;
+  /** Delete currently connected NewsletterSubscriber document */
+  delete?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Disconnect currently connected NewsletterSubscriber document */
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Update single NewsletterSubscriber document */
+  update?: InputMaybe<NewsletterSubscriberUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single NewsletterSubscriber document */
+  upsert?: InputMaybe<NewsletterSubscriberUpsertWithNestedWhereUniqueInput>;
+};
+
+export type NewsletterSubscriberUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: NewsletterSubscriberUpdateInput;
+  /** Unique document search */
+  where: NewsletterSubscriberWhereUniqueInput;
+};
+
+export type NewsletterSubscriberUpsertInput = {
+  /** Create document if it didn't exist */
+  create: NewsletterSubscriberCreateInput;
+  /** Update document if it exists */
+  update: NewsletterSubscriberUpdateInput;
+};
+
+export type NewsletterSubscriberUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: NewsletterSubscriberUpsertInput;
+  /** Unique document search */
+  where: NewsletterSubscriberWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type NewsletterSubscriberWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Identifies documents */
+export type NewsletterSubscriberWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<NewsletterSubscriberWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<NewsletterSubscriberWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<NewsletterSubscriberWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<NewsletterSubscriberWhereStageInput>;
+  documentInStages_none?: InputMaybe<NewsletterSubscriberWhereStageInput>;
+  documentInStages_some?: InputMaybe<NewsletterSubscriberWhereStageInput>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  email_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  email_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  email_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  email_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  email_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  email_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  email_starts_with?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']['input']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']['input']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type NewsletterSubscriberWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<NewsletterSubscriberWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<NewsletterSubscriberWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<NewsletterSubscriberWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<NewsletterSubscriberWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References NewsletterSubscriber record uniquely */
+export type NewsletterSubscriberWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -5114,6 +12043,8 @@ export type PagecomponentsUnionWhereUniqueInput = {
 
 export type Pdp = Entity & Node & {
   __typename?: 'Pdp';
+  commercetoolsProduct?: Maybe<Commercetools_Product>;
+  commercetoolsProductId?: Maybe<Scalars['String']['output']>;
   components: Array<PdpcomponentsUnion>;
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
@@ -5132,12 +12063,13 @@ export type Pdp = Entity & Node & {
   localizations: Array<Pdp>;
   navigation?: Maybe<Navigation>;
   ogImage?: Maybe<Asset>;
-  product?: Maybe<FederateThisSkincre_Product>;
-  productId?: Maybe<Scalars['String']['output']>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   /** User that last published this document */
   publishedBy?: Maybe<User>;
+  /** Federate This review selection */
+  reviewId?: Maybe<Scalars['String']['output']>;
+  reviews?: Maybe<FederateThisReviews_Reviews>;
   scheduledIn: Array<ScheduledOperation>;
   slug?: Maybe<Scalars['String']['output']>;
   /** System stage field */
@@ -5255,6 +12187,7 @@ export type PdpConnection = {
 };
 
 export type PdpCreateInput = {
+  commercetoolsProductId?: InputMaybe<Scalars['String']['input']>;
   components?: InputMaybe<PdpcomponentsUnionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** description input for default locale (en) */
@@ -5263,7 +12196,7 @@ export type PdpCreateInput = {
   localizations?: InputMaybe<PdpCreateLocalizationsInput>;
   navigation?: InputMaybe<NavigationCreateOneInlineInput>;
   ogImage?: InputMaybe<AssetCreateOneInlineInput>;
-  productId?: InputMaybe<Scalars['String']['input']>;
+  reviewId?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
@@ -5321,6 +12254,25 @@ export type PdpManyWhereInput = {
   OR?: InputMaybe<Array<PdpWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
+  commercetoolsProductId?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  commercetoolsProductId_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  commercetoolsProductId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  commercetoolsProductId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  commercetoolsProductId_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  commercetoolsProductId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  commercetoolsProductId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  commercetoolsProductId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  commercetoolsProductId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  commercetoolsProductId_starts_with?: InputMaybe<Scalars['String']['input']>;
   /** All values in which the union is empty. */
   components_empty?: InputMaybe<Scalars['Boolean']['input']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
@@ -5365,25 +12317,6 @@ export type PdpManyWhereInput = {
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
   navigation?: InputMaybe<NavigationWhereInput>;
   ogImage?: InputMaybe<AssetWhereInput>;
-  productId?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  productId_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  productId_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  productId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  productId_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  productId_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  productId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  productId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  productId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  productId_starts_with?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -5400,6 +12333,25 @@ export type PdpManyWhereInput = {
   /** All values that are not contained in given list. */
   publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   publishedBy?: InputMaybe<UserWhereInput>;
+  reviewId?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  reviewId_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  reviewId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  reviewId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  reviewId_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  reviewId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  reviewId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  reviewId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  reviewId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  reviewId_starts_with?: InputMaybe<Scalars['String']['input']>;
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
@@ -5441,16 +12393,18 @@ export type PdpManyWhereInput = {
 };
 
 export enum PdpOrderByInput {
+  CommercetoolsProductIdAsc = 'commercetoolsProductId_ASC',
+  CommercetoolsProductIdDesc = 'commercetoolsProductId_DESC',
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
   DescriptionAsc = 'description_ASC',
   DescriptionDesc = 'description_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
-  ProductIdAsc = 'productId_ASC',
-  ProductIdDesc = 'productId_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
+  ReviewIdAsc = 'reviewId_ASC',
+  ReviewIdDesc = 'reviewId_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   TitleAsc = 'title_ASC',
@@ -5460,6 +12414,7 @@ export enum PdpOrderByInput {
 }
 
 export type PdpUpdateInput = {
+  commercetoolsProductId?: InputMaybe<Scalars['String']['input']>;
   components?: InputMaybe<PdpcomponentsUnionUpdateManyInlineInput>;
   /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
@@ -5467,7 +12422,7 @@ export type PdpUpdateInput = {
   localizations?: InputMaybe<PdpUpdateLocalizationsInput>;
   navigation?: InputMaybe<NavigationUpdateOneInlineInput>;
   ogImage?: InputMaybe<AssetUpdateOneInlineInput>;
-  productId?: InputMaybe<Scalars['String']['input']>;
+  reviewId?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
@@ -5511,11 +12466,12 @@ export type PdpUpdateManyInlineInput = {
 };
 
 export type PdpUpdateManyInput = {
+  commercetoolsProductId?: InputMaybe<Scalars['String']['input']>;
   /** description input for default locale (en) */
   description?: InputMaybe<Scalars['String']['input']>;
   /** Optional updates to localizations */
   localizations?: InputMaybe<PdpUpdateManyLocalizationsInput>;
-  productId?: InputMaybe<Scalars['String']['input']>;
+  reviewId?: InputMaybe<Scalars['String']['input']>;
   /** title input for default locale (en) */
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -5600,6 +12556,25 @@ export type PdpWhereInput = {
   OR?: InputMaybe<Array<PdpWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
+  commercetoolsProductId?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  commercetoolsProductId_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  commercetoolsProductId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  commercetoolsProductId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  commercetoolsProductId_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  commercetoolsProductId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  commercetoolsProductId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  commercetoolsProductId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  commercetoolsProductId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  commercetoolsProductId_starts_with?: InputMaybe<Scalars['String']['input']>;
   /** All values in which the union is empty. */
   components_empty?: InputMaybe<Scalars['Boolean']['input']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
@@ -5663,25 +12638,6 @@ export type PdpWhereInput = {
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
   navigation?: InputMaybe<NavigationWhereInput>;
   ogImage?: InputMaybe<AssetWhereInput>;
-  productId?: InputMaybe<Scalars['String']['input']>;
-  /** All values containing the given string. */
-  productId_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values ending with the given string. */
-  productId_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are contained in given list. */
-  productId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  productId_not?: InputMaybe<Scalars['String']['input']>;
-  /** All values not containing the given string. */
-  productId_not_contains?: InputMaybe<Scalars['String']['input']>;
-  /** All values not ending with the given string */
-  productId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values that are not contained in given list. */
-  productId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** All values not starting with the given string. */
-  productId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  /** All values starting with the given string. */
-  productId_starts_with?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -5698,6 +12654,25 @@ export type PdpWhereInput = {
   /** All values that are not contained in given list. */
   publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   publishedBy?: InputMaybe<UserWhereInput>;
+  reviewId?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  reviewId_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  reviewId_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  reviewId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  reviewId_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  reviewId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  reviewId_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  reviewId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  reviewId_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  reviewId_starts_with?: InputMaybe<Scalars['String']['input']>;
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
@@ -7636,6 +14611,14 @@ export type Query = {
   navigations: Array<Navigation>;
   /** Retrieve multiple navigations using the Relay connection interface */
   navigationsConnection: NavigationConnection;
+  /** Retrieve a single newsletterSubscriber */
+  newsletterSubscriber?: Maybe<NewsletterSubscriber>;
+  /** Retrieve document version */
+  newsletterSubscriberVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple newsletterSubscribers */
+  newsletterSubscribers: Array<NewsletterSubscriber>;
+  /** Retrieve multiple newsletterSubscribers using the Relay connection interface */
+  newsletterSubscribersConnection: NewsletterSubscriberConnection;
   /** Fetches an object given its ID */
   node?: Maybe<Node>;
   /** Retrieve a single page */
@@ -7671,6 +14654,7 @@ export type Query = {
   relatedProductLists: Array<RelatedProductList>;
   /** Retrieve multiple relatedProductLists using the Relay connection interface */
   relatedProductListsConnection: RelatedProductListConnection;
+  reviews?: Maybe<FederateThisReviews_Reviews>;
   /** Retrieve a single scheduledOperation */
   scheduledOperation?: Maybe<ScheduledOperation>;
   /** Retrieve multiple scheduledOperations */
@@ -7771,6 +14755,44 @@ export type QueryNavigationsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   stage?: Stage;
   where?: InputMaybe<NavigationWhereInput>;
+};
+
+
+export type QueryNewsletterSubscriberArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: NewsletterSubscriberWhereUniqueInput;
+};
+
+
+export type QueryNewsletterSubscriberVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryNewsletterSubscribersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<NewsletterSubscriberOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  stage?: Stage;
+  where?: InputMaybe<NewsletterSubscriberWhereInput>;
+};
+
+
+export type QueryNewsletterSubscribersConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<NewsletterSubscriberOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  stage?: Stage;
+  where?: InputMaybe<NewsletterSubscriberWhereInput>;
 };
 
 
@@ -7930,6 +14952,11 @@ export type QueryRelatedProductListsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   stage?: Stage;
   where?: InputMaybe<RelatedProductListWhereInput>;
+};
+
+
+export type QueryReviewsArgs = {
+  reviewID?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -9097,7 +16124,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = Asset | Navigation | Page | Pdp | ProductFocus | RelatedProductList;
+export type ScheduledOperationAffectedDocument = Asset | Navigation | NewsletterSubscriber | Page | Pdp | ProductFocus | RelatedProductList;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -11360,9 +18387,9 @@ export type PdpQueryVariables = Exact<{
 }>;
 
 
-export type PdpQuery = { __typename?: 'Query', pdp?: { __typename: 'Pdp', id: string, slug?: string | null, title?: string | null, description?: string | null, ogImage?: { __typename?: 'Asset', url: string } | null, components: Array<{ __typename: 'ProductList', title?: string | null, relatedProductList?: { __typename?: 'RelatedProductList', relatedProductId?: string | null, relatedProducts?: { __typename?: 'FederateThisSkincre_related', products?: Array<{ __typename?: 'FederateThisSkincre_Product', description?: string | null, id: number, ingredients?: string | null, name: string, price?: number | null, shortDescription?: string | null, slug: string, stock?: number | null, images?: Array<{ __typename?: 'FederateThisSkincre_Image', alt?: string | null, url: string } | null> | null }> | null } | null } | null } | { __typename: 'Routine', id: string, chapeau?: string | null, cta?: string | null, description?: string | null, title?: string | null, url?: string | null, image?: { __typename?: 'Asset', url: string } | null } | { __typename: 'Tutorial', id: string, title?: string | null, image?: { __typename?: 'Asset', url: string } | null, items: Array<{ __typename: 'TutorialItem', text?: string | null }> }>, product?: { __typename?: 'FederateThisSkincre_Product', id: number, slug: string, name: string, price?: number | null, ingredients?: string | null, shortDescription?: string | null, description?: string | null, stock?: number | null, images?: Array<{ __typename?: 'FederateThisSkincre_Image', alt?: string | null, url: string } | null> | null } | null } | null };
+export type PdpQuery = { __typename?: 'Query', pdp?: { __typename: 'Pdp', id: string, slug?: string | null, title?: string | null, description?: string | null, ogImage?: { __typename?: 'Asset', url: string } | null, components: Array<{ __typename: 'ProductList', title?: string | null, relatedProductList?: { __typename?: 'RelatedProductList', relatedProductId?: string | null, relatedProducts?: { __typename?: 'FederateThisSkincre_related', products?: Array<{ __typename?: 'FederateThisSkincre_Product', description?: string | null, id: number, ingredients?: string | null, name: string, price?: number | null, shortDescription?: string | null, slug: string, stock?: number | null, images?: Array<{ __typename?: 'FederateThisSkincre_Image', alt?: string | null, url: string } | null> | null }> | null } | null } | null } | { __typename: 'Routine', id: string, chapeau?: string | null, cta?: string | null, description?: string | null, title?: string | null, url?: string | null, image?: { __typename?: 'Asset', url: string } | null } | { __typename: 'Tutorial', id: string, title?: string | null, image?: { __typename?: 'Asset', url: string } | null, items: Array<{ __typename: 'TutorialItem', text?: string | null }> }>, commercetoolsProduct?: { __typename?: 'Commercetools_Product', id: string, masterData: { __typename?: 'Commercetools_ProductCatalogData', current?: { __typename?: 'Commercetools_ProductData', slug?: string | null, metaTitle?: string | null, metaDescription?: string | null, name?: string | null, description?: string | null, categories: Array<{ __typename?: 'Commercetools_Category', name?: string | null }>, allVariants: Array<{ __typename?: 'Commercetools_ProductVariant', id: number, sku?: string | null, attributesRaw: Array<{ __typename?: 'Commercetools_RawProductAttribute', name: string, value: any }>, images: Array<{ __typename?: 'Commercetools_Image', url: string, label?: string | null }>, price?: { __typename?: 'Commercetools_ProductPrice', value: { __typename?: 'Commercetools_HighPrecisionMoney', type: string, currencyCode: any, centAmount: any, fractionDigits: number } | { __typename?: 'Commercetools_Money', type: string, currencyCode: any, centAmount: any, fractionDigits: number } } | null }> } | null } } | null, reviews?: { __typename?: 'FederateThisReviews_Reviews', data?: Array<{ __typename?: 'FederateThisReviews_Review', comment?: string | null, id?: number | null, name?: string | null, product?: number | null, productSlug?: string | null, rating?: number | null } | null> | null } | null } | null };
 
 
 export const NavigationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Navigation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"StringValue","value":"clwknjrk14u4807w4krsfrz0z","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Page"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pdp"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]} as unknown as DocumentNode<NavigationQuery, NavigationQueryVariables>;
 export const PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Page"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Stage"}}},"defaultValue":{"kind":"EnumValue","value":"PUBLISHED"}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locale"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"ogImage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Editorial"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Card"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Cta"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Hero"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"productFocus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"productId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Routine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locales"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"locale"}},{"kind":"EnumValue","value":"en"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PageQuery, PageQueryVariables>;
-export const PdpDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Pdp"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Stage"}}},"defaultValue":{"kind":"EnumValue","value":"PUBLISHED"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pdp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"ogImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tutorial"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Routine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"relatedProductList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relatedProductId"}},{"kind":"Field","name":{"kind":"Name","value":"relatedProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PdpQuery, PdpQueryVariables>;
+export const PdpDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Pdp"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Stage"}}},"defaultValue":{"kind":"EnumValue","value":"PUBLISHED"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pdp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"stage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"ogImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"components"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tutorial"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Routine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"chapeau"}},{"kind":"Field","name":{"kind":"Name","value":"cta"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"relatedProductList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"relatedProductId"}},{"kind":"Field","name":{"kind":"Name","value":"relatedProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"stock"}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"commercetoolsProduct"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"masterData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"current"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"StringValue","value":"en-GB","block":false}}]},{"kind":"Field","name":{"kind":"Name","value":"metaTitle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"StringValue","value":"en-GB","block":false}}]},{"kind":"Field","name":{"kind":"Name","value":"metaDescription"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"StringValue","value":"en-GB","block":false}}]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"StringValue","value":"en-GB","block":false}}]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"StringValue","value":"en-GB","block":false}}]},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"StringValue","value":"en-GB","block":false}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"allVariants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"attributesRaw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"price"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"currency"},"value":{"kind":"StringValue","value":"EUR","block":false}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"currencyCode"}},{"kind":"Field","name":{"kind":"Name","value":"centAmount"}},{"kind":"Field","name":{"kind":"Name","value":"fractionDigits"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"sku"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"reviews"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"comment"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"product"}},{"kind":"Field","name":{"kind":"Name","value":"productSlug"}},{"kind":"Field","name":{"kind":"Name","value":"rating"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PdpQuery, PdpQueryVariables>;

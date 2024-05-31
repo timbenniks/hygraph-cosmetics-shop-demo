@@ -7,6 +7,7 @@ import ComponentRenderer from "../../../components/ComponentRenderer.astro";
 import ProductDetail from "../../../components/ProductDetail.astro";
 import { SEO } from "astro-seo";
 import { isPreview } from "../../../helpers";
+import ProductReviews from "../../../components/ProductReviews.astro";
 
 export function getStaticPaths() {
   return [
@@ -45,7 +46,8 @@ const { pdp }: PdpQuery = await getPdp(
     }}
   />
 
-  <ProductDetail product={pdp?.product} />
+  <ProductDetail product={pdp?.commercetoolsProduct} />
+  <ProductReviews reviews={pdp?.reviews} />
 
   <section class="mb-12">
     <ComponentRenderer data={pdp?.components} />

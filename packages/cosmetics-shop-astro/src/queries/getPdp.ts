@@ -65,18 +65,50 @@ const query = graphql(`
         }
       }
 
-      product {
+      commercetoolsProduct {
         id
-        slug
-        name
-        price
-        ingredients
-        shortDescription
-        description
-        stock
-        images {
-          alt
-          url
+        masterData {
+          current {
+            slug(locale: "en-GB")
+            metaTitle(locale: "en-GB")
+            metaDescription(locale: "en-GB")
+            name(locale: "en-GB")
+            description(locale: "en-GB")
+            categories {
+              name(locale: "en-GB")
+            }
+            allVariants {
+              id
+              attributesRaw {
+                name
+                value
+              }
+              images {
+                url
+                label
+              }
+              price(currency: "EUR") {
+                value {
+                  type
+                  currencyCode
+                  centAmount
+                  fractionDigits
+                }
+              }
+              sku
+            }
+          }
+        }
+      }
+
+      reviews {
+        data {
+          comment
+          id
+          name
+          product
+          productSlug
+          rating
         }
       }
     }
