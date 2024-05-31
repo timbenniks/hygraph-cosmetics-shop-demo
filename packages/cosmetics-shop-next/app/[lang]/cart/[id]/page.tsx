@@ -1,7 +1,9 @@
 import Card from "@/components/Card";
 
 export default async function Home({ params }: { params: { id: string } }) {
-  const response = await fetch(`/api/cart?cart_id=${params.id}`);
+  const response = await fetch(
+    `http:localhost:3003/api/cart?cart_id=${params.id}`
+  );
   const cart = await response.json();
 
   return (
@@ -20,11 +22,12 @@ export default async function Home({ params }: { params: { id: string } }) {
         {cart.lineItems.map((product: any) => {
           return (
             <div className="flex gap-12">
-              <Card
-                className="w-96"
-                image={product.variant.images[0].url}
-                title={product.name["en-GB"]}
-              />
+              <div className="w-96">
+                <Card
+                  image={product.variant.images[0].url}
+                  title={product.name["en-GB"]}
+                />
+              </div>
 
               <div className="max-w-96">
                 <h2 className="block text-primary font-bold font-title text-3xl sm:text-4xl md:text-5xl mb-6">

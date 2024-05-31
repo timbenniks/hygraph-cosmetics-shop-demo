@@ -30,7 +30,11 @@ export default function ProductDetail({ product }: Props) {
     const response = await fetch("/api/create-cart");
     const cart = await response.json();
 
-    await fetch(`/api/add-to-cart?cart_id=${cart.id}&product_id=${productId}`);
+    const responseAddToCart = await fetch(
+      `/api/add-to-cart?cart_id=${cart.id}&product_id=${productId}`
+    );
+
+    const addedToCart = await responseAddToCart.json();
 
     setAdding(false);
 

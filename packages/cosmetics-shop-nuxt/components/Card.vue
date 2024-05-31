@@ -33,7 +33,9 @@ const your = computed(() => {
         height="500"
       />
 
-      <button class="cta absolute bottom-4 right-4">{{ cta }}</button>
+      <button class="cta absolute bottom-4 right-4" v-if="cta">
+        {{ cta }}
+      </button>
       <div class="absolute top-6 md:top-auto md:-bottom-6 left-8">
         <h3>
           <span
@@ -44,7 +46,7 @@ const your = computed(() => {
             >{{ title }}</span
           >
         </h3>
-      </div></a
-    >
+      </div>
+    </a>
   </div>
 </template>
