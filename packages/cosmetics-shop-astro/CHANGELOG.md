@@ -1,5 +1,11 @@
 # hygraph-cosmetics-shop-demo-astro
 
+## 3.0.0
+
+### Major Changes
+
+- commercetools + reviews
+
 ## 2.4.0
 
 ### Minor Changes
